@@ -23,7 +23,7 @@ def show_consoles(n_servers):
     Mostrar por consola los contenedores
     """
 
-    contenedores=[VM_NAMES["servidores"][i] for i in range(n_servers)] + [VM_NAMES["cliente"], VM_NAMES["balanceador"]]
+    contenedores=[VM_NAMES["servidores"][i] for i in range(n_servers)] + [VM_NAMES["cliente"], VM_NAMES["balanceador"], VM_NAMES["database"]]
 
     for c in contenedores:
         orden=f"lxc exec {c} bash"

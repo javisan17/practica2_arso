@@ -123,6 +123,10 @@ def main():
             logger.info(f"Deteniendo servidor individual: {name}")
             stop_server(name=name)
         
+        case "install":
+            name=sys.argv[2]
+            install_apache(name) 
+        
 
 if __name__ == "__main__":
     main()

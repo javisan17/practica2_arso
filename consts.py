@@ -13,7 +13,8 @@ IMAGE_DEFAULT="ubuntu2004"
 VM_NAMES={
     "cliente": "cl",
     "balanceador": "lb",
-    "servidores": ["s1", "s2", "s3", "s4", "s5"]
+    "servidores": ["s1", "s2", "s3", "s4", "s5"],
+    "database": "db"
 }
 
 BRIDGES={
@@ -40,3 +41,5 @@ IP_S={
     "s4": "134.3.0.14",
     "s5": "134.3.0.15"
 }
+
+IP_DB="134.3.0.20"

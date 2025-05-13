@@ -1,11 +1,12 @@
 import subprocess
-from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S
+from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S, IP_DB
 from logger import setup_logger, get_logger
 from utils.containers import create_container, start_container, stop_container, delete_container, config_container
 from utils.image import create_image, delete_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
 from utils.balanceador import change_netplan
+from utils.database import install_mongoDB
 
 
 """
@@ -84,6 +85,17 @@ def create_all(n_servers):
         stop_container(name=VM_NAMES["cliente"])
         logger.info("Cliente configurado correctamente")
 
+        #Crear base de datos
+        create_container(name=VM_NAMES["database"])
+        attach_network(container=VM_NAMES["database"], bridge=BRIDGES["LAN1"], iface="eth0")
+        config_container(name=VM_NAMES["database"], iface="eth0", ip=IP_DB)
+
+        #Instalar mongoDB en la base de datos
+        start_container(name=VM_NAMES["database"])
+        install_mongoDB(name=VM_NAMES["database"]) 
+        stop_container(name=VM_NAMES["database"])
+   
+
         logger.info("Infraestructura creada correctamente.")
 
     except Exception as e:
@@ -102,6 +114,7 @@ def start_all(n_servers):
             start_container(VM_NAMES["servidores"][i])
         start_container(VM_NAMES["cliente"])
         start_container(VM_NAMES["balanceador"])
+        start_container(VM_NAMES["database"])
         logger.info("Todos los contenedores han sido iniciados correctamente")
     except Exception as e:
         logger.error(f"Error al iniciar contenedores: {e}", exc_info=True)
@@ -136,6 +149,7 @@ def delete_all(n_servers):
             delete_container(name=VM_NAMES["servidores"][i])
         delete_container(name=VM_NAMES["cliente"])
         delete_container(name=VM_NAMES["balanceador"])
+        delete_container(name=VM_NAMES["database"])
         logger.debug("Contenedores eliminados correctamente")
 
 
@@ -145,3 +159,6 @@ def delete_all(n_servers):
         logger.info("Eliminación completada.")
     except Exception as e:
         logger.critical(f"Fallo crítico al eliminar infraestructura: {e}", exc_info=True)
+
+
+

@@ -34,6 +34,7 @@ def stop_all(n_servers):
             stop_container(VM_NAMES["servidores"][i])
         stop_container(VM_NAMES["cliente"])
         stop_container(VM_NAMES["balanceador"])
+        stop_container(VM_NAMES["database"])
         logger.info("Todos los contenedores han sido parados")
     except Exception as e:
         logger.error(f"Error al parar contenedores: {e}", exc_info=True)
