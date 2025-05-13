@@ -17,7 +17,7 @@ DATABASE
 
 def install_mongoDB(name):
     """
-    Instala y modifica mongodb en el contenedor name
+    Instala y modifica MongoDB en el contenedor name
     """
 
     logger.debug(f"Iniciando cambio de netplan en {name}")
@@ -32,8 +32,38 @@ def install_mongoDB(name):
     #Reiniciar contenedor
     logger.debug(f"Reiniciando contenedor {name} para aplicar cambios")
     subprocess.run(f"lxc restart {name}", shell=True, check=True)
-    stop_container(name)
+    #stop_container(name)       ### PARAS DOS VECES LA DB AQUI Y EN EL ORDENES.PY  
 
-    logger.info(f"Configuración de mongodb aplicada correctamente en el contenedor {name}")
+    logger.info(f"Configuración de MongoDB aplicada correctamente en el contenedor {name}")
+
+
+# def install_mongoDB(name):
+#     """
+#     FUNCIONA PERO NO ENTIENDO
+#     """
+
+#     logger.debug(f"Iniciando instalación de MongoDB en {name}")
+    
+#     # Actualiza e instala dependencias necesarias
+#     subprocess.run(["lxc", "exec", name, "--", "apt", "update"], check=True)
+#     subprocess.run(["lxc", "exec", name, "--", "apt", "install", "-y", "gnupg", "curl"], check=True)
+
+#     # Importa la clave pública del repositorio
+#     subprocess.run([
+#         "lxc", "exec", name, "--", "bash", "-c",
+#         "curl -fsSL https://pgp.mongodb.com/server-6.0.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-server-6.0.gpg"
+#     ], check=True)
+
+#     # Crea el archivo del repositorio
+#     subprocess.run([
+#         "lxc", "exec", name, "--", "bash", "-c",
+#         'echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-6.0.gpg ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" > /etc/apt/sources.list.d/mongodb-org-6.0.list'
+#     ], check=True)
+
+#     # Actualiza repositorios e instala MongoDB
+#     subprocess.run(["lxc", "exec", name, "--", "apt", "update"], check=True)
+#     subprocess.run(["lxc", "exec", name, "--", "apt", "install", "-y", "mongodb-org"], check=True)
+
+#     logger.info(f"MongoDB instalado correctamente en {name}")
 
 

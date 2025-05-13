@@ -86,8 +86,8 @@ def config_lb():
     Configura el balanceador del sistema (Haproxy)
     """
 
-    subprocess.run(["lxc exec" , VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
-    subprocess.run(["lxc exec" , VM_NAMES["balanceador"], "--", "apt", "install", "haproxy"], check=True)
+    subprocess.run(["lxc", "exec" , VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
+    subprocess.run(["lxc", "exec" , VM_NAMES["balanceador"], "--", "apt", "install", "-y", "haproxy"], check=True)
 
 
 def change_haproxy():
@@ -145,13 +145,14 @@ def change_haproxy():
         option httpchk
     """
 
-    subprocess.run(["lxc", "file", "push", haproxy_config, VM_NAMES["balanceador"], "/etc/haproxy/haproxy.cfg"])         ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
-    subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-c"])    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
-    subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "service", "haproxy", "start"])
-    # subprocess.run(f"")
-    # subprocess.run(f"")
-    # subprocess.run(f"")
-    # subprocess.run(f"")
-    # subprocess.run(f"")
-    # subprocess.run(f"")
-    # subprocess.run(f"")
+    #Escribir nueva configuración
+    logger.debug(f"Escribiendo nueva configuración de haproxy en balanceador")
+    subprocess.run(f"echo \"{haproxy_config}\" | lxc exec {VM_NAMES['balanceador']} -- tee /etc/haproxy/haproxy.cfg", check=True)    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+
+    #Verificar si el archivo es correcto
+    logger.debug(f"Verficiando si el fichero de configuración del balanceador es válido")
+    subprocess.run(["lxc", "exec", VM_NAMES['balanceador'], "--", "haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-c"], check=True)    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+
+    #Reiniciar el servicio del balanceador
+    logger.debug(f"Verficiando si el fichero de configuración del balanceador es válido")
+    subprocess.run(["lxc", "exec", VM_NAMES['balanceador'], "--", "service", "haproxy", "start"], check=True)

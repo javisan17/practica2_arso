@@ -10,6 +10,8 @@ MAX_SERVERS=5
 
 IMAGE_DEFAULT="ubuntu2004"
 
+#Nombres
+
 VM_NAMES={
     "cliente": "cl",
     "balanceador": "lb",
@@ -21,6 +23,8 @@ BRIDGES={
     "LAN1": "lxdbr0",
     "LAN2": "lxdbr1"
 }
+
+#IPs
 
 BRIDGES_IPV4={
     "lxdbr0": "134.3.0.1/24",
@@ -44,6 +48,7 @@ IP_S={
 
 IP_DB="134.3.0.20"
 
+#Rutas de archivos
 
 NODE_JS_FILE="static/files/install.sh"
 

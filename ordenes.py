@@ -5,13 +5,10 @@ from utils.containers import create_container, start_container, stop_container, 
 from utils.image import create_image, delete_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
-<<<<<<< HEAD
-from utils.balanceador import change_netplan
-from utils.database import install_mongoDB
-=======
 from utils.balanceador import change_netplan, config_lb, change_haproxy
 from utils.server_web import config_server
->>>>>>> 879e1346caa356300106c64c6861d98388df7c48
+from utils.database import install_mongoDB
+
 
 
 """
@@ -58,9 +55,9 @@ def create_all(n_servers):
             attach_network(container=VM_NAMES["servidores"][i], bridge=BRIDGES["LAN1"], iface="eth0")
             config_container(name=VM_NAMES["servidores"][i], iface="eth0", ip=IP_S[f"s{i+1}"])
 
-            start_container(name=VM_NAMES["servidores"][i])
-            config_server(name=VM_NAMES["servidores"][i])
-            stop_container(name=VM_NAMES["servidores"][i])
+            # start_container(name=VM_NAMES["servidores"][i])
+            # config_server(name=VM_NAMES["servidores"][i])
+            # stop_container(name=VM_NAMES["servidores"][i])
 
         #Guardar número de servidores
         save_num_servers(n_servers)
@@ -99,12 +96,6 @@ def create_all(n_servers):
         attach_network(container=VM_NAMES["database"], bridge=BRIDGES["LAN1"], iface="eth0")
         config_container(name=VM_NAMES["database"], iface="eth0", ip=IP_DB)
 
-        #Instalar mongoDB en la base de datos
-        start_container(name=VM_NAMES["database"])
-        install_mongoDB(name=VM_NAMES["database"]) 
-        stop_container(name=VM_NAMES["database"])
-   
-
         logger.info("Infraestructura creada correctamente.")
 
     except Exception as e:
@@ -120,10 +111,10 @@ def start_all(n_servers):
     try:
         for i in range(n_servers):
             logger.debug(f"Arrancando servidor: {VM_NAMES['servidores'][i]}")
-            start_container(VM_NAMES["servidores"][i])
-        start_container(VM_NAMES["cliente"])
-        start_container(VM_NAMES["balanceador"])
-        start_container(VM_NAMES["database"])
+            start_container(name=VM_NAMES["servidores"][i])
+        start_container(name=VM_NAMES["cliente"])
+        start_container(name=VM_NAMES["balanceador"])
+        start_container(name=VM_NAMES["database"])
         logger.info("Todos los contenedores han sido iniciados correctamente")
     except Exception as e:
         logger.error(f"Error al iniciar contenedores: {e}", exc_info=True)
@@ -170,17 +161,26 @@ def delete_all(n_servers):
         logger.critical(f"Fallo crítico al eliminar infraestructura: {e}", exc_info=True)
 
 
-<<<<<<< HEAD
-
-=======
 def configure_all(n_servers):
     """
     POSIBILIDADES: si ya hay servidores solo los configura y si no hay servidores, los crea y configura o si no los hay decir que antes el usuario deba ejecutar un create
     DE MOMENTO SOLO VOY A HACERLO CON CONFIGURAR YA SE AÑADIRÁN SI QUIERES
     """
 
+    #Instalar MongoDB en la base de datos
+    # start_container(name=VM_NAMES["database"])
+    install_mongoDB(name=VM_NAMES["database"]) 
+    # stop_container(name=VM_NAMES["database"])
+
+    #Instalar el servicio de NodeJS en servidores 
     for i in range(n_servers):
+        # start_container(name=VM_NAMES["servidores"][i])
         config_server(name=VM_NAMES["servidores"][i])
+        # stop_container(name=VM_NAMES["servidores"][i])
+
+    #Instalar y configurar el haproxy para la repartición de carga
+    # start_container(name=VM_NAMES["balanceador"])
     config_lb()
     change_haproxy()
->>>>>>> 879e1346caa356300106c64c6861d98388df7c48
+    # stop_container(name=VM_NAMES["balanceador"])
+   

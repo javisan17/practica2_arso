@@ -12,7 +12,7 @@ setup_logger()
 logger = get_logger()
 
 """
-
+SERVER WEB
 """
 
 def config_server(name):
@@ -31,4 +31,4 @@ def config_server(name):
     subprocess.run(["lxc", "exec", name, "--", "tar", "-oxvf", "app.tar.gz"], check=True)                   ### CON ESTA app.tar.gz deberiamos hacer algo
     subprocess.run(["lxc", "exec", name,  "--", "./install.sh"], check=True)                                ### IGUAL AQUI 
     subprocess.run(["lxc", "restart", name], check=True)
-    subprocess.run(["lxc", "exec", name, "--", "forever", "start", "app/rest_server.js"], check=True)       ### IGUAL AQUI 
+    subprocess.run(["lxc", "exec", name, "--", "forever", "start", "app/rest_server.js"], check=True)       ### IGUAL AQUI  

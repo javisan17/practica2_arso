@@ -124,7 +124,7 @@ def main():
             stop_server(name=name)
         
         case "configure":
-            configure_all()
+            configure_all(n_servers=n_servers)
         
 
 if __name__ == "__main__":
