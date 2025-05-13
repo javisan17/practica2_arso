@@ -7,7 +7,7 @@ ENRIQUE GALINDO ALCOJOR
 import sys, subprocess
 from logger import setup_logger, get_logger
 from consts import VALID_ORDERS, DEFAULT_SERVERS, MIN_SERVERS, MAX_SERVERS, IMAGE_DEFAULT
-from ordenes import create_all, start_all, list_containers, delete_all
+from ordenes import create_all, start_all, list_containers, delete_all, configure_all
 from ordenes_opcionales import stop_all, create_server, delete_last_server, start_server, stop_server
 from utils.file import save_num_servers, load_num_servers
 from utils.console import show_consoles, show_console, close_consoles
@@ -122,6 +122,9 @@ def main():
             name=sys.argv[2]
             logger.info(f"Deteniendo servidor individual: {name}")
             stop_server(name=name)
+        
+        case "configure":
+            configure_all()
         
 
 if __name__ == "__main__":

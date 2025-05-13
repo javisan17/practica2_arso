@@ -1,6 +1,6 @@
 import subprocess
 from logger import setup_logger, get_logger
-from consts import VM_NAMES
+from consts import VM_NAMES, IP_S
 
 
 """
@@ -79,3 +79,79 @@ def change_netplan(name):
 
     except subprocess.CalledProcessError as e:
         logger.error(f"Error cambiando la configuración de red en {name}: {e}")
+
+
+def config_lb():
+    """
+    Configura el balanceador del sistema (Haproxy)
+    """
+
+    subprocess.run(["lxc exec" , VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
+    subprocess.run(["lxc exec" , VM_NAMES["balanceador"], "--", "apt", "install", "haproxy"], check=True)
+
+
+def change_haproxy():
+    """
+    """
+
+    haproxy_config = f"""
+    global
+        log /dev/log local0
+        log /dev/log local1 notice
+        chroot /var/lib/haproxy
+        stats socket /run/haproxy/admin.sock mode 660 level admin
+        stats timeout 30s
+        user haproxy
+        group haproxy
+        daemon
+    
+        # Default SSL material locations
+            ca-base /etc/ssl/certs
+            crt-base /etc/ssl/private
+        # Default ciphers to use on SSL-enabled listening sockets.
+        # For more information, see ciphers(1SSL). This list is from:
+        # https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+        ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS
+        ssl-default-bind-options no-sslv3
+
+    defaults
+        log global
+        mode http
+        option httplog
+        option dontlognull
+        timeout connect 5000
+        timeout client 50000
+        timeout server 50000
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+
+    frontend firstbalance
+        bind *:80
+        option forwardfor
+        default_backend webservers
+
+    backend webservers
+        balance roundrobin
+        server webserver1 {IP_S["s1"]}:8001
+        server webserver2 {IP_S["s2"]}:8001
+        server webserver3 {IP_S["s3"]}:8001
+        server webserver4 {IP_S["s4"]}:8001
+        server webserver5 {IP_S["s5"]}:8001
+        option httpchk
+    """
+
+    subprocess.run(["lxc", "file", "push", haproxy_config, VM_NAMES["balanceador"], "/etc/haproxy/haproxy.cfg"])         ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+    subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-c"])    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+    subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "service", "haproxy", "start"])
+    # subprocess.run(f"")
+    # subprocess.run(f"")
+    # subprocess.run(f"")
+    # subprocess.run(f"")
+    # subprocess.run(f"")
+    # subprocess.run(f"")
+    # subprocess.run(f"")

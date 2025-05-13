@@ -1,0 +1,2 @@
+El cliente también está conectado a eth0, pero sin IP y los paquetes y datos saldrán por la eth1 hacia el balanceador
+Lo de arriba es un problema entre comillas. Funciona bien igualmente pues no hay IP.

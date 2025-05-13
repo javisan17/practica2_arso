@@ -2,7 +2,7 @@
 CONSTS
 """
 
-VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server']
+VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server', 'configure']
 NUM_SERVERS_FILE="static/files/num_serves.txt"
 DEFAULT_SERVERS=2
 MIN_SERVERS=1
@@ -40,3 +40,8 @@ IP_S={
     "s4": "134.3.0.14",
     "s5": "134.3.0.15"
 }
+
+
+NODE_JS_FILE="static/files/install.sh"
+
+APP_WEB_FILE="static/files/app.tar.gz"
