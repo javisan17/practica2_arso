@@ -1,0 +1,14 @@
+
+"""
+ARCHIVO A ELIMINAR. ES EXCLUSIVAMENTE PARA HACER ALGUNA PRUEBA
+"""
+
+
+from consts import PROJECT_ROOT, STATIC_FILES, APP_WEB_FILE, NODE_JS_FILE
+import os
+
+print("PROJECT_ROOT:", PROJECT_ROOT)
+print("STATIC_FILES:", STATIC_FILES)
+print("APP_WEB_FILE:", APP_WEB_FILE, "=> Existe:", os.path.exists(APP_WEB_FILE))
+print("NODE_JS_FILE:", NODE_JS_FILE, "=> Existe:", os.path.exists(NODE_JS_FILE))
+

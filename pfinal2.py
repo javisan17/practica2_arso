@@ -80,7 +80,7 @@ def main():
 
         case "stop":
             stop_all(n_servers=n_servers)
-            close_consoles()
+            #close_consoles()
 
         case "create_server":
             if n_servers < MAX_SERVERS:

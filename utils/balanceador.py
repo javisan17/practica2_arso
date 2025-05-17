@@ -1,6 +1,7 @@
 import subprocess
 from logger import setup_logger, get_logger
-from consts import VM_NAMES, IP_S
+from consts import VM_NAMES, IP_S, PUERTO_S
+from utils.containers import start_container
 
 
 """
@@ -81,19 +82,21 @@ def change_netplan(name):
         logger.error(f"Error cambiando la configuración de red en {name}: {e}")
 
 
-def config_lb():
+def setup_haproxy():
     """
-    Configura el balanceador del sistema (Haproxy)
-    """
-
-    subprocess.run(["lxc", "exec" , VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
-    subprocess.run(["lxc", "exec" , VM_NAMES["balanceador"], "--", "apt", "install", "-y", "haproxy"], check=True)
-
-
-def change_haproxy():
-    """
+    Configura el balanceador del sistema (Haproxy) y escribe el archivo haproxy.cfg con las IPs de los servidores
     """
 
+    logger.info("Instalando haproxy en el balanceador")
+    try:
+        start_container(name=VM_NAMES["balanceador"])
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "install", "-y", "haproxy"], check=True)
+
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error en instalación de haproxy: {e}")
+
+    logger.debug("Generando archivo de configuración haproxy.cfg")
     haproxy_config = f"""
     global
         log /dev/log local0
@@ -137,22 +140,29 @@ def change_haproxy():
 
     backend webservers
         balance roundrobin
-        server webserver1 {IP_S["s1"]}:8001
-        server webserver2 {IP_S["s2"]}:8001
-        server webserver3 {IP_S["s3"]}:8001
-        server webserver4 {IP_S["s4"]}:8001
-        server webserver5 {IP_S["s5"]}:8001
+        server webserver1 {IP_S["s1"]}:{PUERTO_S}
+        server webserver2 {IP_S["s2"]}:{PUERTO_S}
+        server webserver3 {IP_S["s3"]}:{PUERTO_S}
+        server webserver4 {IP_S["s4"]}:{PUERTO_S}
+        server webserver5 {IP_S["s5"]}:{PUERTO_S}
         option httpchk
     """
 
-    #Escribir nueva configuración
-    logger.debug(f"Escribiendo nueva configuración de haproxy en balanceador")
-    subprocess.run(f"echo \"{haproxy_config}\" | lxc exec {VM_NAMES['balanceador']} -- tee /etc/haproxy/haproxy.cfg", check=True)    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+    try:
+        start_container(name=VM_NAMES["balanceador"])
 
-    #Verificar si el archivo es correcto
-    logger.debug(f"Verficiando si el fichero de configuración del balanceador es válido")
-    subprocess.run(["lxc", "exec", VM_NAMES['balanceador'], "--", "haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-c"], check=True)    ### NS SI LAS RUTAS ESTAS METERLAS EN CONST
+        #Escribir nueva configuración
+        logger.debug("Escribiendo configuración de haproxy en el contenedor")
+        subprocess.run(f"echo \"{haproxy_config}\" | lxc exec {VM_NAMES['balanceador']} -- tee /etc/haproxy/haproxy.cfg", shell=True, check=True)
 
-    #Reiniciar el servicio del balanceador
-    logger.debug(f"Verficiando si el fichero de configuración del balanceador es válido")
-    subprocess.run(["lxc", "exec", VM_NAMES['balanceador'], "--", "service", "haproxy", "start"], check=True)
+        #Verificar si el archivo es correcto
+        logger.debug("Validando archivo haproxy.cfg")
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "haproxy", "-f", "/etc/haproxy/haproxy.cfg", "-c"], check=True)
+
+        #Reiniciar el servicio del balanceador
+        logger.debug("Iniciando servicio de haproxy")
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "service", "haproxy", "start"], check=True)
+        logger.info("Haproxy instalado y configurado correctamente.")
+
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error en configuración de HAProxy: {e}")

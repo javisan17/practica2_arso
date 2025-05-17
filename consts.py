@@ -46,10 +46,24 @@ IP_S={
     "s5": "134.3.0.15"
 }
 
+PUERTO_S=8001
+
 IP_DB="134.3.0.20"
 
 #Rutas de archivos
 
-NODE_JS_FILE="static/files/install.sh"
+# NODE_JS_FILE="static/files/install.sh"
 
-APP_WEB_FILE="static/files/app.tar.gz"
+# APP_WEB_FILE="static/files/app.tar.gz"
+
+import os
+
+# Ruta absoluta a la raíz del proyecto (donde está pfinal2.py)
+PROJECT_ROOT = os.path.abspath(os.path.abspath(__file__) + "/..")
+
+# Ruta absoluta a la carpeta static/files
+STATIC_FILES = os.path.join(PROJECT_ROOT, "static", "files")
+
+# Archivos importantes
+APP_WEB_FILE = os.path.join(STATIC_FILES, "app.tar.gz")
+NODE_JS_FILE = os.path.join(STATIC_FILES, "install.sh")

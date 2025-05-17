@@ -5,7 +5,7 @@ from utils.containers import create_container, start_container, stop_container, 
 from utils.image import create_image, delete_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
-from utils.balanceador import change_netplan, config_lb, change_haproxy
+from utils.balanceador import change_netplan, setup_haproxy
 from utils.server_web import config_server
 from utils.database import install_mongoDB
 
@@ -161,26 +161,68 @@ def delete_all(n_servers):
         logger.critical(f"Fallo crítico al eliminar infraestructura: {e}", exc_info=True)
 
 
+# def configure_all(n_servers):
+#     """
+#     POSIBILIDADES: si ya hay servidores solo los configura y si no hay servidores, los crea y configura o si no los hay decir que antes el usuario deba ejecutar un create
+#     DE MOMENTO SOLO VOY A HACERLO CON CONFIGURAR YA SE AÑADIRÁN SI QUIERES
+#     """
+
+#     #Instalar MongoDB en la base de datos
+#     # start_container(name=VM_NAMES["database"])
+#     install_mongoDB(name=VM_NAMES["database"]) 
+#     # stop_container(name=VM_NAMES["database"])
+
+#     #Instalar el servicio de NodeJS en servidores 
+#     for i in range(n_servers):
+#         # start_container(name=VM_NAMES["servidores"][i])
+#         config_server(name=VM_NAMES["servidores"][i])
+#         # stop_container(name=VM_NAMES["servidores"][i])
+
+#     #Instalar y configurar el haproxy para la repartición de carga
+#     # start_container(name=VM_NAMES["balanceador"])
+#     config_lb()
+#     change_haproxy()
+#     # stop_container(name=VM_NAMES["balanceador"])
+   
 def configure_all(n_servers):
     """
-    POSIBILIDADES: si ya hay servidores solo los configura y si no hay servidores, los crea y configura o si no los hay decir que antes el usuario deba ejecutar un create
-    DE MOMENTO SOLO VOY A HACERLO CON CONFIGURAR YA SE AÑADIRÁN SI QUIERES
+    Configura todos los contenedores del sistema:
+    - Base de datos MongoDB
+    - Servidores web (Apache y NodeJS)
+    - Balanceador (Haproxy)
     """
 
-    #Instalar MongoDB en la base de datos
-    # start_container(name=VM_NAMES["database"])
-    install_mongoDB(name=VM_NAMES["database"]) 
-    # stop_container(name=VM_NAMES["database"])
+    logger.info("Iniciando configuración de la infraestructura...")
 
-    #Instalar el servicio de NodeJS en servidores 
+    #Instalar MongoDB en la BASE DE DATOS
+    try:
+        logger.info(f"Configurando base de datos MongoDB en: {VM_NAMES['database']}")
+        # start_container(name=VM_NAMES["database"])
+        install_mongoDB(name=VM_NAMES["database"])
+        # stop_container(name=VM_NAMES["database"])
+        logger.info("Configuración de base de datos completada correctamente.")
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error al configurar MongoDB en {VM_NAMES['database']}: {e}")
+        return
+
+    #Instalar el servicio de NodeJS en SERVIDORES WEB
     for i in range(n_servers):
-        # start_container(name=VM_NAMES["servidores"][i])
-        config_server(name=VM_NAMES["servidores"][i])
-        # stop_container(name=VM_NAMES["servidores"][i])
+        try:
+            logger.info(f"Configurando servidor web {VM_NAMES['servidores'][i]}")
+            # start_container(name=VM_NAMES["servidores"][i])
+            config_server(name=VM_NAMES["servidores"][i])
+            # stop_container(name=VM_NAMES["servidores"][i])
+            logger.info(f"Servidor {VM_NAMES['servidores'][i]} configurado correctamente.")
+        except subprocess.CalledProcessError as e:
+            logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
+            continue
 
-    #Instalar y configurar el haproxy para la repartición de carga
-    # start_container(name=VM_NAMES["balanceador"])
-    config_lb()
-    change_haproxy()
-    # stop_container(name=VM_NAMES["balanceador"])
-   
+    #Instalar y configurar el haproxy para la repartición de carga BALANCEADOR
+    try:
+        logger.info(f"Configurando balanceador {VM_NAMES['balanceador']}")
+        # start_container(name=VM_NAMES["balanceador"])
+        setup_haproxy()
+        # stop_container(name=VM_NAMES["balanceador"])
+        logger.info("Balanceador configurado correctamente.")
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error al configurar balanceador {VM_NAMES['balanceador']}: {e}")
