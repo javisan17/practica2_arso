@@ -2,7 +2,7 @@
 CONSTS
 """
 
-VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server', 'configure']
+VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server', 'configure', 'enlarge', 'config_server']
 NUM_SERVERS_FILE="static/files/num_serves.txt"
 DEFAULT_SERVERS=2
 MIN_SERVERS=1

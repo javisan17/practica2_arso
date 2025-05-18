@@ -8,9 +8,10 @@ import sys, subprocess
 from logger import setup_logger, get_logger
 from consts import VALID_ORDERS, DEFAULT_SERVERS, MIN_SERVERS, MAX_SERVERS, IMAGE_DEFAULT
 from ordenes import create_all, start_all, list_containers, delete_all, configure_all
-from ordenes_opcionales import stop_all, create_server, delete_last_server, start_server, stop_server
+from ordenes_opcionales import stop_all, create_server, delete_last_server, start_server, stop_server, enlarge
 from utils.file import save_num_servers, load_num_servers
 from utils.console import show_consoles, show_console, close_consoles
+from utils.server_web import config_server
 
 def main():
 
@@ -125,6 +126,25 @@ def main():
         
         case "configure":
             configure_all(n_servers=n_servers)
+
+        case "enlarge":
+            if n_servers < MAX_SERVERS:
+                enlarge()
+                n_servers=n_servers+1
+                save_num_servers(n_servers)
+                logger.info(f"Nuevo número de servidores: {n_servers}")
+            else:
+                logger.warning("Límite máximo de servidores alcanzado")
+                print("No se pueden añadir más de 5 servidores.")
+        
+        case "config_server":
+            if len(sys.argv) < 3:
+                logger.error("Falta el nombre del servidor en config_server")
+                print("Uso: python3 pfinal1.py config_server <nombre_servidor>")
+                sys.exit(1)
+            name=sys.argv[2]
+            logger.info(f"Configurando el servidor infividual {name}")
+            config_server(name=name)
         
 
 if __name__ == "__main__":
