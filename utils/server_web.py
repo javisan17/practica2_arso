@@ -53,7 +53,6 @@ def config_server(name):
         logger.debug("Extrayendo el contenido de app.tar.gz")
         subprocess.run(["lxc", "exec", name, "--", "tar", "-oxvf", "app.tar.gz"], check=True)
 
-
         logger.debug("Ejecutando instalación Node.js")
         subprocess.run(["lxc", "exec", name, "--", "/root/install.sh"], check=True)
 

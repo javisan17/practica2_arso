@@ -191,6 +191,8 @@ def configure_all(n_servers):
     - Servidores web (Apache y NodeJS)
     - Balanceador (Haproxy)
     """
+    
+    #Comprobar que hay una infraestructura ya creada
 
     logger.info("Iniciando configuración de la infraestructura...")
 
@@ -212,7 +214,6 @@ def configure_all(n_servers):
             # start_container(name=VM_NAMES["servidores"][i])
             config_server(name=VM_NAMES["servidores"][i])
             # stop_container(name=VM_NAMES["servidores"][i])
-            logger.info(f"Servidor {VM_NAMES['servidores'][i]} configurado correctamente.")
         except subprocess.CalledProcessError as e:
             logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
             continue
