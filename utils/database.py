@@ -23,7 +23,6 @@ def install_mongoDB(name):
     logger.info(f"Iniciando instalación de MongoDB en {name}")
 
     try:
-        start_container(name=name)
         subprocess.run(["lxc", "exec", name, "--", "apt", "update"], check=True)
 
         logger.debug("Instalando MongoDB")

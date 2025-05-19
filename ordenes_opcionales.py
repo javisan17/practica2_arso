@@ -7,6 +7,8 @@ from utils.bridges import create_bridge, config_bridge, attach_network, delete_b
 from utils.file import save_num_servers
 from utils.balanceador import change_netplan
 from utils.server_web import config_server
+from time import sleep
+from utils.file import load_num_servers
 
 
 """
@@ -41,7 +43,7 @@ def stop_all(n_servers):
         logger.error(f"Error al parar contenedores: {e}", exc_info=True)
 
 
-def create_server():
+def create_server(image):
     """
     Crear el siguiente servidor disponible entre s1 y s5.
     """
@@ -55,7 +57,7 @@ def create_server():
             result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
             if "not found" in result.stderr:
                 logger.info(f"Creando nuevo servidor disponible: {name}")
-                create_container(name=name)
+                create_container(name=name, image=image)
                 attach_network(container=name, bridge=BRIDGES["LAN1"], iface="eth0")
                 ip=IP_S[name]
                 config_container(name=name, iface="eth0", ip=ip)
@@ -149,29 +151,45 @@ def stop_server(name):
 
 def enlarge():
     """
-    Añade un servidor a la red y lo configura.
+    Añade un servidor a la red y lo configura. NO SE SI COMPLETARLA
     """
+
     #DA ERRORES POR LO DEL START STOP EN EL CONFIGURE 
     logger.info("Buscando servidor libre para añadir...")
 
     try:
-        for i in range(MAX_SERVERS):
-            name = VM_NAMES["servidores"][i]
-            logger.debug(f"Verificando si existe el contenedor {name}")
-            result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
-            if "not found" in result.stderr:
-                logger.info(f"Creando nuevo servidor disponible: {name}")
-                create_container(name=name)
-                attach_network(container=name, bridge=BRIDGES["LAN1"], iface="eth0")
-                ip=IP_S[name]
-                config_container(name=name, iface="eth0", ip=ip)
-                logger.info(f"Servidor {name} creado correctamente con IP {ip} ")
-                logger.debug(f"Configurando el servidor {name}")
-                subprocess.run(["lxc","start",name], check=True)
-                config_server(name=name)
-                logger.info(f"Servidor {name} añadido a la red correctamente")
-                return
+        # for i in range(MAX_SERVERS):
+        #     name = VM_NAMES["servidores"][i]
+        #     logger.debug(f"Verificando si existe el contenedor {name}")
+        #     result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
+        #     if "not found" in result.stderr:
+        #         logger.info(f"Creando nuevo servidor disponible: {name}")
+        #         create_container(name=name, image=IMAGE_DEFAULT)
+        #         attach_network(container=name, bridge=BRIDGES["LAN1"], iface="eth0")
+        #         ip=IP_S[name]
+        #         config_container(name=name, iface="eth0", ip=ip)
+        #         logger.info(f"Servidor {name} creado correctamente con IP {ip} ")
+        #         logger.debug(f"Configurando el servidor {name}")   
+                # start_container(name=name)
+                # sleep(5)
+                # config_server(name=name)
+                # logger.info(f"Servidor {name} añadido a la red correctamente")
+                # return
 
-        logger.warning(f"Ya existen {MAX_SERVERS}  servidores. No se puede añadir más.")
+
+        create_server()
+        name = VM_NAMES["servidores"][load_num_servers()]
+        start_container(name=name)
+        sleep(5)
+        config_server(name=name)
+
+       #NUEVO por imagen
+
+    #    subprocess.run(["lxc", "publish", "s1", "--", "alias", "servidor"], check=True)
+    #    create_server(image="servidor")
+    #    name = VM_NAMES["servidores"][load_num_servers()]
+    #    start_server(name=name)
+
+
     except Exception as e:
         logger.critical(f"Error crítico al añadir el servidor: {e}", exc_info=True)

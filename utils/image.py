@@ -47,3 +47,12 @@ def delete_image():
         logger.info("Imagen local eliminada con éxito.")
     except subprocess.CalledProcessError as e:
         logger.error(f"No se pudo eliminar la imagen {IMAGE_DEFAULT}: {e}")
+
+
+# def publish_image(contenedor, alias):
+#     """
+#     Publicar una imagen de un contenedor
+#     """
+
+#     subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+

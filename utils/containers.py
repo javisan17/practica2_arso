@@ -17,7 +17,7 @@ LXC CONTAINERS
 """
 
 
-def create_container(name):
+def create_container(name, image):
     """
     Crear un contenedor a partir de una imagen
     """
@@ -26,7 +26,7 @@ def create_container(name):
     result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
     if "not found" in result.stderr:
         try:
-            subprocess.run(["lxc", "init", IMAGE_DEFAULT, name], check=True)
+            subprocess.run(["lxc", "init", image, name], check=True)
             logger.info(f"Contenedor {name} creado con éxito.")
         except subprocess.CalledProcessError as e:
             logger.error(f"Error al crear el contenedor {name}: {e}")

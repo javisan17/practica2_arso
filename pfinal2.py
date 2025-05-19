@@ -81,11 +81,10 @@ def main():
 
         case "stop":
             stop_all(n_servers=n_servers)
-            #close_consoles()
 
         case "create_server":
             if n_servers < MAX_SERVERS:
-                create_server()
+                create_server(image=IMAGE_DEFAULT)
                 n_servers=n_servers+1
                 save_num_servers(n_servers)
                 logger.info(f"Nuevo número de servidores: {n_servers}")

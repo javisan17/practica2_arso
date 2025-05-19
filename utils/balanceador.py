@@ -89,8 +89,8 @@ def setup_haproxy():
 
     logger.info("Instalando haproxy en el balanceador")
     try:
-        start_container(name=VM_NAMES["balanceador"])
         subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
+        sleep(1)
         subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "install", "-y", "haproxy"], check=True)
 
     except subprocess.CalledProcessError as e:
@@ -149,7 +149,6 @@ def setup_haproxy():
     """
 
     try:
-        start_container(name=VM_NAMES["balanceador"])
 
         #Escribir nueva configuración
         logger.debug("Escribiendo configuración de haproxy en el contenedor")

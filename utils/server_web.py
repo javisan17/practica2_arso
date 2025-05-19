@@ -2,6 +2,7 @@ import subprocess
 from consts import IMAGE_DEFAULT, NODE_JS_FILE, APP_WEB_FILE, VM_NAMES
 from logger import setup_logger, get_logger
 import os
+from time import sleep
 from utils.containers import start_container
 
 
@@ -25,7 +26,6 @@ def config_server(name):
     logger.info(f"Iniciando configuración del servidor web {name}")
 
     try:
-        start_container(name=name)
         #Instalar servidor web Apache
         logger.debug(f"Actualizando paquetes en {name}")
         subprocess.run(["lxc", "exec", name, "--", "apt", "update"], check=True)
@@ -41,11 +41,6 @@ def config_server(name):
         logger.debug("Transfiriendo script de instalación Node.js")
         subprocess.run(["lxc", "file", "push", NODE_JS_FILE, f"{name}/root/install.sh"], check=True)
         subprocess.run(["lxc", "exec", name, "--", "chmod", "+x", "/root/install.sh"], check=True)
-
-        ### SUELE DAR ERROR Y NO SE EJECUTA LO DE ABAJO A PARTIR DE AQUI 
-        # if not os.path.isdir(APP_WEB_FILE):
-        #     logger.error(f"Directorio de la app web no encontrado: {APP_WEB_FILE}")
-        #     return
 
         logger.debug("Transfiriendo aplicación web")
         subprocess.run(["lxc", "file", "push", "-r", APP_WEB_FILE, f"{name}/root/"], check=True)
