@@ -8,6 +8,12 @@ PARECE ALGO DIFICIL
 
 
 hay que cambiar la linea del archivo rest_server.js de los s1, s2... a la ip indicada 134.3.0.20
-hacer un forever stopall y un forever start rest_app.js cada vez que se para el servidor para reiniciar tambien la app
+hacer un forever stopall y un forever start rest_app.js cada vez que se para el servidor para reiniciar tambien la app (linea 115 opcionales.py) CREO QUE ESTA BIEN YA
 
 balanceador da problemas. debe aparecer la db e ir cambiando entre servidores
+cambiar haproxy segun los servidores que existan (si solo hay s1 no deben estar todos puestos)
+balanceador en dos funciones.
+cambiar haproxy en configure_server, delete_server...
+
+
+ns si quitar enlarge y decir que hemos decidido hacerlo asi

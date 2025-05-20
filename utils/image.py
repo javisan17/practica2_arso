@@ -49,10 +49,23 @@ def delete_image():
         logger.error(f"No se pudo eliminar la imagen {IMAGE_DEFAULT}: {e}")
 
 
-# def publish_image(contenedor, alias):
-#     """
-#     Publicar una imagen de un contenedor
-#     """
+def publish_image(contenedor, alias):
+    """
+    Publicar una imagen de un contenedor
+    """
+    try:
+        logger.info(f"Parando contenedor {contenedor} antes de publicar")
+        subprocess.run(["lxc", "stop", contenedor], check=True)
 
-#     subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+        logger.debug(f"Eliminando imagen previa con alias '{alias}' si existe")
+        subprocess.run(["lxc", "image", "delete", alias], check=False)
+
+        logger.info(f"Publicando imagen del contenedor {contenedor} con alias '{alias}'...")
+        subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+
+        logger.info("Imagen publicada correctamente.")
+
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error al publicar imagen del contenedor {contenedor}: {e}", exc_info=True)
+        raise
 

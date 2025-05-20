@@ -135,15 +135,17 @@ def main():
             else:
                 logger.warning("Límite máximo de servidores alcanzado")
                 print("No se pueden añadir más de 5 servidores.")
+
+
         
-        case "config_server":
+        case "configure_server":
             if len(sys.argv) < 3:
-                logger.error("Falta el nombre del servidor en config_server")
-                print("Uso: python3 pfinal1.py config_server <nombre_servidor>")
+                logger.error("Falta el nombre del servidor en configure_server")
+                print("Uso: python3 pfinal1.py configure_server <nombre_servidor>")
                 sys.exit(1)
             name=sys.argv[2]
             logger.info(f"Configurando el servidor infividual {name}")
-            config_server(name=name)
+            configure_server(name=name)
         
 
 if __name__ == "__main__":

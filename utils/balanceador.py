@@ -1,7 +1,8 @@
 import subprocess
 from logger import setup_logger, get_logger
-from consts import VM_NAMES, IP_S, PUERTO_S
+from consts import VM_NAMES, IP_S, PUERTO_S, MAX_SERVERS
 from utils.containers import start_container
+from time import sleep
 
 
 """
@@ -90,11 +91,22 @@ def setup_haproxy():
     logger.info("Instalando haproxy en el balanceador")
     try:
         subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "update"], check=True)
-        sleep(1)
         subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "apt", "install", "-y", "haproxy"], check=True)
 
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error en instalación de haproxy: {e}")
+
+    # Construir dinámicamente las entradas del backend según servidores existentes
+    backend_servers = ""
+    for i in range(MAX_SERVERS):
+        name = VM_NAMES["servidores"][i]
+        result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
+        if "not found" not in result.stderr:
+            backend_servers += f"        server webserver{i+1} {IP_S[name]}:{PUERTO_S}\n"
+
+    if not backend_servers:
+        logger.warning("No hay servidores configurados para HAProxy. Abortando configuración.")
+        return
 
     logger.debug("Generando archivo de configuración haproxy.cfg")
     haproxy_config = f"""
@@ -140,11 +152,7 @@ def setup_haproxy():
 
     backend webservers
         balance roundrobin
-        server webserver1 {IP_S["s1"]}:{PUERTO_S}
-        server webserver2 {IP_S["s2"]}:{PUERTO_S}
-        server webserver3 {IP_S["s3"]}:{PUERTO_S}
-        server webserver4 {IP_S["s4"]}:{PUERTO_S}
-        server webserver5 {IP_S["s5"]}:{PUERTO_S}
+{backend_servers}
         option httpchk
     """
 

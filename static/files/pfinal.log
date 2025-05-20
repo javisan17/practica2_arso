@@ -5456,3 +5456,529 @@ subprocess.CalledProcessError: Command '['lxc', 'publish', 's1', '--', 'alias', 
 2025-05-19 12:19:01,963 - INFO - Se cargó número de servidores desde archivo: 3
 2025-05-19 12:19:01,963 - INFO - Listando contenedores
 2025-05-19 12:19:02,006 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-19 12:23:34,279 - INFO - Orden recibida: delete
+2025-05-19 12:23:34,279 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-19 12:23:34,280 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-19 12:23:34,280 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-19 12:23:34,280 - INFO - Eliminando toda la infraestructura
+2025-05-19 12:23:34,280 - DEBUG - Intentando eliminar la imagen ubuntu2004...
+2025-05-19 12:23:34,405 - INFO - Imagen local eliminada con éxito.
+2025-05-19 12:23:34,405 - DEBUG - Eliminando contenedor s1
+2025-05-19 12:23:37,082 - INFO - Contenedor eliminado: s1
+2025-05-19 12:23:37,083 - DEBUG - Eliminando contenedor s2
+2025-05-19 12:23:37,094 - ERROR - Error al eliminar el contenedor s2: Command '['lxc', 'delete', 's2', '--force']' returned non-zero exit status 1.
+2025-05-19 12:23:37,094 - DEBUG - Eliminando contenedor s3
+2025-05-19 12:23:37,105 - ERROR - Error al eliminar el contenedor s3: Command '['lxc', 'delete', 's3', '--force']' returned non-zero exit status 1.
+2025-05-19 12:23:37,105 - DEBUG - Eliminando contenedor cl
+2025-05-19 12:23:38,892 - INFO - Contenedor eliminado: cl
+2025-05-19 12:23:38,892 - DEBUG - Eliminando contenedor lb
+2025-05-19 12:23:40,998 - INFO - Contenedor eliminado: lb
+2025-05-19 12:23:40,998 - DEBUG - Eliminando contenedor db
+2025-05-19 12:23:42,930 - INFO - Contenedor eliminado: db
+2025-05-19 12:23:42,930 - DEBUG - Contenedores eliminados correctamente
+2025-05-19 12:23:42,930 - DEBUG - Intentando eliminar el bridge lxdbr1
+2025-05-19 12:23:43,322 - INFO - Bridge eliminado: lxdbr1
+2025-05-19 12:23:43,322 - INFO - Eliminación completada.
+2025-05-20 08:42:00,673 - INFO - Orden recibida: create
+2025-05-20 08:42:00,674 - INFO - Número de servidores especificado: 1
+2025-05-20 08:42:00,674 - INFO - Iniciando creación de infraestructura con 1 servidores
+2025-05-20 08:42:00,674 - DEBUG - Parámetro recibido n_servers=1
+2025-05-20 08:42:00,674 - DEBUG - Creando imagen base...
+2025-05-20 08:42:00,674 - DEBUG - Verificando si la imagen ya está importada...
+2025-05-20 08:42:00,699 - INFO - La imagen ubuntu2004 no está importada. Se procederá a importarla.
+2025-05-20 08:42:06,928 - INFO - Imagen ubuntu2004 importada con éxito.
+2025-05-20 08:42:06,929 - DEBUG - Configurando y creando bridges...
+2025-05-20 08:42:07,761 - INFO - 134.3.0.1/24 asignada correctamente al bridge: lxdbr0
+2025-05-20 08:42:11,304 - INFO - Bridge configurado correctamente: lxdbr0
+2025-05-20 08:42:11,304 - DEBUG - Creando bridge lxdbr1
+2025-05-20 08:42:12,964 - INFO - Bridge creado: lxdbr1
+2025-05-20 08:42:13,872 - INFO - 134.3.1.1/24 asignada correctamente al bridge: lxdbr1
+2025-05-20 08:42:17,469 - INFO - Bridge configurado correctamente: lxdbr1
+2025-05-20 08:42:17,469 - DEBUG - Creando contenedores de servidores...
+2025-05-20 08:42:17,469 - DEBUG - Intentando crear el contenedor s1
+2025-05-20 08:42:27,197 - INFO - Contenedor s1 creado con éxito.
+2025-05-20 08:42:27,197 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-20 08:42:27,261 - INFO - Conectado s1 al bridge lxdbr0 por eth0
+2025-05-20 08:42:27,261 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-20 08:42:27,293 - INFO - Contenedor s1 conectado a eth0 con IP 134.3.0.11
+2025-05-20 08:42:27,293 - DEBUG - Intentando guardar el número de servidores: 1
+2025-05-20 08:42:27,294 - INFO - Número de servidores 1 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 08:42:27,294 - INFO - Número de servidores guardados correctamente
+2025-05-20 08:42:27,295 - DEBUG - Creando balanceador...
+2025-05-20 08:42:27,295 - DEBUG - Intentando crear el contenedor lb
+2025-05-20 08:42:37,263 - INFO - Contenedor lb creado con éxito.
+2025-05-20 08:42:37,263 - DEBUG - Conectando lb al bridge lxdbr0 usando eth0
+2025-05-20 08:42:37,310 - INFO - Conectado lb al bridge lxdbr0 por eth0
+2025-05-20 08:42:37,310 - DEBUG - Configurando red para lb: iface=eth0, ip=134.3.0.10
+2025-05-20 08:42:37,341 - INFO - Contenedor lb conectado a eth0 con IP 134.3.0.10
+2025-05-20 08:42:37,341 - DEBUG - Conectando lb al bridge lxdbr1 usando eth1
+2025-05-20 08:42:37,393 - INFO - Conectado lb al bridge lxdbr1 por eth1
+2025-05-20 08:42:37,393 - DEBUG - Configurando red para lb: iface=eth1, ip=134.3.1.10
+2025-05-20 08:42:37,426 - INFO - Contenedor lb conectado a eth1 con IP 134.3.1.10
+2025-05-20 08:42:37,426 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-20 08:42:37,995 - INFO - Contenedor iniciado: lb
+2025-05-20 08:42:37,995 - DEBUG - Iniciando cambio de netplan en lb
+2025-05-20 08:42:37,995 - DEBUG - Desactivando cloud-init en lb
+2025-05-20 08:42:38,046 - DEBUG - Creando copia de seguridad del archivo netplan original en lb
+2025-05-20 08:42:38,107 - DEBUG - Configurando interfaces eth0 y eth1 para balanceador lb
+2025-05-20 08:42:38,107 - DEBUG - Escribiendo nueva configuración de netplan en lb
+2025-05-20 08:42:38,176 - DEBUG - Reiniciando contenedor lb para aplicar cambios
+2025-05-20 08:42:40,254 - INFO - Configuración de red aplicada correctamente en el contenedor lb
+2025-05-20 08:42:40,254 - DEBUG - Verificando estado antes de detener lb
+2025-05-20 08:42:41,741 - INFO - Contenedor parado: lb
+2025-05-20 08:42:41,741 - INFO - Balanceador configurado correctamente
+2025-05-20 08:42:41,741 - DEBUG - Creando cliente...
+2025-05-20 08:42:41,741 - DEBUG - Intentando crear el contenedor cl
+2025-05-20 08:42:51,680 - INFO - Contenedor cl creado con éxito.
+2025-05-20 08:42:51,680 - DEBUG - Conectando cl al bridge lxdbr1 usando eth1
+2025-05-20 08:42:51,735 - INFO - Conectado cl al bridge lxdbr1 por eth1
+2025-05-20 08:42:51,735 - DEBUG - Configurando red para cl: iface=eth1, ip=134.3.1.11
+2025-05-20 08:42:51,766 - INFO - Contenedor cl conectado a eth1 con IP 134.3.1.11
+2025-05-20 08:42:51,766 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-20 08:42:52,311 - INFO - Contenedor iniciado: cl
+2025-05-20 08:42:52,311 - DEBUG - Iniciando cambio de netplan en cl
+2025-05-20 08:42:52,311 - DEBUG - Desactivando cloud-init en cl
+2025-05-20 08:42:52,363 - DEBUG - Creando copia de seguridad del archivo netplan original en cl
+2025-05-20 08:42:52,421 - DEBUG - Configurando interfaz eth1 para cliente cl
+2025-05-20 08:42:52,421 - DEBUG - Escribiendo nueva configuración de netplan en cl
+2025-05-20 08:42:52,481 - DEBUG - Reiniciando contenedor cl para aplicar cambios
+2025-05-20 08:42:54,435 - INFO - Configuración de red aplicada correctamente en el contenedor cl
+2025-05-20 08:42:54,435 - DEBUG - Verificando estado antes de detener cl
+2025-05-20 08:42:55,856 - INFO - Contenedor parado: cl
+2025-05-20 08:42:55,856 - INFO - Cliente configurado correctamente
+2025-05-20 08:42:55,856 - DEBUG - Intentando crear el contenedor db
+2025-05-20 08:43:05,844 - INFO - Contenedor db creado con éxito.
+2025-05-20 08:43:05,844 - DEBUG - Conectando db al bridge lxdbr0 usando eth0
+2025-05-20 08:43:06,013 - INFO - Conectado db al bridge lxdbr0 por eth0
+2025-05-20 08:43:06,013 - DEBUG - Configurando red para db: iface=eth0, ip=134.3.0.20
+2025-05-20 08:43:06,079 - INFO - Contenedor db conectado a eth0 con IP 134.3.0.20
+2025-05-20 08:43:06,079 - INFO - Infraestructura creada correctamente.
+2025-05-20 08:43:46,363 - INFO - Orden recibida: configure
+2025-05-20 08:43:46,363 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:43:46,364 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:43:46,364 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:43:46,364 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:43:46,364 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:43:46,376 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:43:46,377 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:43:46,389 - WARNING - El contenedor cl no está en estado RUNNING
+2025-05-20 08:43:46,389 - WARNING - El contenedor db no está en estado RUNNING
+2025-05-20 08:43:46,389 - WARNING - El contenedor lb no está en estado RUNNING
+2025-05-20 08:43:46,389 - WARNING - El contenedor s1 no está en estado RUNNING
+2025-05-20 08:43:46,389 - ERROR - Todos los contenedores deben estar en estado RUNNING.
+2025-05-20 08:43:51,645 - INFO - Orden recibida: start
+2025-05-20 08:43:51,645 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:43:51,645 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:43:51,646 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:43:51,646 - INFO - Iniciando todos los contenedores
+2025-05-20 08:43:51,646 - DEBUG - Arrancando servidor: s1
+2025-05-20 08:43:51,646 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-20 08:43:51,980 - INFO - Contenedor iniciado: s1
+2025-05-20 08:43:51,980 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-20 08:43:52,433 - INFO - Contenedor iniciado: cl
+2025-05-20 08:43:52,433 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-20 08:43:52,888 - INFO - Contenedor iniciado: lb
+2025-05-20 08:43:52,888 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-20 08:43:53,194 - INFO - Contenedor iniciado: db
+2025-05-20 08:43:53,194 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-20 08:43:53,200 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-20 08:43:53,208 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-20 08:43:53,217 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-20 08:43:53,223 - INFO - Consola del contenedor db abierta correctamente
+2025-05-20 08:43:57,451 - INFO - Orden recibida: list
+2025-05-20 08:43:57,451 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:43:57,451 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:43:57,451 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:43:57,451 - INFO - Listando contenedores
+2025-05-20 08:43:57,474 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-20 08:44:02,682 - INFO - Orden recibida: configure
+2025-05-20 08:44:02,682 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:44:02,682 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:44:02,682 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:44:02,682 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:44:02,682 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:44:02,721 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:44:02,722 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:44:02,738 - INFO - Iniciando configuración de la infraestructura...
+2025-05-20 08:44:02,738 - INFO - Configurando base de datos MongoDB en: db
+2025-05-20 08:44:02,738 - INFO - Iniciando instalación de MongoDB en db
+2025-05-20 08:44:20,773 - DEBUG - Instalando MongoDB
+2025-05-20 08:45:03,575 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-20 08:45:03,632 - DEBUG - Reiniciando contenedor db
+2025-05-20 08:45:08,219 - INFO - MongoDB configurado con éxito en db
+2025-05-20 08:45:08,220 - INFO - Configuración de base de datos completada correctamente.
+2025-05-20 08:45:08,220 - INFO - Configurando servidor web s1
+2025-05-20 08:45:08,220 - INFO - Iniciando configuración del servidor web s1
+2025-05-20 08:45:08,220 - DEBUG - Actualizando paquetes en s1
+2025-05-20 08:45:23,117 - DEBUG - Instalando Apache en s1
+2025-05-20 08:45:48,493 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-20 08:45:48,576 - DEBUG - Transfiriendo aplicación web
+2025-05-20 08:45:48,599 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-20 08:45:48,677 - DEBUG - Ejecutando instalación Node.js
+2025-05-20 08:48:11,461 - DEBUG - Reiniciando servidor
+2025-05-20 08:48:15,945 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-20 08:48:16,579 - INFO - Servidor web s1 configurado con éxito.
+2025-05-20 08:48:16,579 - INFO - Configurando balanceador lb
+2025-05-20 08:48:16,579 - INFO - Instalando haproxy en el balanceador
+2025-05-20 08:51:15,169 - INFO - Orden recibida: configure
+2025-05-20 08:51:15,169 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:51:15,170 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:51:15,170 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:51:15,170 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:51:15,170 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:51:15,183 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:51:15,183 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:51:15,196 - INFO - Iniciando configuración de la infraestructura...
+2025-05-20 08:51:15,196 - INFO - Configurando base de datos MongoDB en: db
+2025-05-20 08:51:15,196 - INFO - Iniciando instalación de MongoDB en db
+2025-05-20 08:51:20,265 - DEBUG - Instalando MongoDB
+2025-05-20 08:51:21,087 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-20 08:51:21,121 - DEBUG - Reiniciando contenedor db
+2025-05-20 08:51:25,764 - INFO - MongoDB configurado con éxito en db
+2025-05-20 08:51:25,764 - INFO - Configuración de base de datos completada correctamente.
+2025-05-20 08:51:25,764 - INFO - Configurando servidor web s1
+2025-05-20 08:51:25,764 - INFO - Iniciando configuración del servidor web s1
+2025-05-20 08:51:25,764 - DEBUG - Actualizando paquetes en s1
+2025-05-20 08:51:29,609 - DEBUG - Instalando Apache en s1
+2025-05-20 08:51:30,343 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-20 08:51:30,427 - DEBUG - Transfiriendo aplicación web
+2025-05-20 08:51:30,452 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-20 08:51:31,034 - DEBUG - Ejecutando instalación Node.js
+2025-05-20 08:51:58,663 - DEBUG - Reiniciando servidor
+2025-05-20 08:52:03,188 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-20 08:52:03,903 - INFO - Servidor web s1 configurado con éxito.
+2025-05-20 08:52:03,904 - INFO - Configurando balanceador lb
+2025-05-20 08:52:03,904 - INFO - Instalando haproxy en el balanceador
+2025-05-20 08:52:19,717 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-20 08:52:19,717 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-20 08:52:19,756 - DEBUG - Validando archivo haproxy.cfg
+2025-05-20 08:52:19,808 - DEBUG - Iniciando servicio de haproxy
+2025-05-20 08:52:20,820 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-20 08:52:20,820 - INFO - Balanceador configurado correctamente.
+2025-05-20 08:52:58,319 - INFO - Orden recibida: list
+2025-05-20 08:52:58,319 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:52:58,319 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:52:58,319 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:52:58,319 - INFO - Listando contenedores
+2025-05-20 08:52:58,349 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-20 08:53:16,181 - INFO - Orden recibida: enlarge
+2025-05-20 08:53:16,181 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:53:16,181 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:53:16,181 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:53:16,181 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-20 08:53:16,188 - CRITICAL - Error crítico al añadir el servidor: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes_opcionales.py", line 188, in enlarge
+    publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 57, in publish_image
+    subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+2025-05-20 08:53:16,194 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-20 08:53:16,195 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 08:53:16,195 - INFO - Nuevo número de servidores: 2
+2025-05-20 08:59:03,796 - INFO - Orden recibida: enlarge
+2025-05-20 08:59:03,796 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:59:03,796 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:59:03,796 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:59:03,796 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-20 08:59:03,797 - INFO - Parando contenedor s1 antes de publicar
+2025-05-20 08:59:08,199 - DEBUG - Eliminando imagen previa con alias 'servidor' si existe
+2025-05-20 08:59:08,213 - INFO - Publicando imagen del contenedor s1 con alias 'servidor'...
+2025-05-20 08:59:08,222 - CRITICAL - Error al publicar imagen del contenedor s1: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 64, in publish_image
+    subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+2025-05-20 08:59:08,224 - CRITICAL - Error crítico al añadir el servidor: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes_opcionales.py", line 188, in enlarge
+    publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 64, in publish_image
+    subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'publish', 's1', '--', 'alias', 'servidor']' returned non-zero exit status 1.
+2025-05-20 08:59:08,226 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-20 08:59:08,228 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 08:59:08,228 - INFO - Nuevo número de servidores: 2
+2025-05-20 08:59:31,525 - INFO - Orden recibida: enlarge
+2025-05-20 08:59:31,525 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:59:31,526 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 08:59:31,526 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 08:59:31,526 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-20 08:59:31,526 - INFO - Parando contenedor s1 antes de publicar
+2025-05-20 08:59:31,544 - CRITICAL - Error al publicar imagen del contenedor s1: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 58, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-20 08:59:31,547 - CRITICAL - Error crítico al añadir el servidor: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes_opcionales.py", line 188, in enlarge
+    publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 58, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-20 08:59:31,547 - DEBUG - Intentando guardar el número de servidores: 3
+2025-05-20 08:59:31,549 - INFO - Número de servidores 3 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 08:59:31,549 - INFO - Nuevo número de servidores: 3
+2025-05-20 08:59:47,050 - INFO - Orden recibida: enlarge
+2025-05-20 08:59:47,050 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 08:59:47,050 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 08:59:47,051 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 08:59:47,051 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-20 08:59:47,051 - INFO - Parando contenedor s1 antes de publicar
+2025-05-20 08:59:47,066 - CRITICAL - Error al publicar imagen del contenedor s1: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 58, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-20 08:59:47,070 - CRITICAL - Error crítico al añadir el servidor: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes_opcionales.py", line 188, in enlarge
+    publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 58, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-20 08:59:47,070 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-20 08:59:47,075 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 08:59:47,075 - INFO - Nuevo número de servidores: 2
+2025-05-20 09:02:13,863 - INFO - Orden recibida: start_server
+2025-05-20 09:02:13,864 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:02:13,864 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:02:13,864 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 09:02:13,864 - INFO - Iniciando servidor individual: s1
+2025-05-20 09:02:13,864 - INFO - Solicitado arrancar servidor: s1
+2025-05-20 09:02:13,896 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-20 09:02:14,226 - INFO - Contenedor iniciado: s1
+2025-05-20 09:02:14,227 - INFO - Servidor s1 corriendo correctamente.
+2025-05-20 09:02:14,228 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-20 09:02:20,651 - INFO - Orden recibida: list
+2025-05-20 09:02:20,651 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:02:20,651 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:02:20,651 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 09:02:20,651 - INFO - Listando contenedores
+2025-05-20 09:02:20,681 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-20 09:06:11,095 - INFO - Orden recibida: configure
+2025-05-20 09:06:11,095 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:06:11,096 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:06:11,096 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 09:06:11,096 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:06:11,096 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:06:11,149 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:06:11,149 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:06:11,171 - INFO - Iniciando configuración de la infraestructura...
+2025-05-20 09:06:11,172 - INFO - Configurando base de datos MongoDB en: db
+2025-05-20 09:06:11,172 - INFO - Iniciando instalación de MongoDB en db
+2025-05-20 09:06:15,475 - DEBUG - Instalando MongoDB
+2025-05-20 09:06:16,312 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-20 09:06:16,405 - DEBUG - Reiniciando contenedor db
+2025-05-20 09:06:21,063 - INFO - MongoDB configurado con éxito en db
+2025-05-20 09:06:21,063 - INFO - Configuración de base de datos completada correctamente.
+2025-05-20 09:06:21,063 - INFO - Configurando servidor web s1
+2025-05-20 09:06:21,063 - INFO - Iniciando configuración del servidor web s1
+2025-05-20 09:06:21,063 - DEBUG - Actualizando paquetes en s1
+2025-05-20 09:06:25,215 - DEBUG - Instalando Apache en s1
+2025-05-20 09:06:26,014 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-20 09:06:26,123 - DEBUG - Transfiriendo aplicación web
+2025-05-20 09:06:26,168 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-20 09:06:26,347 - DEBUG - Ejecutando instalación Node.js
+2025-05-20 09:07:04,789 - DEBUG - Reiniciando servidor
+2025-05-20 09:07:09,269 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-20 09:07:10,041 - INFO - Servidor web s1 configurado con éxito.
+2025-05-20 09:07:10,041 - INFO - Configurando balanceador lb
+2025-05-20 09:07:10,041 - INFO - Instalando haproxy en el balanceador
+2025-05-20 09:09:05,608 - INFO - Orden recibida: configure
+2025-05-20 09:09:05,608 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:09:05,609 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:09:05,609 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 09:09:05,609 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:09:05,609 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:09:05,623 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:09:05,623 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:09:05,635 - INFO - Iniciando configuración de la infraestructura...
+2025-05-20 09:09:05,635 - INFO - Configurando base de datos MongoDB en: db
+2025-05-20 09:09:05,635 - INFO - Iniciando instalación de MongoDB en db
+2025-05-20 09:09:09,093 - DEBUG - Instalando MongoDB
+2025-05-20 09:09:09,932 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-20 09:09:09,985 - DEBUG - Reiniciando contenedor db
+2025-05-20 09:09:14,669 - INFO - MongoDB configurado con éxito en db
+2025-05-20 09:09:14,669 - INFO - Configuración de base de datos completada correctamente.
+2025-05-20 09:09:14,669 - INFO - Configurando servidor web s1
+2025-05-20 09:09:14,669 - INFO - Iniciando configuración del servidor web s1
+2025-05-20 09:09:14,669 - DEBUG - Actualizando paquetes en s1
+2025-05-20 09:09:18,482 - DEBUG - Instalando Apache en s1
+2025-05-20 09:09:19,225 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-20 09:09:19,316 - DEBUG - Transfiriendo aplicación web
+2025-05-20 09:09:19,367 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-20 09:09:19,428 - DEBUG - Ejecutando instalación Node.js
+2025-05-20 09:09:48,417 - DEBUG - Reiniciando servidor
+2025-05-20 09:09:52,920 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-20 09:09:53,537 - INFO - Servidor web s1 configurado con éxito.
+2025-05-20 09:09:53,537 - INFO - Configurando balanceador lb
+2025-05-20 09:09:53,537 - INFO - Instalando haproxy en el balanceador
+2025-05-20 09:09:57,889 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-20 09:09:57,889 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-20 09:09:57,940 - DEBUG - Validando archivo haproxy.cfg
+2025-05-20 09:09:58,000 - DEBUG - Iniciando servicio de haproxy
+2025-05-20 09:09:59,119 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-20 09:09:59,119 - INFO - Balanceador configurado correctamente.
+2025-05-20 09:12:07,781 - INFO - Orden recibida: create_server
+2025-05-20 09:12:07,781 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:12:07,782 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-20 09:12:07,782 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-20 09:12:07,782 - INFO - Buscando servidor libre para crear...
+2025-05-20 09:12:07,782 - DEBUG - Verificando si existe el contenedor s1
+2025-05-20 09:12:07,800 - DEBUG - Verificando si existe el contenedor s2
+2025-05-20 09:12:07,812 - INFO - Creando nuevo servidor disponible: s2
+2025-05-20 09:12:07,812 - DEBUG - Intentando crear el contenedor s2
+2025-05-20 09:12:18,163 - INFO - Contenedor s2 creado con éxito.
+2025-05-20 09:12:18,163 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-20 09:12:18,290 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-20 09:12:18,290 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-20 09:12:18,344 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-20 09:12:18,344 - INFO - Servidor s2 creado correctamente con IP 134.3.0.12 
+2025-05-20 09:12:18,345 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-20 09:12:18,347 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-20 09:12:18,348 - INFO - Nuevo número de servidores: 2
+2025-05-20 09:12:44,171 - INFO - Orden recibida: start_server
+2025-05-20 09:12:44,171 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:12:44,171 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:12:44,171 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:12:44,172 - INFO - Iniciando servidor individual: s2
+2025-05-20 09:12:44,172 - INFO - Solicitado arrancar servidor: s2
+2025-05-20 09:12:44,192 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-20 09:12:44,533 - INFO - Contenedor iniciado: s2
+2025-05-20 09:12:44,635 - INFO - Servidor s2 corriendo correctamente.
+2025-05-20 09:12:44,636 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-20 09:12:52,760 - INFO - Orden recibida: config_server
+2025-05-20 09:12:52,760 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:12:52,760 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:12:52,760 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:12:52,760 - ERROR - Falta el nombre del servidor en config_server
+2025-05-20 09:12:57,327 - INFO - Orden recibida: config_server
+2025-05-20 09:12:57,327 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:12:57,328 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:12:57,328 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:12:57,328 - INFO - Configurando el servidor infividual s2
+2025-05-20 09:12:57,328 - INFO - Iniciando configuración del servidor web s2
+2025-05-20 09:12:57,328 - DEBUG - Actualizando paquetes en s2
+2025-05-20 09:13:12,601 - DEBUG - Instalando Apache en s2
+2025-05-20 09:13:41,256 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-20 09:13:41,436 - DEBUG - Transfiriendo aplicación web
+2025-05-20 09:13:41,467 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-20 09:13:41,552 - DEBUG - Ejecutando instalación Node.js
+2025-05-20 09:16:07,544 - DEBUG - Reiniciando servidor
+2025-05-20 09:16:12,342 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-20 09:16:13,077 - INFO - Servidor web s2 configurado con éxito.
+2025-05-20 09:26:00,539 - INFO - Orden recibida: stop_server
+2025-05-20 09:26:00,540 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:26:00,541 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:26:00,541 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:26:00,542 - INFO - Deteniendo servidor individual: s2
+2025-05-20 09:26:00,542 - INFO - Solicitado parar servidor: s2
+2025-05-20 09:26:00,589 - DEBUG - Verificando estado antes de detener s2
+2025-05-20 09:26:04,941 - INFO - Contenedor parado: s2
+2025-05-20 09:26:04,941 - INFO - Servidor s2 detenido correctamente.
+2025-05-20 09:26:09,669 - INFO - Orden recibida: start_server
+2025-05-20 09:26:09,669 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:26:09,670 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:26:09,670 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:26:09,670 - INFO - Iniciando servidor individual: s2
+2025-05-20 09:26:09,670 - INFO - Solicitado arrancar servidor: s2
+2025-05-20 09:26:09,685 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-20 09:26:10,033 - INFO - Contenedor iniciado: s2
+2025-05-20 09:26:11,236 - INFO - Servidor s2 corriendo correctamente.
+2025-05-20 09:26:11,237 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-20 09:30:20,931 - INFO - Orden recibida: stop
+2025-05-20 09:30:20,931 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:30:20,932 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:30:20,932 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:30:20,932 - INFO - Parando todos los contenedores
+2025-05-20 09:30:20,932 - DEBUG - Verificando estado antes de detener s1
+2025-05-20 09:30:25,108 - INFO - Contenedor parado: s1
+2025-05-20 09:30:25,108 - DEBUG - Verificando estado antes de detener s2
+2025-05-20 09:30:29,373 - INFO - Contenedor parado: s2
+2025-05-20 09:30:29,373 - DEBUG - Verificando estado antes de detener cl
+2025-05-20 09:30:33,928 - INFO - Contenedor parado: cl
+2025-05-20 09:30:33,928 - DEBUG - Verificando estado antes de detener lb
+2025-05-20 09:30:38,558 - INFO - Contenedor parado: lb
+2025-05-20 09:30:38,559 - DEBUG - Verificando estado antes de detener db
+2025-05-20 09:30:58,026 - INFO - Contenedor parado: db
+2025-05-20 09:30:58,026 - INFO - Todos los contenedores han sido parados
+2025-05-20 09:31:02,802 - INFO - Orden recibida: start
+2025-05-20 09:31:02,803 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:31:02,803 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:31:02,803 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:31:02,803 - INFO - Iniciando todos los contenedores
+2025-05-20 09:31:02,803 - DEBUG - Arrancando servidor: s1
+2025-05-20 09:31:02,803 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-20 09:31:03,135 - INFO - Contenedor iniciado: s1
+2025-05-20 09:31:03,136 - ERROR - Error al iniciar contenedores: name 'servidor' is not defined
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes.py", line 117, in start_all
+    result = subprocess.run(["lxc", "exec", servidor, "--", "test", "-f", "/root/app/rest_server.js"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                            ^^^^^^^^
+NameError: name 'servidor' is not defined
+2025-05-20 09:31:03,156 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-20 09:31:03,158 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-20 09:31:03,160 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-20 09:31:03,169 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-20 09:31:03,178 - INFO - Consola del contenedor db abierta correctamente
+2025-05-20 09:32:21,048 - INFO - Orden recibida: start
+2025-05-20 09:32:21,048 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:32:21,049 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:32:21,049 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:32:21,049 - INFO - Iniciando todos los contenedores
+2025-05-20 09:32:21,049 - DEBUG - Arrancando servidor: s1
+2025-05-20 09:32:21,049 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-20 09:32:21,406 - INFO - Contenedor iniciado: s1
+2025-05-20 09:32:21,468 - INFO - Reiniciando app en s1
+2025-05-20 09:32:21,468 - ERROR - Error al iniciar contenedores: name 'start_app' is not defined
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes.py", line 120, in start_all
+    start_app(name=VM_NAMES["servidores"][i])
+    ^^^^^^^^^
+NameError: name 'start_app' is not defined
+2025-05-20 09:32:21,471 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-20 09:32:21,477 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-20 09:32:21,489 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-20 09:32:21,492 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-20 09:32:21,498 - INFO - Consola del contenedor db abierta correctamente
+2025-05-20 09:32:55,763 - INFO - Orden recibida: start
+2025-05-20 09:32:55,763 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-20 09:32:55,764 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-20 09:32:55,764 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-20 09:32:55,764 - INFO - Iniciando todos los contenedores
+2025-05-20 09:32:55,764 - DEBUG - Arrancando servidor: s1
+2025-05-20 09:32:55,764 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-20 09:32:56,068 - INFO - Contenedor iniciado: s1
+2025-05-20 09:32:56,122 - INFO - Reiniciando app en s1
+2025-05-20 09:32:57,341 - DEBUG - Arrancando servidor: s2
+2025-05-20 09:32:57,342 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-20 09:32:57,620 - INFO - Contenedor iniciado: s2
+2025-05-20 09:32:57,672 - INFO - Reiniciando app en s2
+2025-05-20 09:32:59,036 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-20 09:32:59,441 - INFO - Contenedor iniciado: cl
+2025-05-20 09:32:59,442 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-20 09:32:59,916 - INFO - Contenedor iniciado: lb
+2025-05-20 09:32:59,916 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-20 09:33:00,525 - INFO - Contenedor iniciado: db
+2025-05-20 09:33:00,525 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-20 09:33:00,529 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-20 09:33:00,535 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-20 09:33:00,537 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-20 09:33:00,544 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-20 09:33:00,552 - INFO - Consola del contenedor db abierta correctamente

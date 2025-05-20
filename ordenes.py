@@ -6,7 +6,7 @@ from utils.image import create_image, delete_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
 from utils.balanceador import change_netplan, setup_haproxy
-from utils.server_web import config_server
+from utils.server_web import config_server, start_app
 from utils.database import install_mongoDB
 from utils.validator import check_infrastructure_created, check_all_running
 
@@ -112,6 +112,14 @@ def start_all(n_servers):
         for i in range(n_servers):
             logger.debug(f"Arrancando servidor: {VM_NAMES['servidores'][i]}")
             start_container(name=VM_NAMES["servidores"][i])
+           # Si es servidor y no contenedor, usar lo de start_server 
+            # Comprobar si la app está instalada (existe el archivo)
+            result = subprocess.run(["lxc", "exec", VM_NAMES["servidores"][i], "--", "test", "-f", "/root/app/rest_server.js"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            if result.returncode == 0:
+                logger.info(f"Reiniciando app en {VM_NAMES['servidores'][i]}")
+                start_app(name=VM_NAMES["servidores"][i])
+            else:
+                logger.debug(f"No se encontró la app en {VM_NAMES['servidores'][i]}, no se reinicia.")
         start_container(name=VM_NAMES["cliente"])
         start_container(name=VM_NAMES["balanceador"])
         start_container(name=VM_NAMES["database"])

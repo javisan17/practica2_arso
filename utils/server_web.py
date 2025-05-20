@@ -61,3 +61,12 @@ def config_server(name):
 
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error al configurar el servidor {name}: {e}")
+
+
+def start_app(name):
+    """
+    Reinicia la app del servidor name
+    """
+
+    subprocess.run(["lxc", "exec", name, "--", "forever", "stopall"])
+    subprocess.run(["lxc", "exec", name, "--", "forever", "start", "app/rest_server.js"])

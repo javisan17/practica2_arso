@@ -81,3 +81,20 @@ def check_all_running():
         return False
 
     return True
+
+
+def container_exists(name):
+    """
+    Verifica si un contenedor con el nombre dado existe en LXC.
+    """
+
+    result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
+    return "not found" not in result.stderr.lower()
+
+
+def container_is_running(name):
+    """
+    Verifica si un contenedor está en estado RUNNING.
+    """
+    result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
+    return "Status: RUNNING" in result.stdout

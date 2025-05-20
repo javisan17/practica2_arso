@@ -2,13 +2,14 @@ import subprocess
 from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S
 from logger import setup_logger, get_logger
 from utils.containers import create_container, start_container, stop_container, delete_container, config_container
-from utils.image import create_image, delete_image
+from utils.image import create_image, delete_image, publish_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
-from utils.file import save_num_servers
+from utils.file import save_num_servers, load_num_servers
 from utils.balanceador import change_netplan
-from utils.server_web import config_server
+from utils.server_web import config_server, start_app
 from time import sleep
 from utils.file import load_num_servers
+from utils.validator import container_is_running, container_exists
 
 
 """
@@ -115,6 +116,7 @@ def start_server(name):
             logger.info(f"Servidor {name} ya está corriendo.")
         else:
             start_container(name=name)
+            start_app(name=name)
             logger.info(f"Servidor {name} corriendo correctamente.")
     except Exception as e:
         logger.critical(f"Error crítico al arrancar servidor {name}: {e}", exc_info=True)
@@ -154,10 +156,11 @@ def enlarge():
     Añade un servidor a la red y lo configura. NO SE SI COMPLETARLA
     """
 
-    #DA ERRORES POR LO DEL START STOP EN EL CONFIGURE 
-    logger.info("Buscando servidor libre para añadir...")
+    # logger.info("Buscando servidor libre para añadir...")
 
     try:
+        logger.info("Ampliando infraestructura con un nuevo servidor...")
+
         # for i in range(MAX_SERVERS):
         #     name = VM_NAMES["servidores"][i]
         #     logger.debug(f"Verificando si existe el contenedor {name}")
@@ -177,19 +180,43 @@ def enlarge():
                 # return
 
 
-        create_server()
-        name = VM_NAMES["servidores"][load_num_servers()]
-        start_container(name=name)
-        sleep(5)
-        config_server(name=name)
+        # create_server()
+        # name = VM_NAMES["servidores"][load_num_servers()]
+        # start_container(name=name)
+        # sleep(5)
+        # config_server(name=name)
 
        #NUEVO por imagen
-
-    #    subprocess.run(["lxc", "publish", "s1", "--", "alias", "servidor"], check=True)
-    #    create_server(image="servidor")
-    #    name = VM_NAMES["servidores"][load_num_servers()]
-    #    start_server(name=name)
+        # publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+        # create_server(image="servidor")
+        # num=load_num_servers()
+        # name=VM_NAMES["servidores"][num]
+        # start_server(name=name)
+        # config_server(name=name)
 
 
     except Exception as e:
         logger.critical(f"Error crítico al añadir el servidor: {e}", exc_info=True)
+
+
+def configure_server(name):
+    """
+    Hace comprobaciones y configura el contenedor name como servidor
+    """
+
+    #Comprobar que existe ese contenedor
+    if not container_exists():
+        logger.error("Primero debes hacer un create_server. La infraestructura no está creada correctamente.")
+        print("Error: Primero debes hacer un create_server.")
+        return
+
+    #Comprobar que el contenedor está en estado RUNNING
+    if not container_is_running():
+        logger.error("Ese contenedor deben estar en estado RUNNING.")
+        print("Error: Antes debes hacer un start_server")
+        return
+
+    logger.info("Iniciando configuración del servidor")
+    config_server(name=name)
+
+    logger.info("")
