@@ -6,14 +6,18 @@ Igual es mejor instalar una vez y hacer una nueva imagen y crear a partir de ah�
 el configure tarda en hacerse 1000 años (5 minutos por lo menos) PREGUNTAR SI SE PUEDE CREAR Y HACER A PARTIR DE LA IMAGEN (+RAPIDO Y EFICIENTE)
 PARECE ALGO DIFICIL
 
-
-hay que cambiar la linea del archivo rest_server.js de los s1, s2... a la ip indicada 134.3.0.20
+SERVIDORES (por si insertamos nuestra BBDD P4)
+hay que cambiar la linea del archivo rest_server.js de los s1, s2... a la ip indicada 134.3.0.20 CREO QUE YA ESTÁ BIEN
 hacer un forever stopall y un forever start rest_app.js cada vez que se para el servidor para reiniciar tambien la app (linea 115 opcionales.py) CREO QUE ESTA BIEN YA
 
+BALANCEADOR (JAVI lo está haciendo) (CREO QUE YA ESTÁ COMPLETADO) (comprobar)
 balanceador da problemas. debe aparecer la db e ir cambiando entre servidores
 cambiar haproxy segun los servidores que existan (si solo hay s1 no deben estar todos puestos)
 balanceador en dos funciones.
 cambiar haproxy en configure_server, delete_server...
 
-
+ORDENES OPCIONALES
 ns si quitar enlarge y decir que hemos decidido hacerlo asi
+
+REMOTO
+Hacer entero

@@ -5,7 +5,7 @@ from utils.containers import create_container, start_container, stop_container, 
 from utils.image import create_image, delete_image, publish_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers, load_num_servers
-from utils.balanceador import change_netplan
+from utils.balanceador import change_netplan, setup_haproxy
 from utils.server_web import config_server, start_app
 from time import sleep
 from utils.file import load_num_servers
@@ -85,6 +85,8 @@ def delete_last_server():
                 logger.info(f"Eliminando servidor: {name}")
                 delete_container(name=name)
                 logger.info(f"Servidor {name} eliminado correctamente.")
+                logger.info("Reconfigurando el balanceador")
+                setup_haproxy()
                 return
 
         logger.warning("No hay servidores s2 a s5 creados. No se puede eliminar ninguno. El servidor s1 siempre debe estar disponible.")
@@ -218,5 +220,7 @@ def configure_server(name):
 
     logger.info("Iniciando configuración del servidor")
     config_server(name=name)
+    logger.info("Reconfigurando el balanceador")
+    setup_haproxy()
 
     logger.info("")

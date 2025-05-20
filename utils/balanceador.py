@@ -83,9 +83,9 @@ def change_netplan(name):
         logger.error(f"Error cambiando la configuración de red en {name}: {e}")
 
 
-def setup_haproxy():
+def install_haproxy():
     """
-    Configura el balanceador del sistema (Haproxy) y escribe el archivo haproxy.cfg con las IPs de los servidores
+    Configura el balanceador instalando el haproxy
     """
 
     logger.info("Instalando haproxy en el balanceador")
@@ -96,7 +96,14 @@ def setup_haproxy():
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error en instalación de haproxy: {e}")
 
-    # Construir dinámicamente las entradas del backend según servidores existentes
+
+def setup_haproxy():
+    """
+    Configura el balanceador del sistema escribiendo el archivo haproxy.cfg con las IPs de los servidores
+    """
+
+
+    #Construir dinámicamente las entradas del backend según servidores existentes
     backend_servers = ""
     for i in range(MAX_SERVERS):
         name = VM_NAMES["servidores"][i]
@@ -168,7 +175,7 @@ def setup_haproxy():
 
         #Reiniciar el servicio del balanceador
         logger.debug("Iniciando servicio de haproxy")
-        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "service", "haproxy", "start"], check=True)
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "service", "haproxy", "restart"], check=True)
         logger.info("Haproxy instalado y configurado correctamente.")
 
     except subprocess.CalledProcessError as e:

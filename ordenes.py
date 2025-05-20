@@ -5,7 +5,7 @@ from utils.containers import create_container, start_container, stop_container, 
 from utils.image import create_image, delete_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
-from utils.balanceador import change_netplan, setup_haproxy
+from utils.balanceador import change_netplan, setup_haproxy, install_haproxy
 from utils.server_web import config_server, start_app
 from utils.database import install_mongoDB
 from utils.validator import check_infrastructure_created, check_all_running
@@ -235,6 +235,7 @@ def configure_all(n_servers):
     #Instalar y configurar el haproxy para la repartición de carga BALANCEADOR
     try:
         logger.info(f"Configurando balanceador {VM_NAMES['balanceador']}")
+        install_haproxy()
         setup_haproxy()
         logger.info("Balanceador configurado correctamente.")
     except subprocess.CalledProcessError as e:
