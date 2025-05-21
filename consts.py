@@ -2,7 +2,7 @@
 CONSTS
 """
 
-VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server', 'configure', 'enlarge', 'configure_server']
+VALID_ORDERS=['create', 'start', 'list', 'delete', 'stop', 'create_server', 'delete_last_server', 'start_server', 'stop_server', 'configure', 'enlarge', 'configure_server', 'configure_remote']
 NUM_SERVERS_FILE="static/files/num_serves.txt"
 DEFAULT_SERVERS=2
 MIN_SERVERS=1
@@ -16,7 +16,8 @@ VM_NAMES={
     "cliente": "cl",
     "balanceador": "lb",
     "servidores": ["s1", "s2", "s3", "s4", "s5"],
-    "database": "db"
+    "database": "db",
+    "remote_db": "remote:db"
 }
 
 BRIDGES={
@@ -67,3 +68,8 @@ STATIC_FILES = os.path.join(PROJECT_ROOT, "static", "files")
 # Archivos importantes
 APP_WEB_FILE = os.path.join(STATIC_FILES, "app.tar.gz")
 NODE_JS_FILE = os.path.join(STATIC_FILES, "install.sh")
+
+
+#Remoto
+PASSWORD="mypass"
+PROXY="myproxy"

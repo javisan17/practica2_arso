@@ -108,7 +108,7 @@ def setup_haproxy():
     for i in range(MAX_SERVERS):
         name = VM_NAMES["servidores"][i]
         result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
-        if "not found" not in result.stderr:
+        if "not found" not in result.stderr and "Status: RUNNING" in result.stdout:
             backend_servers += f"        server webserver{i+1} {IP_S[name]}:{PUERTO_S}\n"
 
     if not backend_servers:

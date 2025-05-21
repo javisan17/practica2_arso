@@ -10,6 +10,7 @@ from utils.server_web import config_server, start_app
 from time import sleep
 from utils.file import load_num_servers
 from utils.validator import container_is_running, container_exists
+from utils.database_remote import get_ip_local, get_ip_remote, deploy_remote_db
 
 
 """
@@ -146,6 +147,7 @@ def stop_server(name):
         #Verificar si está corriendo
         if "Status: RUNNING" in result.stdout:
             stop_container(name)
+            setup_haproxy()
             logger.info(f"Servidor {name} detenido correctamente.")
         else:
             logger.info(f"Servidor {name} ya estaba detenido.")
@@ -224,3 +226,14 @@ def configure_server(name):
     setup_haproxy()
 
     logger.info("")
+
+
+def configure_remote():
+    """
+    Despliega la db remotamente
+    """
+
+    ip_local = get_ip_local()
+    ip_remote= get_ip_remote()
+
+    deploy_remote_db(ip_local=ip_local, ip_remote=ip_remote)
