@@ -70,3 +70,27 @@ def start_app(name):
 
     subprocess.run(["lxc", "exec", name, "--", "forever", "stopall"])
     subprocess.run(["lxc", "exec", name, "--", "forever", "start", "app/rest_server.js"])
+
+
+
+def change_ip_files(name, ip):
+    """
+    Cambia la IP hardcodeada en los archivos de configuración de la app dentro del contenedor.
+    Sustituye la IP antigua por la nueva en los archivos:
+    - /app/rest_server.js
+    - /app/md-seed-config.js
+    """
+
+    try:
+        logger.info(f"Cambiando IP en archivos de configuración dentro del contenedor {name} a {ip}...")
+        
+        #Reemplazar IP en rest_server.js
+        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s/^await mongoose.connect('mongodb://134.3.0.20/bio_bbdd',{{ useNewUrlParser: true, useUnifiedTopology: true }})$/await mongoose.connect('mongodb:/{ip}//bio_bbdd',{{ useNewUrlParser: true, useUnifiedTopology: true }})", "/app/rest_server.js"], check=True)
+        
+        #Reemplazar IP en md-seed-config.js
+        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s/^const mongoURL = process.env.MONGO_URL || 'mongodb://134.3.0.20:27017/bio_bbdd';$/const mongoURL = process.env.MONGO_URL || 'mongodb://{ip}:27017/bio_bbdd';", "/app/md-seed-config.js"], check=True)
+
+        logger.info("IP cambiada correctamente en los archivos de configuración.")
+
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Error al cambiar la IP en los archivos del contenedor {name}: {e}", exc_info=True)

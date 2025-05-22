@@ -1,6 +1,7 @@
 import subprocess
 from consts import IMAGE_DEFAULT
 from logger import setup_logger, get_logger
+from utils.containers import stop_container
 
 
 """
@@ -53,19 +54,25 @@ def publish_image(contenedor, alias):
     """
     Publicar una imagen de un contenedor
     """
+
     try:
-        logger.info(f"Parando contenedor {contenedor} antes de publicar")
-        subprocess.run(["lxc", "stop", contenedor], check=True)
+        logger.debug(f"Comprobando estado de {contenedor}...")
+        result = subprocess.run(["lxc", "info", contenedor], capture_output=True, text=True, check=True)
+        
+        if "Status: RUNNING" in result.stdout:
+            logger.info(f"Contenedor {contenedor} está en ejecución. Parando...")
+            stop_container(name=contenedor)
+        else:
+            logger.info(f"Contenedor {contenedor} ya está detenido.")
 
         logger.debug(f"Eliminando imagen previa con alias '{alias}' si existe")
         subprocess.run(["lxc", "image", "delete", alias], check=False)
 
         logger.info(f"Publicando imagen del contenedor {contenedor} con alias '{alias}'...")
-        subprocess.run(["lxc", "publish", contenedor, "--", "alias", alias], check=True)
+        subprocess.run(["lxc", "publish", contenedor, "--alias", alias], check=True)
 
         logger.info("Imagen publicada correctamente.")
 
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error al publicar imagen del contenedor {contenedor}: {e}", exc_info=True)
-        raise
 

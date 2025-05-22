@@ -96,5 +96,6 @@ def container_is_running(name):
     """
     Verifica si un contenedor está en estado RUNNING.
     """
+    
     result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
     return "Status: RUNNING" in result.stdout

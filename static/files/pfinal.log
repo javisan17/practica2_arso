@@ -6804,3 +6804,298 @@ NameError: name 'setup_haproxy' is not defined
 2025-05-22 11:15:22,255 - INFO - Base de datos copiada al equipo remoto
 2025-05-22 11:15:22,255 - INFO - Configurando proxy para acceso a MongoDB
 2025-05-22 11:15:22,361 - INFO - Base de datos remota desplegada correctamente
+2025-05-22 17:04:51,292 - INFO - Orden recibida: list
+2025-05-22 17:04:51,292 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:04:51,292 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:04:51,292 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:04:51,293 - INFO - Listando contenedores
+2025-05-22 17:04:51,328 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-22 17:05:18,222 - INFO - Orden recibida: configure_remote
+2025-05-22 17:05:18,222 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:05:18,222 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:05:18,222 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:05:18,222 - ERROR - Falta el nombre del equipo en el que desplegar la base de datos en remoto
+2025-05-22 17:05:24,856 - INFO - Orden recibida: configure_remote
+2025-05-22 17:05:24,856 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:05:24,856 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:05:24,856 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:05:24,856 - INFO - Desplegando base de datos remota en el equipo db
+2025-05-22 17:05:24,871 - ERROR - No se pudo obtener la IP remota: [Errno -5] No address associated with hostname
+2025-05-22 17:05:24,872 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:05:24,970 - ERROR - Error durante el despliegue de la BBDD remota: Command '['ssh', 'None', 'lxc config set core.https_address None:8443']' returned non-zero exit status 255.
+2025-05-22 17:05:32,940 - INFO - Orden recibida: configure_remote
+2025-05-22 17:05:32,940 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:05:32,941 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:05:32,941 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:05:32,941 - INFO - Desplegando base de datos remota en el equipo l022
+2025-05-22 17:05:32,943 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es → IP: 138.4.31.22
+2025-05-22 17:05:32,943 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:06:24,790 - INFO - Configurando bridge remoto
+2025-05-22 17:06:25,834 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 17:09:22,186 - INFO - Orden recibida: list
+2025-05-22 17:09:22,186 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:09:22,187 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:09:22,187 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:09:22,187 - INFO - Listando contenedores
+2025-05-22 17:09:22,226 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-22 17:09:27,476 - INFO - Orden recibida: enlarge
+2025-05-22 17:09:27,476 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:09:27,476 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:09:27,476 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 17:09:27,476 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-22 17:09:27,476 - INFO - Parando contenedor s1 antes de publicar
+2025-05-22 17:09:31,678 - DEBUG - Eliminando imagen previa con alias 'servidor' si existe
+2025-05-22 17:09:31,692 - INFO - Publicando imagen del contenedor s1 con alias 'servidor'...
+2025-05-22 17:11:35,253 - INFO - Imagen publicada correctamente.
+2025-05-22 17:11:35,255 - INFO - Buscando servidor libre para crear...
+2025-05-22 17:11:35,255 - DEBUG - Verificando si existe el contenedor s1
+2025-05-22 17:11:35,302 - DEBUG - Verificando si existe el contenedor s2
+2025-05-22 17:11:35,319 - DEBUG - Verificando si existe el contenedor s3
+2025-05-22 17:11:35,330 - INFO - Creando nuevo servidor disponible: s3
+2025-05-22 17:11:35,330 - DEBUG - Intentando crear el contenedor s3
+2025-05-22 17:11:57,034 - INFO - Contenedor s3 creado con éxito.
+2025-05-22 17:11:57,034 - DEBUG - Conectando s3 al bridge lxdbr0 usando eth0
+2025-05-22 17:11:57,115 - INFO - Conectado s3 al bridge lxdbr0 por eth0
+2025-05-22 17:11:57,115 - DEBUG - Configurando red para s3: iface=eth0, ip=134.3.0.13
+2025-05-22 17:11:57,162 - INFO - Contenedor s3 conectado a eth0 con IP 134.3.0.13
+2025-05-22 17:11:57,163 - INFO - Servidor s3 creado correctamente con IP 134.3.0.13 
+2025-05-22 17:11:57,163 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:11:57,164 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 17:11:57,164 - INFO - Solicitado arrancar servidor: s2
+2025-05-22 17:11:57,185 - INFO - Servidor s2 ya está corriendo.
+2025-05-22 17:12:00,186 - INFO - Iniciando configuración del servidor web s2
+2025-05-22 17:12:00,186 - DEBUG - Actualizando paquetes en s2
+2025-05-22 17:12:05,627 - DEBUG - Instalando Apache en s2
+2025-05-22 17:12:06,941 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-22 17:12:07,079 - DEBUG - Transfiriendo aplicación web
+2025-05-22 17:12:07,105 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-22 17:12:07,386 - DEBUG - Ejecutando instalación Node.js
+2025-05-22 17:12:53,690 - DEBUG - Reiniciando servidor
+2025-05-22 17:12:58,404 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-22 17:12:59,366 - INFO - Servidor web s2 configurado con éxito.
+2025-05-22 17:12:59,366 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-22 17:12:59,368 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 17:12:59,368 - INFO - Nuevo número de servidores: 2
+2025-05-22 17:20:53,821 - INFO - Orden recibida: delete_last_server
+2025-05-22 17:20:53,822 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:20:53,822 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:20:53,822 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:20:53,822 - INFO - Buscando último servidor para eliminar...
+2025-05-22 17:20:53,860 - INFO - Eliminando servidor: s3
+2025-05-22 17:20:53,860 - DEBUG - Eliminando contenedor s3
+2025-05-22 17:20:55,610 - INFO - Contenedor eliminado: s3
+2025-05-22 17:20:55,610 - INFO - Servidor s3 eliminado correctamente.
+2025-05-22 17:20:55,610 - INFO - Reconfigurando el balanceador
+2025-05-22 17:20:55,697 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-22 17:20:55,697 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-22 17:20:55,741 - DEBUG - Validando archivo haproxy.cfg
+2025-05-22 17:20:55,921 - DEBUG - Iniciando servicio de haproxy
+2025-05-22 17:20:56,162 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-22 17:20:56,162 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-22 17:20:56,165 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 17:20:56,165 - INFO - Nuevo número de servidores: 2
+2025-05-22 17:21:28,786 - INFO - Orden recibida: enlarge
+2025-05-22 17:21:28,786 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:21:28,787 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-22 17:21:28,787 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-22 17:21:28,787 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-22 17:21:28,787 - INFO - Parando contenedor s1 antes de publicar
+2025-05-22 17:21:28,802 - CRITICAL - Error al publicar imagen del contenedor s1: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 59, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-22 17:21:28,809 - CRITICAL - Error crítico al añadir el servidor: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/ordenes_opcionales.py", line 194, in enlarge
+    publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 59, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-22 17:21:28,810 - DEBUG - Intentando guardar el número de servidores: 3
+2025-05-22 17:21:28,812 - INFO - Número de servidores 3 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 17:21:28,812 - INFO - Nuevo número de servidores: 3
+2025-05-22 17:24:21,852 - INFO - Orden recibida: enlarge
+2025-05-22 17:24:21,852 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:24:21,852 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-22 17:24:21,853 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-22 17:24:21,853 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-22 17:24:21,853 - INFO - Parando contenedor s1 antes de publicar
+2025-05-22 17:24:21,885 - CRITICAL - Error al publicar imagen del contenedor s1: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/javier.sanmayoral/arso/p2/practica2_arso/utils/image.py", line 59, in publish_image
+    subprocess.run(["lxc", "stop", contenedor], check=True)
+  File "/usr/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['lxc', 'stop', 's1']' returned non-zero exit status 1.
+2025-05-22 17:24:21,892 - INFO - Buscando servidor libre para crear...
+2025-05-22 17:24:21,892 - DEBUG - Verificando si existe el contenedor s1
+2025-05-22 17:24:21,927 - DEBUG - Verificando si existe el contenedor s2
+2025-05-22 17:24:21,944 - DEBUG - Verificando si existe el contenedor s3
+2025-05-22 17:24:21,956 - INFO - Creando nuevo servidor disponible: s3
+2025-05-22 17:24:21,957 - DEBUG - Intentando crear el contenedor s3
+2025-05-22 17:24:43,553 - INFO - Contenedor s3 creado con éxito.
+2025-05-22 17:24:43,553 - DEBUG - Conectando s3 al bridge lxdbr0 usando eth0
+2025-05-22 17:24:43,712 - INFO - Conectado s3 al bridge lxdbr0 por eth0
+2025-05-22 17:24:43,713 - DEBUG - Configurando red para s3: iface=eth0, ip=134.3.0.13
+2025-05-22 17:24:43,806 - INFO - Contenedor s3 conectado a eth0 con IP 134.3.0.13
+2025-05-22 17:24:43,806 - INFO - Servidor s3 creado correctamente con IP 134.3.0.13 
+2025-05-22 17:24:43,806 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:24:43,806 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-22 17:24:43,807 - INFO - Solicitado arrancar servidor: s3
+2025-05-22 17:24:43,821 - DEBUG - Iniciando verificación de estado del contenedor s3
+2025-05-22 17:24:44,423 - INFO - Contenedor iniciado: s3
+2025-05-22 17:24:45,927 - INFO - Servidor s3 corriendo correctamente.
+2025-05-22 17:24:46,017 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-22 17:24:46,017 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-22 17:24:46,106 - DEBUG - Validando archivo haproxy.cfg
+2025-05-22 17:24:46,157 - DEBUG - Iniciando servicio de haproxy
+2025-05-22 17:24:46,266 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-22 17:24:46,266 - DEBUG - Intentando guardar el número de servidores: 3
+2025-05-22 17:24:46,267 - INFO - Número de servidores 3 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 17:24:46,267 - INFO - Nuevo número de servidores: 3
+2025-05-22 17:25:08,214 - INFO - Orden recibida: list
+2025-05-22 17:25:08,214 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:25:08,215 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:25:08,215 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:25:08,215 - INFO - Listando contenedores
+2025-05-22 17:25:08,257 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-22 17:25:16,195 - INFO - Orden recibida: start_server
+2025-05-22 17:25:16,195 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:25:16,195 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:25:16,195 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:25:16,195 - INFO - Iniciando servidor individual: s1
+2025-05-22 17:25:16,195 - INFO - Solicitado arrancar servidor: s1
+2025-05-22 17:25:16,210 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-22 17:25:16,567 - INFO - Contenedor iniciado: s1
+2025-05-22 17:25:17,829 - INFO - Servidor s1 corriendo correctamente.
+2025-05-22 17:25:17,830 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-22 17:25:55,523 - INFO - Orden recibida: list
+2025-05-22 17:25:55,524 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:25:55,524 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:25:55,524 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:25:55,524 - INFO - Listando contenedores
+2025-05-22 17:25:55,556 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-22 17:28:33,811 - INFO - Orden recibida: stop_server
+2025-05-22 17:28:33,812 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:28:33,812 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:28:33,812 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:28:33,812 - INFO - Deteniendo servidor individual: s1
+2025-05-22 17:28:33,812 - INFO - Solicitado parar servidor: s1
+2025-05-22 17:28:33,830 - DEBUG - Verificando estado antes de detener s1
+2025-05-22 17:28:38,166 - INFO - Contenedor parado: s1
+2025-05-22 17:28:38,252 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-22 17:28:38,252 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-22 17:28:38,295 - DEBUG - Validando archivo haproxy.cfg
+2025-05-22 17:28:38,360 - DEBUG - Iniciando servicio de haproxy
+2025-05-22 17:28:38,502 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-22 17:28:38,502 - INFO - Servidor s1 detenido correctamente.
+2025-05-22 17:28:42,136 - INFO - Orden recibida: enlarge
+2025-05-22 17:28:42,136 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:28:42,136 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:28:42,136 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-22 17:28:42,136 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-22 17:28:42,137 - DEBUG - Comprobando estado de s1...
+2025-05-22 17:28:42,152 - INFO - Contenedor s1 ya está detenido.
+2025-05-22 17:28:42,152 - DEBUG - Eliminando imagen previa con alias 'servidor' si existe
+2025-05-22 17:28:42,302 - INFO - Publicando imagen del contenedor s1 con alias 'servidor'...
+2025-05-22 17:31:00,621 - INFO - Imagen publicada correctamente.
+2025-05-22 17:31:00,621 - INFO - Buscando servidor libre para crear...
+2025-05-22 17:31:00,622 - DEBUG - Verificando si existe el contenedor s1
+2025-05-22 17:31:00,642 - DEBUG - Verificando si existe el contenedor s2
+2025-05-22 17:31:00,660 - DEBUG - Verificando si existe el contenedor s3
+2025-05-22 17:31:00,679 - DEBUG - Verificando si existe el contenedor s4
+2025-05-22 17:31:00,693 - INFO - Creando nuevo servidor disponible: s4
+2025-05-22 17:31:00,693 - DEBUG - Intentando crear el contenedor s4
+2025-05-22 17:31:22,996 - INFO - Contenedor s4 creado con éxito.
+2025-05-22 17:31:22,996 - DEBUG - Conectando s4 al bridge lxdbr0 usando eth0
+2025-05-22 17:31:23,223 - INFO - Conectado s4 al bridge lxdbr0 por eth0
+2025-05-22 17:31:23,223 - DEBUG - Configurando red para s4: iface=eth0, ip=134.3.0.14
+2025-05-22 17:31:23,432 - INFO - Contenedor s4 conectado a eth0 con IP 134.3.0.14
+2025-05-22 17:31:23,432 - INFO - Servidor s4 creado correctamente con IP 134.3.0.14 
+2025-05-22 17:31:23,432 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:31:23,433 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-22 17:31:23,433 - INFO - Solicitado arrancar servidor: s4
+2025-05-22 17:31:23,482 - DEBUG - Iniciando verificación de estado del contenedor s4
+2025-05-22 17:31:23,968 - INFO - Contenedor iniciado: s4
+2025-05-22 17:31:25,290 - INFO - Servidor s4 corriendo correctamente.
+2025-05-22 17:31:25,376 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-22 17:31:25,376 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-22 17:31:25,463 - DEBUG - Validando archivo haproxy.cfg
+2025-05-22 17:31:25,723 - DEBUG - Iniciando servicio de haproxy
+2025-05-22 17:31:25,852 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-22 17:31:25,853 - DEBUG - Intentando guardar el número de servidores: 4
+2025-05-22 17:31:25,854 - INFO - Número de servidores 4 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 17:31:25,854 - INFO - Nuevo número de servidores: 4
+2025-05-22 17:32:22,504 - INFO - Orden recibida: list
+2025-05-22 17:32:22,504 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:32:22,504 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:32:22,504 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:32:22,504 - INFO - Listando contenedores
+2025-05-22 17:32:22,529 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-22 17:32:29,182 - INFO - Orden recibida: start_server
+2025-05-22 17:32:29,182 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:32:29,182 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:32:29,182 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:32:29,183 - INFO - Iniciando servidor individual: s1
+2025-05-22 17:32:29,183 - INFO - Solicitado arrancar servidor: s1
+2025-05-22 17:32:29,197 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-22 17:32:29,529 - INFO - Contenedor iniciado: s1
+2025-05-22 17:32:31,253 - INFO - Servidor s1 corriendo correctamente.
+2025-05-22 17:32:31,254 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-22 17:34:21,569 - INFO - Orden recibida: configure_remote
+2025-05-22 17:34:21,569 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:34:21,570 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:34:21,570 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:34:21,570 - INFO - Desplegando base de datos remota en el equipo l022
+2025-05-22 17:34:21,572 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es → IP: 138.4.31.22
+2025-05-22 17:34:21,572 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:34:39,233 - INFO - Configurando bridge remoto
+2025-05-22 17:34:39,486 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 17:43:01,471 - INFO - Orden recibida: configure_remote
+2025-05-22 17:43:01,471 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:43:01,472 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:43:01,472 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:43:01,472 - INFO - Desplegando base de datos remota en el equipo l022
+2025-05-22 17:43:01,472 - INFO - IP local detectada: 138.4.31.23
+2025-05-22 17:43:01,474 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es cuya IP: 138.4.31.22
+2025-05-22 17:43:01,474 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:43:08,345 - INFO - Conectando al LXD remoto desde local
+2025-05-22 17:43:08,620 - INFO - Configurando bridge remoto
+2025-05-22 17:43:08,889 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 17:45:15,387 - INFO - Orden recibida: configure_remote
+2025-05-22 17:45:15,387 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:45:15,389 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:45:15,389 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:45:15,390 - INFO - Desplegando base de datos remota en el equipo l022
+2025-05-22 17:45:15,390 - INFO - IP local detectada: 138.4.31.23
+2025-05-22 17:45:15,392 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es cuya IP: 138.4.31.22
+2025-05-22 17:45:15,392 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:45:22,697 - INFO - Conectando al LXD remoto desde local
+2025-05-22 17:45:22,956 - INFO - Configurando bridge remoto
+2025-05-22 17:46:15,706 - INFO - Orden recibida: configure_remote
+2025-05-22 17:46:15,706 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:46:15,706 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:46:15,706 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:46:15,706 - INFO - Desplegando base de datos remota en el equipo l022
+2025-05-22 17:46:15,706 - INFO - IP local detectada: 138.4.31.23
+2025-05-22 17:46:15,708 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es cuya IP: 138.4.31.22
+2025-05-22 17:46:15,708 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 17:46:22,438 - INFO - Conectando al LXD remoto desde local
+2025-05-22 17:46:22,697 - INFO - Configurando bridge remoto
+2025-05-22 17:46:22,900 - INFO - El contenedor 'db' está en ejecución. Deteniéndolo...
+2025-05-22 17:46:22,900 - DEBUG - Verificando estado antes de detener db
+2025-05-22 17:46:39,431 - INFO - Contenedor parado: db
+2025-05-22 17:47:42,927 - INFO - Base de datos copiada al equipo remoto
+2025-05-22 17:47:42,927 - INFO - Configurando proxy para acceso a MongoDB
+2025-05-22 17:47:43,035 - INFO - Base de datos remota desplegada correctamente
+2025-05-22 17:51:03,590 - INFO - Orden recibida: list
+2025-05-22 17:51:03,590 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 17:51:03,591 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-22 17:51:03,591 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-22 17:51:03,591 - INFO - Listando contenedores
+2025-05-22 17:51:03,650 - DEBUG - Comando 'lxc list' ejecutado correctamente

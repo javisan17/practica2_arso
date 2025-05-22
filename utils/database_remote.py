@@ -4,6 +4,8 @@ from logger import setup_logger, get_logger
 from consts import VM_NAMES, PASSWORD, BRIDGES, BRIDGES_IPV4, PROXY, IP_DB, REMOTO
 from utils.database import install_mongoDB
 from utils.bridges import config_bridge
+from utils.containers import stop_container
+from utils.validator import container_is_running
 
 
 """
@@ -25,39 +27,36 @@ def get_ip_local():
     Obtener la IP fisica del computador local
     """
 
-    #Esta IP es la usada por defecto para salir hacia Internet, o conectarse a otros hosts
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
     try:
-        s.connect(("8.8.8.8", 80))  # No se hace conexión real, solo para saber interfaz
-        ip = s.getsockname()[0]
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            # IP usada por defecto para salir hacia Internet y conectarse a otros hosts
+            s.connect(("8.8.8.8", 80))
+            ip = s.getsockname()[0]
+            logger.info(f"IP local detectada: {ip}")
+            return ip
+    except Exception as e:
+        logger.error(f"No se pudo obtener la IP local: {e}")
+        return None
 
-    finally:
-        s.close()
-    
-    return ip
 
 
 def get_ip_remote(name):
     """
-    Obtener la IP fisica del computador remoto
+    Obtener la IP fisica del computador remoto. El parámetro name debe ser ej. l022
     """
 
     try:
-        #Primero obtenemos el nombre del ordenador remoto (ej:l178)
-        nombre_remoto = socket.gethostname()
-
-        #Lo añadimos al nombre de red (l178.lab.dit.upm.es)
+        #Se obtiene el nombre de red del ordenador remoto
         nombre_completo = f"{name}.lab.dit.upm.es"
-
-        #Obtenemos la ip con este comando
+        #Se obtiene su IP
         ip = socket.gethostbyname(nombre_completo)
-        logger.info(f"Nombre remoto detectado: {nombre_completo} → IP: {ip}")
+        logger.info(f"Nombre remoto detectado: {nombre_completo} cuya IP: {ip}")
         return ip
-
+    except socket.gaierror as e:
+        logger.error(f"No se pudo resolver el nombre {name}: {e}")
     except Exception as e:
-        logger.error(f"No se pudo obtener la IP remota: {e}")
-        return None
+        logger.error(f"Error al obtener la IP remota de {name}: {e}")
+    return None
 
 
 def deploy_remote_db(ip_local, ip_remote):
@@ -77,6 +76,7 @@ def deploy_remote_db(ip_local, ip_remote):
         subprocess.run([f"lxc", "config", "set", "core.https_address", f"{ip_local}:8443"], check=True)
         
         #Comprobar si ya existe un remote que se llame remoto, se podría hacer como una función y luego llamarla aquí
+        logger.info("Conectando al LXD remoto desde local")
         result = subprocess.run(["lxc", "remote", "list"], capture_output=True, text=True)
         if REMOTO in result.stdout:
             subprocess.run(["lxc", "remote", "remove", REMOTO], check=True)
@@ -101,7 +101,13 @@ def deploy_remote_db(ip_local, ip_remote):
         #Copiar el contenedor db al equipo remoto
         result = subprocess.run(["lxc", "list", f"{REMOTO}:{VM_NAMES['database']}"], capture_output=True, text=True)
         if VM_NAMES['database'] in result.stdout:
+            logger.info(f"El contenedor {VM_NAMES['database']} ya existe en remoto. No se copia.")
             return
+        if container_is_running(VM_NAMES["database"]):
+            logger.info(f"El contenedor '{VM_NAMES['database']}' está en ejecución. Deteniéndolo...")
+            stop_container(name=VM_NAMES['database'])
+        else:
+            logger.info(f"El contenedor '{VM_NAMES['database']}' ya está detenido.")
         subprocess.run(["lxc", "copy", VM_NAMES['database'], f"{REMOTO}:{VM_NAMES['database']}"], check=True)
         logger.info("Base de datos copiada al equipo remoto")
 
@@ -113,3 +119,5 @@ def deploy_remote_db(ip_local, ip_remote):
 
     except subprocess.CalledProcessError as e:
         logger.error(f"Error durante el despliegue de la BBDD remota: {e}")
+
+

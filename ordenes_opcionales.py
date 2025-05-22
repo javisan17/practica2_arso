@@ -191,13 +191,12 @@ def enlarge():
         # config_server(name=name)
 
        #NUEVO por imagen
-        # publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
-        # create_server(image="servidor")
-        # num=load_num_servers()
-        # name=VM_NAMES["servidores"][num]
-        # start_server(name=name)
-        # config_server(name=name)
-
+        publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
+        create_server(image="servidor")
+        num=load_num_servers()
+        name=VM_NAMES["servidores"][num]
+        start_server(name=name)
+        setup_haproxy()
 
     except Exception as e:
         logger.critical(f"Error crítico al añadir el servidor: {e}", exc_info=True)
@@ -225,7 +224,7 @@ def configure_server(name):
     logger.info("Reconfigurando el balanceador")
     setup_haproxy()
 
-    logger.info("")
+    logger.info(f"Servidor {name} configurado correctamente")
 
 
 def configure_remote(name):
@@ -235,5 +234,6 @@ def configure_remote(name):
 
     ip_local = get_ip_local()
     ip_remote= get_ip_remote(name=name)
-
     deploy_remote_db(ip_local=ip_local, ip_remote=ip_remote)
+
+    
