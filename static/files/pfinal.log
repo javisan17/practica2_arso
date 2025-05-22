@@ -6507,3 +6507,300 @@ NameError: name 'setup_haproxy' is not defined
 2025-05-21 17:51:36,159 - INFO - Nombre remoto detectado: l022.lab.dit.upm.es → IP: 127.0.1.1
 2025-05-21 17:51:36,159 - INFO - Configurando acceso remoto a LXD en ambos equipos
 2025-05-21 17:51:43,742 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'remote', 'add', 'remoto', '127.0.1.1:8443', '--password', 'mypass', '--accept-certificate']' returned non-zero exit status 1.
+2025-05-22 09:04:19,139 - INFO - Orden recibida: create
+2025-05-22 09:04:19,139 - INFO - Número de servidores especificado: 1
+2025-05-22 09:04:19,139 - INFO - Iniciando creación de infraestructura con 1 servidores
+2025-05-22 09:04:19,139 - DEBUG - Parámetro recibido n_servers=1
+2025-05-22 09:04:19,139 - DEBUG - Creando imagen base...
+2025-05-22 09:04:19,139 - DEBUG - Verificando si la imagen ya está importada...
+2025-05-22 09:04:20,477 - INFO - La imagen ubuntu2004 no está importada. Se procederá a importarla.
+2025-05-22 09:04:26,425 - INFO - Imagen ubuntu2004 importada con éxito.
+2025-05-22 09:04:26,426 - DEBUG - Configurando y creando bridges...
+2025-05-22 09:04:27,286 - INFO - 134.3.0.1/24 asignada correctamente al bridge: lxdbr0
+2025-05-22 09:04:30,663 - INFO - Bridge configurado correctamente: lxdbr0
+2025-05-22 09:04:30,663 - DEBUG - Creando bridge lxdbr1
+2025-05-22 09:04:32,275 - INFO - Bridge creado: lxdbr1
+2025-05-22 09:04:33,170 - INFO - 134.3.1.1/24 asignada correctamente al bridge: lxdbr1
+2025-05-22 09:04:36,603 - INFO - Bridge configurado correctamente: lxdbr1
+2025-05-22 09:04:36,603 - DEBUG - Creando contenedores de servidores...
+2025-05-22 09:04:36,603 - DEBUG - Intentando crear el contenedor s1
+2025-05-22 09:04:46,054 - INFO - Contenedor s1 creado con éxito.
+2025-05-22 09:04:46,054 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-22 09:04:46,102 - INFO - Conectado s1 al bridge lxdbr0 por eth0
+2025-05-22 09:04:46,102 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-22 09:04:46,130 - INFO - Contenedor s1 conectado a eth0 con IP 134.3.0.11
+2025-05-22 09:04:46,130 - DEBUG - Intentando guardar el número de servidores: 1
+2025-05-22 09:04:46,131 - INFO - Número de servidores 1 guardados correctamente en static/files/num_serves.txt.
+2025-05-22 09:04:46,131 - INFO - Número de servidores guardados correctamente
+2025-05-22 09:04:46,131 - DEBUG - Creando balanceador...
+2025-05-22 09:04:46,131 - DEBUG - Intentando crear el contenedor lb
+2025-05-22 09:04:55,849 - INFO - Contenedor lb creado con éxito.
+2025-05-22 09:04:55,849 - DEBUG - Conectando lb al bridge lxdbr0 usando eth0
+2025-05-22 09:04:55,919 - INFO - Conectado lb al bridge lxdbr0 por eth0
+2025-05-22 09:04:55,919 - DEBUG - Configurando red para lb: iface=eth0, ip=134.3.0.10
+2025-05-22 09:04:56,004 - INFO - Contenedor lb conectado a eth0 con IP 134.3.0.10
+2025-05-22 09:04:56,004 - DEBUG - Conectando lb al bridge lxdbr1 usando eth1
+2025-05-22 09:04:56,115 - INFO - Conectado lb al bridge lxdbr1 por eth1
+2025-05-22 09:04:56,116 - DEBUG - Configurando red para lb: iface=eth1, ip=134.3.1.10
+2025-05-22 09:04:56,170 - INFO - Contenedor lb conectado a eth1 con IP 134.3.1.10
+2025-05-22 09:04:56,170 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-22 09:04:56,847 - INFO - Contenedor iniciado: lb
+2025-05-22 09:04:56,847 - DEBUG - Iniciando cambio de netplan en lb
+2025-05-22 09:04:56,847 - DEBUG - Desactivando cloud-init en lb
+2025-05-22 09:04:56,898 - DEBUG - Creando copia de seguridad del archivo netplan original en lb
+2025-05-22 09:04:56,962 - DEBUG - Configurando interfaces eth0 y eth1 para balanceador lb
+2025-05-22 09:04:56,962 - DEBUG - Escribiendo nueva configuración de netplan en lb
+2025-05-22 09:04:57,005 - DEBUG - Reiniciando contenedor lb para aplicar cambios
+2025-05-22 09:05:01,886 - INFO - Configuración de red aplicada correctamente en el contenedor lb
+2025-05-22 09:05:01,886 - DEBUG - Verificando estado antes de detener lb
+2025-05-22 09:05:03,358 - INFO - Contenedor parado: lb
+2025-05-22 09:05:03,358 - INFO - Balanceador configurado correctamente
+2025-05-22 09:05:03,359 - DEBUG - Creando cliente...
+2025-05-22 09:05:03,359 - DEBUG - Intentando crear el contenedor cl
+2025-05-22 09:05:12,818 - INFO - Contenedor cl creado con éxito.
+2025-05-22 09:05:12,818 - DEBUG - Conectando cl al bridge lxdbr1 usando eth1
+2025-05-22 09:05:12,883 - INFO - Conectado cl al bridge lxdbr1 por eth1
+2025-05-22 09:05:12,883 - DEBUG - Configurando red para cl: iface=eth1, ip=134.3.1.11
+2025-05-22 09:05:12,959 - INFO - Contenedor cl conectado a eth1 con IP 134.3.1.11
+2025-05-22 09:05:12,960 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-22 09:05:13,543 - INFO - Contenedor iniciado: cl
+2025-05-22 09:05:13,543 - DEBUG - Iniciando cambio de netplan en cl
+2025-05-22 09:05:13,544 - DEBUG - Desactivando cloud-init en cl
+2025-05-22 09:05:13,601 - DEBUG - Creando copia de seguridad del archivo netplan original en cl
+2025-05-22 09:05:13,658 - DEBUG - Configurando interfaz eth1 para cliente cl
+2025-05-22 09:05:13,658 - DEBUG - Escribiendo nueva configuración de netplan en cl
+2025-05-22 09:05:14,041 - DEBUG - Reiniciando contenedor cl para aplicar cambios
+2025-05-22 09:05:18,490 - INFO - Configuración de red aplicada correctamente en el contenedor cl
+2025-05-22 09:05:18,491 - DEBUG - Verificando estado antes de detener cl
+2025-05-22 09:05:20,926 - INFO - Contenedor parado: cl
+2025-05-22 09:05:20,926 - INFO - Cliente configurado correctamente
+2025-05-22 09:05:20,926 - DEBUG - Intentando crear el contenedor db
+2025-05-22 09:05:30,426 - INFO - Contenedor db creado con éxito.
+2025-05-22 09:05:30,427 - DEBUG - Conectando db al bridge lxdbr0 usando eth0
+2025-05-22 09:05:30,479 - INFO - Conectado db al bridge lxdbr0 por eth0
+2025-05-22 09:05:30,479 - DEBUG - Configurando red para db: iface=eth0, ip=134.3.0.20
+2025-05-22 09:05:30,523 - INFO - Contenedor db conectado a eth0 con IP 134.3.0.20
+2025-05-22 09:05:30,524 - INFO - Infraestructura creada correctamente.
+2025-05-22 09:08:44,692 - INFO - Orden recibida: configure
+2025-05-22 09:08:44,692 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:08:44,693 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:08:44,693 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 09:08:44,693 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:08:44,694 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:08:44,718 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:08:44,719 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:08:44,743 - WARNING - El contenedor cl no está en estado RUNNING
+2025-05-22 09:08:44,744 - WARNING - El contenedor db no está en estado RUNNING
+2025-05-22 09:08:44,744 - WARNING - El contenedor lb no está en estado RUNNING
+2025-05-22 09:08:44,744 - WARNING - El contenedor s1 no está en estado RUNNING
+2025-05-22 09:08:44,744 - ERROR - Todos los contenedores deben estar en estado RUNNING.
+2025-05-22 09:08:53,945 - INFO - Orden recibida: start
+2025-05-22 09:08:53,945 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:08:53,945 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:08:53,945 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 09:08:53,945 - INFO - Iniciando todos los contenedores
+2025-05-22 09:08:53,946 - DEBUG - Arrancando servidor: s1
+2025-05-22 09:08:53,946 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-22 09:08:54,211 - INFO - Contenedor iniciado: s1
+2025-05-22 09:08:54,255 - DEBUG - No se encontró la app en s1, no se reinicia.
+2025-05-22 09:08:54,255 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-22 09:08:54,607 - INFO - Contenedor iniciado: cl
+2025-05-22 09:08:54,607 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-22 09:08:55,049 - INFO - Contenedor iniciado: lb
+2025-05-22 09:08:55,049 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-22 09:08:55,412 - INFO - Contenedor iniciado: db
+2025-05-22 09:08:55,412 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-22 09:08:55,418 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-22 09:08:55,429 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-22 09:08:55,436 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-22 09:08:55,446 - INFO - Consola del contenedor db abierta correctamente
+2025-05-22 09:09:24,411 - INFO - Orden recibida: configure
+2025-05-22 09:09:24,412 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:09:24,412 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:09:24,412 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 09:09:24,412 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:09:24,412 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:09:24,436 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:09:24,436 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:09:24,451 - INFO - Iniciando configuración de la infraestructura...
+2025-05-22 09:09:24,451 - INFO - Configurando base de datos MongoDB en: db
+2025-05-22 09:09:24,451 - INFO - Iniciando instalación de MongoDB en db
+2025-05-22 09:09:42,430 - DEBUG - Instalando MongoDB
+2025-05-22 09:10:12,255 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-22 09:10:12,296 - DEBUG - Reiniciando contenedor db
+2025-05-22 09:10:16,790 - INFO - MongoDB configurado con éxito en db
+2025-05-22 09:10:16,790 - INFO - Configuración de base de datos completada correctamente.
+2025-05-22 09:10:16,790 - INFO - Configurando servidor web s1
+2025-05-22 09:10:16,791 - INFO - Iniciando configuración del servidor web s1
+2025-05-22 09:10:16,791 - DEBUG - Actualizando paquetes en s1
+2025-05-22 09:10:54,840 - DEBUG - Instalando Apache en s1
+2025-05-22 09:11:23,143 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-22 09:11:23,236 - DEBUG - Transfiriendo aplicación web
+2025-05-22 09:11:23,253 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-22 09:11:23,317 - DEBUG - Ejecutando instalación Node.js
+2025-05-22 09:13:47,048 - DEBUG - Reiniciando servidor
+2025-05-22 09:13:51,587 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-22 09:13:52,318 - INFO - Servidor web s1 configurado con éxito.
+2025-05-22 09:13:52,318 - INFO - Configurando balanceador lb
+2025-05-22 09:13:52,318 - INFO - Instalando haproxy en el balanceador
+2025-05-22 09:14:15,787 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-22 09:14:15,787 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-22 09:14:15,886 - DEBUG - Validando archivo haproxy.cfg
+2025-05-22 09:14:15,953 - DEBUG - Iniciando servicio de haproxy
+2025-05-22 09:14:16,059 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-22 09:14:16,059 - INFO - Balanceador configurado correctamente.
+2025-05-22 09:18:03,503 - INFO - Orden recibida: configure_remote
+2025-05-22 09:18:03,503 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:18:03,504 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:18:03,504 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 09:18:03,520 - INFO - Nombre remoto detectado: l018.lab.dit.upm.es → IP: 127.0.1.1
+2025-05-22 09:18:03,520 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 09:18:44,437 - INFO - Configurando bridge remoto
+2025-05-22 09:18:44,546 - INFO - Creando contenedor remoto con MongoDB
+2025-05-22 09:18:44,561 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'exec', 'remote:db', '--', 'bash', '-c', "echo 'nameserver 8.8.8.8' > /etc/resolv.conf"]' returned non-zero exit status 1.
+2025-05-22 09:22:36,302 - INFO - Orden recibida: configure_remote
+2025-05-22 09:22:36,302 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 09:22:36,303 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 09:22:36,303 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 09:22:36,304 - INFO - Nombre remoto detectado: l018.lab.dit.upm.es → IP: 127.0.1.1
+2025-05-22 09:22:36,304 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 09:24:36,137 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'remote', 'add', 'remoto', '127.0.1.1:8443', '--password', 'mypass', '--accept-certificate']' returned non-zero exit status 1.
+2025-05-22 10:03:48,613 - INFO - Orden recibida: configure_remote
+2025-05-22 10:03:48,613 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:03:48,614 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:03:48,614 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:03:48,614 - ERROR - Falta el nombre del equipo en el que desplegar la base de datos en remoto
+2025-05-22 10:04:03,096 - INFO - Orden recibida: configure_remote
+2025-05-22 10:04:03,096 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:04:03,096 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:04:03,096 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:04:03,096 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:04:03,116 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:04:03,117 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:04:24,863 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'config', 'set', 'core.https_address', '138.4.31.18', ':8443']' returned non-zero exit status 1.
+2025-05-22 10:07:25,854 - INFO - Orden recibida: configure_remote
+2025-05-22 10:07:25,854 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:07:25,854 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:07:25,855 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:07:25,855 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:07:25,857 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:07:25,857 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:09:32,815 - INFO - Orden recibida: configure_remote
+2025-05-22 10:09:32,815 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:09:32,815 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:09:32,816 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:09:32,816 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:09:32,818 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:09:32,818 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:10:26,371 - INFO - Orden recibida: configure_remote
+2025-05-22 10:10:26,371 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:10:26,372 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:10:26,372 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:10:26,372 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:10:26,374 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:10:26,374 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:10:36,432 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'remote', 'add', 'remoto', '138.4.31.19:8443', '--password', 'mypass', '--accept-certificate']' returned non-zero exit status 1.
+2025-05-22 10:17:38,773 - INFO - Orden recibida: configure_remote
+2025-05-22 10:17:38,773 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:17:38,774 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:17:38,774 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:17:38,774 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:17:38,776 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:17:38,776 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:19:38,067 - INFO - Orden recibida: configure_remote
+2025-05-22 10:19:38,067 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:19:38,067 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:19:38,067 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:19:38,068 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:19:38,070 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:19:38,070 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:26:45,261 - INFO - Orden recibida: configure_remote
+2025-05-22 10:26:45,261 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:26:45,262 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:26:45,262 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:26:45,262 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:26:45,264 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:26:45,265 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:26:54,781 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'remote', 'delete', 'remoto']' returned non-zero exit status 1.
+2025-05-22 10:27:46,231 - INFO - Orden recibida: configure_remote
+2025-05-22 10:27:46,231 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:27:46,231 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:27:46,231 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:27:46,232 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:27:46,233 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:27:46,234 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:27:54,580 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'remote', 'add', 'remoto', '138.4.31.19:8443', '--password', 'mypass', '--accept-certificate']' returned non-zero exit status 1.
+2025-05-22 10:28:32,797 - INFO - Orden recibida: configure_remote
+2025-05-22 10:28:32,797 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:28:32,797 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:28:32,798 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:28:32,798 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:28:32,800 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:28:32,800 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:28:58,877 - INFO - Configurando bridge remoto
+2025-05-22 10:28:59,857 - INFO - Creando contenedor remoto con MongoDB
+2025-05-22 10:28:59,890 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'exec', 'remote:db', '--', 'bash', '-c', "echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf"]' returned non-zero exit status 1.
+2025-05-22 10:55:08,892 - INFO - Orden recibida: configure_remote
+2025-05-22 10:55:08,892 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:55:08,893 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:55:08,893 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:55:08,893 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:55:08,895 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:55:08,895 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:55:27,108 - INFO - Configurando bridge remoto
+2025-05-22 10:57:55,557 - INFO - Orden recibida: configure_remote
+2025-05-22 10:57:55,557 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:57:55,558 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:57:55,558 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:57:55,558 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:57:55,560 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:57:55,560 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:58:06,036 - INFO - Configurando bridge remoto
+2025-05-22 10:58:06,316 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 10:59:30,660 - INFO - Orden recibida: configure_remote
+2025-05-22 10:59:30,660 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 10:59:30,660 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 10:59:30,660 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 10:59:30,660 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 10:59:30,663 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 10:59:30,663 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 10:59:47,706 - INFO - Configurando bridge remoto
+2025-05-22 11:00:33,461 - INFO - Base de datos copiada al equipo remoto
+2025-05-22 11:00:33,462 - INFO - Configurando proxy para acceso a MongoDB
+2025-05-22 11:01:38,985 - INFO - Orden recibida: configure_remote
+2025-05-22 11:01:38,985 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 11:01:38,985 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 11:01:38,985 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 11:01:38,986 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 11:01:38,988 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 11:01:38,988 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 11:01:50,286 - INFO - Configurando bridge remoto
+2025-05-22 11:01:50,560 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 11:09:18,808 - INFO - Orden recibida: configure_remote
+2025-05-22 11:09:18,808 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 11:09:18,809 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 11:09:18,809 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 11:09:18,809 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 11:09:18,812 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 11:09:18,812 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 11:09:29,466 - INFO - Configurando bridge remoto
+2025-05-22 11:09:29,848 - ERROR - Error durante el despliegue de la BBDD remota: Command '['lxc', 'copy', 'db', 'remoto:db']' returned non-zero exit status 1.
+2025-05-22 11:11:28,207 - INFO - Orden recibida: configure_remote
+2025-05-22 11:11:28,207 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 11:11:28,208 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 11:11:28,208 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 11:11:28,208 - INFO - Desplegando base de datos remota en el equipo l019
+2025-05-22 11:11:28,210 - INFO - Nombre remoto detectado: l019.lab.dit.upm.es → IP: 138.4.31.19
+2025-05-22 11:11:28,210 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 11:11:36,468 - INFO - Configurando bridge remoto
+2025-05-22 11:14:20,905 - INFO - Orden recibida: configure_remote
+2025-05-22 11:14:20,905 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-22 11:14:20,906 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-22 11:14:20,906 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-22 11:14:20,906 - INFO - Desplegando base de datos remota en el equipo l020
+2025-05-22 11:14:20,908 - INFO - Nombre remoto detectado: l020.lab.dit.upm.es → IP: 138.4.31.20
+2025-05-22 11:14:20,908 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-22 11:14:35,530 - INFO - Configurando bridge remoto
+2025-05-22 11:15:22,255 - INFO - Base de datos copiada al equipo remoto
+2025-05-22 11:15:22,255 - INFO - Configurando proxy para acceso a MongoDB
+2025-05-22 11:15:22,361 - INFO - Base de datos remota desplegada correctamente

@@ -15,3 +15,4 @@ ns si quitar enlarge y decir que hemos decidido hacerlo asi
 
 REMOTO
 Linea 3 de comandos guión P2
+Guardar "remoto" como constante en consts

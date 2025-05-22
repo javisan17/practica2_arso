@@ -25,6 +25,7 @@ BRIDGES={
     "LAN2": "lxdbr1"
 }
 
+
 #IPs
 
 BRIDGES_IPV4={
@@ -71,5 +72,6 @@ NODE_JS_FILE = os.path.join(STATIC_FILES, "install.sh")
 
 
 #Remoto
+REMOTO="remoto"
 PASSWORD="mypass"
 PROXY="myproxy"

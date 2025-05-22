@@ -146,7 +146,13 @@ def main():
             configure_server(name=name)
 
         case "configure_remote":
-            configure_remote()
+            if len(sys.argv) < 3:
+                logger.error("Falta el nombre del equipo en el que desplegar la base de datos en remoto")
+                print("Uso: python3 pfinal1.py configure_remote <nombre_equipo>")
+                sys.exit(1)
+            name=sys.argv[2]
+            logger.info(f"Desplegando base de datos remota en el equipo {name}")
+            configure_remote(name=name)
         
 
 if __name__ == "__main__":

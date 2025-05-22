@@ -228,12 +228,12 @@ def configure_server(name):
     logger.info("")
 
 
-def configure_remote():
+def configure_remote(name):
     """
     Despliega la db remotamente
     """
 
     ip_local = get_ip_local()
-    ip_remote= get_ip_remote()
+    ip_remote= get_ip_remote(name=name)
 
     deploy_remote_db(ip_local=ip_local, ip_remote=ip_remote)
