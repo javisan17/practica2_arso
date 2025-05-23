@@ -6,7 +6,7 @@ from utils.image import create_image, delete_image, publish_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers, load_num_servers
 from utils.balanceador import change_netplan, setup_haproxy
-from utils.server_web import config_server, start_app
+from utils.server_web import config_server, start_app, change_ip_files
 from time import sleep
 from utils.file import load_num_servers
 from utils.validator import container_is_running, container_exists
@@ -196,6 +196,7 @@ def enlarge():
         num=load_num_servers()
         name=VM_NAMES["servidores"][num]
         start_server(name=name)
+        start_server(name=VM_NAMES["servidores"][0])
         setup_haproxy()
 
     except Exception as e:
@@ -231,9 +232,17 @@ def configure_remote(name):
     """
     Despliega la db remotamente
     """
-
+    #Obtener ip del equipo local y del remoto  
     ip_local = get_ip_local()
     ip_remote= get_ip_remote(name=name)
+    
+    #Desplegar la base de datos en remoto 
     deploy_remote_db(ip_local=ip_local, ip_remote=ip_remote)
+
+    #Modificar la ip en los ficheros Node 
+    num_serves=load_num_servers()
+    for i in range(num_serves):
+        name=VM_NAMES['servidores'][i]
+        change_ip_files(name=name,ip=ip_remote)
 
     
