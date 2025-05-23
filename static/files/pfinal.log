@@ -7630,3 +7630,869 @@ subprocess.CalledProcessError: Command '['lxc', 'exec', 's4', '--', 'sed', '-i',
 2025-05-23 15:16:10,587 - DEBUG - Intentando guardar el número de servidores: 5
 2025-05-23 15:16:10,589 - INFO - Número de servidores 5 guardados correctamente en static/files/num_serves.txt.
 2025-05-23 15:16:10,589 - INFO - Nuevo número de servidores: 5
+2025-05-23 17:53:35,642 - INFO - Orden recibida: create
+2025-05-23 17:53:35,642 - INFO - No se especificó número de servidores. Se usará el valor por defecto: 2
+2025-05-23 17:53:35,643 - INFO - Iniciando creación de infraestructura con 2 servidores
+2025-05-23 17:53:35,643 - DEBUG - Parámetro recibido n_servers=2
+2025-05-23 17:53:35,643 - DEBUG - Creando imagen base...
+2025-05-23 17:53:35,643 - DEBUG - Verificando si la imagen ya está importada...
+2025-05-23 17:53:35,662 - INFO - La imagen ubuntu2004 no está importada. Se procederá a importarla.
+2025-05-23 17:53:41,341 - INFO - Imagen ubuntu2004 importada con éxito.
+2025-05-23 17:53:41,341 - DEBUG - Configurando y creando bridges...
+2025-05-23 17:53:42,184 - INFO - 134.3.0.1/24 asignada correctamente al bridge: lxdbr0
+2025-05-23 17:53:45,538 - INFO - Bridge configurado correctamente: lxdbr0
+2025-05-23 17:53:45,538 - DEBUG - Creando bridge lxdbr1
+2025-05-23 17:53:47,157 - INFO - Bridge creado: lxdbr1
+2025-05-23 17:53:48,014 - INFO - 134.3.1.1/24 asignada correctamente al bridge: lxdbr1
+2025-05-23 17:53:51,441 - INFO - Bridge configurado correctamente: lxdbr1
+2025-05-23 17:53:51,441 - DEBUG - Creando contenedores de servidores...
+2025-05-23 17:53:51,441 - DEBUG - Intentando crear el contenedor s1
+2025-05-23 17:54:01,135 - INFO - Contenedor s1 creado con éxito.
+2025-05-23 17:54:01,135 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-23 17:54:01,185 - INFO - Conectado s1 al bridge lxdbr0 por eth0
+2025-05-23 17:54:01,185 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-23 17:54:01,217 - INFO - Contenedor s1 conectado a eth0 con IP 134.3.0.11
+2025-05-23 17:54:01,217 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 17:54:11,093 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 17:54:11,093 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 17:54:11,166 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 17:54:11,166 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 17:54:11,198 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 17:54:11,198 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-23 17:54:11,204 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 17:54:11,205 - INFO - Número de servidores guardados correctamente
+2025-05-23 17:54:11,205 - DEBUG - Creando balanceador...
+2025-05-23 17:54:11,205 - DEBUG - Intentando crear el contenedor lb
+2025-05-23 17:54:21,091 - INFO - Contenedor lb creado con éxito.
+2025-05-23 17:54:21,091 - DEBUG - Conectando lb al bridge lxdbr0 usando eth0
+2025-05-23 17:54:21,138 - INFO - Conectado lb al bridge lxdbr0 por eth0
+2025-05-23 17:54:21,138 - DEBUG - Configurando red para lb: iface=eth0, ip=134.3.0.10
+2025-05-23 17:54:21,167 - INFO - Contenedor lb conectado a eth0 con IP 134.3.0.10
+2025-05-23 17:54:21,167 - DEBUG - Conectando lb al bridge lxdbr1 usando eth1
+2025-05-23 17:54:21,211 - INFO - Conectado lb al bridge lxdbr1 por eth1
+2025-05-23 17:54:21,211 - DEBUG - Configurando red para lb: iface=eth1, ip=134.3.1.10
+2025-05-23 17:54:21,239 - INFO - Contenedor lb conectado a eth1 con IP 134.3.1.10
+2025-05-23 17:54:21,239 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 17:54:21,651 - INFO - Contenedor iniciado: lb
+2025-05-23 17:54:21,651 - DEBUG - Iniciando cambio de netplan en lb
+2025-05-23 17:54:21,651 - DEBUG - Desactivando cloud-init en lb
+2025-05-23 17:54:21,785 - DEBUG - Creando copia de seguridad del archivo netplan original en lb
+2025-05-23 17:54:21,846 - DEBUG - Configurando interfaces eth0 y eth1 para balanceador lb
+2025-05-23 17:54:21,846 - DEBUG - Escribiendo nueva configuración de netplan en lb
+2025-05-23 17:54:21,892 - DEBUG - Reiniciando contenedor lb para aplicar cambios
+2025-05-23 17:54:23,860 - INFO - Configuración de red aplicada correctamente en el contenedor lb
+2025-05-23 17:54:23,860 - DEBUG - Verificando estado antes de detener lb
+2025-05-23 17:54:25,267 - INFO - Contenedor parado: lb
+2025-05-23 17:54:25,267 - INFO - Balanceador configurado correctamente
+2025-05-23 17:54:25,267 - DEBUG - Creando cliente...
+2025-05-23 17:54:25,267 - DEBUG - Intentando crear el contenedor cl
+2025-05-23 17:54:34,844 - INFO - Contenedor cl creado con éxito.
+2025-05-23 17:54:34,844 - DEBUG - Conectando cl al bridge lxdbr1 usando eth1
+2025-05-23 17:54:34,909 - INFO - Conectado cl al bridge lxdbr1 por eth1
+2025-05-23 17:54:34,910 - DEBUG - Configurando red para cl: iface=eth1, ip=134.3.1.11
+2025-05-23 17:54:34,994 - INFO - Contenedor cl conectado a eth1 con IP 134.3.1.11
+2025-05-23 17:54:34,994 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 17:54:35,514 - INFO - Contenedor iniciado: cl
+2025-05-23 17:54:35,514 - DEBUG - Iniciando cambio de netplan en cl
+2025-05-23 17:54:35,514 - DEBUG - Desactivando cloud-init en cl
+2025-05-23 17:54:35,577 - DEBUG - Creando copia de seguridad del archivo netplan original en cl
+2025-05-23 17:54:35,633 - DEBUG - Configurando interfaz eth1 para cliente cl
+2025-05-23 17:54:35,633 - DEBUG - Escribiendo nueva configuración de netplan en cl
+2025-05-23 17:54:36,147 - DEBUG - Reiniciando contenedor cl para aplicar cambios
+2025-05-23 17:54:40,743 - INFO - Configuración de red aplicada correctamente en el contenedor cl
+2025-05-23 17:54:40,743 - DEBUG - Verificando estado antes de detener cl
+2025-05-23 17:54:42,175 - INFO - Contenedor parado: cl
+2025-05-23 17:54:42,175 - INFO - Cliente configurado correctamente
+2025-05-23 17:54:42,175 - DEBUG - Intentando crear el contenedor db
+2025-05-23 17:54:51,965 - INFO - Contenedor db creado con éxito.
+2025-05-23 17:54:51,965 - DEBUG - Conectando db al bridge lxdbr0 usando eth0
+2025-05-23 17:54:52,028 - INFO - Conectado db al bridge lxdbr0 por eth0
+2025-05-23 17:54:52,028 - DEBUG - Configurando red para db: iface=eth0, ip=134.3.0.20
+2025-05-23 17:54:52,069 - INFO - Contenedor db conectado a eth0 con IP 134.3.0.20
+2025-05-23 17:54:52,070 - INFO - Infraestructura creada correctamente.
+2025-05-23 17:55:25,333 - INFO - Orden recibida: configure
+2025-05-23 17:55:25,333 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:25,334 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:25,334 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 17:55:25,334 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:25,334 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:25,349 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:25,349 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:25,361 - WARNING - El contenedor cl no está en estado RUNNING
+2025-05-23 17:55:25,361 - WARNING - El contenedor db no está en estado RUNNING
+2025-05-23 17:55:25,361 - WARNING - El contenedor lb no está en estado RUNNING
+2025-05-23 17:55:25,361 - WARNING - El contenedor s1 no está en estado RUNNING
+2025-05-23 17:55:25,361 - WARNING - El contenedor s2 no está en estado RUNNING
+2025-05-23 17:55:25,362 - ERROR - Todos los contenedores deben estar en estado RUNNING.
+2025-05-23 17:55:33,047 - INFO - Orden recibida: start
+2025-05-23 17:55:33,047 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:33,047 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:33,047 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 17:55:33,047 - INFO - Iniciando todos los contenedores
+2025-05-23 17:55:33,047 - DEBUG - Arrancando servidor: s1
+2025-05-23 17:55:33,047 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 17:55:33,334 - INFO - Contenedor iniciado: s1
+2025-05-23 17:55:33,377 - DEBUG - No se encontró la app en s1, no se reinicia.
+2025-05-23 17:55:33,377 - DEBUG - Arrancando servidor: s2
+2025-05-23 17:55:33,377 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 17:55:33,629 - INFO - Contenedor iniciado: s2
+2025-05-23 17:55:33,688 - DEBUG - No se encontró la app en s2, no se reinicia.
+2025-05-23 17:55:33,688 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 17:55:34,115 - INFO - Contenedor iniciado: cl
+2025-05-23 17:55:34,115 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 17:55:34,591 - INFO - Contenedor iniciado: lb
+2025-05-23 17:55:34,591 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-23 17:55:35,140 - INFO - Contenedor iniciado: db
+2025-05-23 17:55:35,141 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-23 17:55:35,146 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-23 17:55:35,150 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-23 17:55:35,164 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-23 17:55:35,176 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-23 17:55:35,187 - INFO - Consola del contenedor db abierta correctamente
+2025-05-23 17:55:39,172 - INFO - Orden recibida: configure
+2025-05-23 17:55:39,172 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:39,172 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:39,173 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 17:55:39,173 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:39,173 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:39,219 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 17:55:39,220 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 17:55:39,279 - INFO - Iniciando configuración de la infraestructura...
+2025-05-23 17:55:39,279 - INFO - Configurando base de datos MongoDB en: db
+2025-05-23 17:55:39,279 - INFO - Iniciando instalación de MongoDB en db
+2025-05-23 17:55:59,780 - DEBUG - Instalando MongoDB
+2025-05-23 17:57:07,055 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-23 17:57:07,210 - DEBUG - Reiniciando contenedor db
+2025-05-23 17:58:38,795 - INFO - MongoDB configurado con éxito en db
+2025-05-23 17:58:38,795 - INFO - Configuración de base de datos completada correctamente.
+2025-05-23 17:58:38,796 - INFO - Configurando servidor web s1
+2025-05-23 17:58:38,796 - INFO - Iniciando configuración del servidor web s1
+2025-05-23 17:58:38,796 - DEBUG - Actualizando paquetes en s1
+2025-05-23 17:58:55,461 - DEBUG - Instalando Apache en s1
+2025-05-23 17:59:23,128 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 17:59:23,381 - DEBUG - Transfiriendo aplicación web
+2025-05-23 17:59:23,397 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 17:59:23,544 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:01:49,336 - DEBUG - Reiniciando servidor
+2025-05-23 18:02:03,631 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:02:04,541 - INFO - Servidor web s1 configurado con éxito.
+2025-05-23 18:02:04,541 - INFO - Configurando servidor web s2
+2025-05-23 18:02:04,541 - INFO - Iniciando configuración del servidor web s2
+2025-05-23 18:02:04,541 - DEBUG - Actualizando paquetes en s2
+2025-05-23 18:02:26,923 - DEBUG - Instalando Apache en s2
+2025-05-23 18:03:02,789 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 18:03:02,922 - DEBUG - Transfiriendo aplicación web
+2025-05-23 18:03:02,946 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 18:03:03,185 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:05:34,629 - DEBUG - Reiniciando servidor
+2025-05-23 18:05:39,156 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:05:39,776 - INFO - Servidor web s2 configurado con éxito.
+2025-05-23 18:05:39,776 - INFO - Configurando balanceador lb
+2025-05-23 18:05:39,776 - INFO - Instalando haproxy en el balanceador
+2025-05-23 18:09:46,268 - CRITICAL - Error en instalación de haproxy: Command '['lxc', 'exec', 'lb', '--', 'apt', 'install', '-y', 'haproxy']' returned non-zero exit status 130.
+2025-05-23 18:09:46,400 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 18:09:46,400 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 18:09:51,523 - INFO - Orden recibida: list
+2025-05-23 18:09:51,523 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:09:51,524 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:09:51,524 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:09:51,524 - INFO - Listando contenedores
+2025-05-23 18:09:51,559 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-23 18:09:57,719 - INFO - Orden recibida: delete
+2025-05-23 18:09:57,719 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:09:57,719 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:09:57,719 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:09:57,719 - INFO - Eliminando toda la infraestructura
+2025-05-23 18:09:57,719 - DEBUG - Intentando eliminar la imagen ubuntu2004...
+2025-05-23 18:09:57,839 - INFO - Imagen local eliminada con éxito.
+2025-05-23 18:09:57,840 - DEBUG - Eliminando contenedor s1
+2025-05-23 18:10:00,915 - INFO - Contenedor eliminado: s1
+2025-05-23 18:10:00,916 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:10:05,044 - INFO - Contenedor eliminado: s2
+2025-05-23 18:10:05,045 - DEBUG - Eliminando contenedor cl
+2025-05-23 18:10:07,187 - INFO - Contenedor eliminado: cl
+2025-05-23 18:10:07,187 - DEBUG - Eliminando contenedor lb
+2025-05-23 18:10:09,561 - INFO - Contenedor eliminado: lb
+2025-05-23 18:10:09,561 - DEBUG - Eliminando contenedor db
+2025-05-23 18:10:11,620 - INFO - Contenedor eliminado: db
+2025-05-23 18:10:11,620 - DEBUG - Contenedores eliminados correctamente
+2025-05-23 18:10:11,620 - DEBUG - Intentando eliminar el bridge lxdbr1
+2025-05-23 18:10:11,991 - INFO - Bridge eliminado: lxdbr1
+2025-05-23 18:10:11,991 - INFO - Eliminación completada.
+2025-05-23 18:10:16,701 - INFO - Orden recibida: configure
+2025-05-23 18:10:16,701 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:10:16,701 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:10:16,701 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:10:16,701 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:10:16,701 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:10:16,713 - WARNING - Contenedor faltante: cl
+2025-05-23 18:10:16,713 - ERROR - Primero debes hacer un create. La infraestructura no está creada correctamente.
+2025-05-23 18:10:20,196 - INFO - Orden recibida: create
+2025-05-23 18:10:20,197 - INFO - No se especificó número de servidores. Se usará el valor por defecto: 2
+2025-05-23 18:10:20,197 - INFO - Iniciando creación de infraestructura con 2 servidores
+2025-05-23 18:10:20,197 - DEBUG - Parámetro recibido n_servers=2
+2025-05-23 18:10:20,197 - DEBUG - Creando imagen base...
+2025-05-23 18:10:20,197 - DEBUG - Verificando si la imagen ya está importada...
+2025-05-23 18:10:20,209 - INFO - La imagen ubuntu2004 no está importada. Se procederá a importarla.
+2025-05-23 18:10:25,549 - INFO - Imagen ubuntu2004 importada con éxito.
+2025-05-23 18:10:25,549 - DEBUG - Configurando y creando bridges...
+2025-05-23 18:10:25,577 - INFO - 134.3.0.1/24 asignada correctamente al bridge: lxdbr0
+2025-05-23 18:10:25,643 - INFO - Bridge configurado correctamente: lxdbr0
+2025-05-23 18:10:25,643 - DEBUG - Creando bridge lxdbr1
+2025-05-23 18:10:27,265 - INFO - Bridge creado: lxdbr1
+2025-05-23 18:10:28,127 - INFO - 134.3.1.1/24 asignada correctamente al bridge: lxdbr1
+2025-05-23 18:10:31,448 - INFO - Bridge configurado correctamente: lxdbr1
+2025-05-23 18:10:31,448 - DEBUG - Creando contenedores de servidores...
+2025-05-23 18:10:31,448 - DEBUG - Intentando crear el contenedor s1
+2025-05-23 18:10:41,179 - INFO - Contenedor s1 creado con éxito.
+2025-05-23 18:10:41,179 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-23 18:10:41,228 - INFO - Conectado s1 al bridge lxdbr0 por eth0
+2025-05-23 18:10:41,228 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-23 18:10:41,262 - INFO - Contenedor s1 conectado a eth0 con IP 134.3.0.11
+2025-05-23 18:10:41,262 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 18:10:51,295 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 18:10:51,295 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 18:10:51,362 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 18:10:51,362 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 18:10:51,394 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 18:10:51,394 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-23 18:10:51,395 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 18:10:51,396 - INFO - Número de servidores guardados correctamente
+2025-05-23 18:10:51,396 - DEBUG - Creando balanceador...
+2025-05-23 18:10:51,396 - DEBUG - Intentando crear el contenedor lb
+2025-05-23 18:11:01,790 - INFO - Contenedor lb creado con éxito.
+2025-05-23 18:11:01,790 - DEBUG - Conectando lb al bridge lxdbr0 usando eth0
+2025-05-23 18:11:02,373 - INFO - Conectado lb al bridge lxdbr0 por eth0
+2025-05-23 18:11:02,373 - DEBUG - Configurando red para lb: iface=eth0, ip=134.3.0.10
+2025-05-23 18:11:02,517 - INFO - Contenedor lb conectado a eth0 con IP 134.3.0.10
+2025-05-23 18:11:02,517 - DEBUG - Conectando lb al bridge lxdbr1 usando eth1
+2025-05-23 18:11:02,757 - INFO - Conectado lb al bridge lxdbr1 por eth1
+2025-05-23 18:11:02,757 - DEBUG - Configurando red para lb: iface=eth1, ip=134.3.1.10
+2025-05-23 18:11:02,934 - INFO - Contenedor lb conectado a eth1 con IP 134.3.1.10
+2025-05-23 18:11:02,934 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 18:11:03,473 - INFO - Contenedor iniciado: lb
+2025-05-23 18:11:03,474 - DEBUG - Iniciando cambio de netplan en lb
+2025-05-23 18:11:03,474 - DEBUG - Desactivando cloud-init en lb
+2025-05-23 18:11:03,613 - DEBUG - Creando copia de seguridad del archivo netplan original en lb
+2025-05-23 18:11:03,644 - DEBUG - Configurando interfaces eth0 y eth1 para balanceador lb
+2025-05-23 18:11:03,644 - DEBUG - Escribiendo nueva configuración de netplan en lb
+2025-05-23 18:11:03,714 - DEBUG - Reiniciando contenedor lb para aplicar cambios
+2025-05-23 18:11:08,058 - INFO - Configuración de red aplicada correctamente en el contenedor lb
+2025-05-23 18:11:08,058 - DEBUG - Verificando estado antes de detener lb
+2025-05-23 18:11:09,438 - INFO - Contenedor parado: lb
+2025-05-23 18:11:09,438 - INFO - Balanceador configurado correctamente
+2025-05-23 18:11:09,438 - DEBUG - Creando cliente...
+2025-05-23 18:11:09,438 - DEBUG - Intentando crear el contenedor cl
+2025-05-23 18:11:19,010 - INFO - Contenedor cl creado con éxito.
+2025-05-23 18:11:19,011 - DEBUG - Conectando cl al bridge lxdbr1 usando eth1
+2025-05-23 18:11:19,471 - INFO - Conectado cl al bridge lxdbr1 por eth1
+2025-05-23 18:11:19,471 - DEBUG - Configurando red para cl: iface=eth1, ip=134.3.1.11
+2025-05-23 18:11:19,667 - INFO - Contenedor cl conectado a eth1 con IP 134.3.1.11
+2025-05-23 18:11:19,667 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 18:11:20,401 - INFO - Contenedor iniciado: cl
+2025-05-23 18:11:20,401 - DEBUG - Iniciando cambio de netplan en cl
+2025-05-23 18:11:20,401 - DEBUG - Desactivando cloud-init en cl
+2025-05-23 18:11:20,450 - DEBUG - Creando copia de seguridad del archivo netplan original en cl
+2025-05-23 18:11:20,545 - DEBUG - Configurando interfaz eth1 para cliente cl
+2025-05-23 18:11:20,546 - DEBUG - Escribiendo nueva configuración de netplan en cl
+2025-05-23 18:11:20,584 - DEBUG - Reiniciando contenedor cl para aplicar cambios
+2025-05-23 18:11:25,074 - INFO - Configuración de red aplicada correctamente en el contenedor cl
+2025-05-23 18:11:25,074 - DEBUG - Verificando estado antes de detener cl
+2025-05-23 18:11:26,533 - INFO - Contenedor parado: cl
+2025-05-23 18:11:26,533 - INFO - Cliente configurado correctamente
+2025-05-23 18:11:26,533 - DEBUG - Intentando crear el contenedor db
+2025-05-23 18:11:38,574 - INFO - Contenedor db creado con éxito.
+2025-05-23 18:11:38,576 - DEBUG - Conectando db al bridge lxdbr0 usando eth0
+2025-05-23 18:11:38,806 - INFO - Conectado db al bridge lxdbr0 por eth0
+2025-05-23 18:11:38,807 - DEBUG - Configurando red para db: iface=eth0, ip=134.3.0.20
+2025-05-23 18:11:38,954 - INFO - Contenedor db conectado a eth0 con IP 134.3.0.20
+2025-05-23 18:11:38,954 - INFO - Infraestructura creada correctamente.
+2025-05-23 18:12:02,604 - INFO - Orden recibida: start
+2025-05-23 18:12:02,604 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:12:02,604 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:12:02,604 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:12:02,604 - INFO - Iniciando todos los contenedores
+2025-05-23 18:12:02,604 - DEBUG - Arrancando servidor: s1
+2025-05-23 18:12:02,604 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:12:03,101 - INFO - Contenedor iniciado: s1
+2025-05-23 18:12:03,313 - DEBUG - No se encontró la app en s1, no se reinicia.
+2025-05-23 18:12:03,314 - DEBUG - Arrancando servidor: s2
+2025-05-23 18:12:03,314 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 18:12:03,614 - INFO - Contenedor iniciado: s2
+2025-05-23 18:12:03,649 - DEBUG - No se encontró la app en s2, no se reinicia.
+2025-05-23 18:12:03,650 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 18:12:04,024 - INFO - Contenedor iniciado: cl
+2025-05-23 18:12:04,024 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 18:12:04,458 - INFO - Contenedor iniciado: lb
+2025-05-23 18:12:04,459 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-23 18:12:04,819 - INFO - Contenedor iniciado: db
+2025-05-23 18:12:04,819 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-23 18:12:04,822 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-23 18:12:04,825 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-23 18:12:04,831 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-23 18:12:04,834 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-23 18:12:04,839 - INFO - Consola del contenedor db abierta correctamente
+2025-05-23 18:12:08,314 - INFO - Orden recibida: configure
+2025-05-23 18:12:08,314 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:12:08,315 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:12:08,315 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:12:08,315 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:12:08,315 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:12:08,380 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:12:08,380 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:12:08,402 - INFO - Iniciando configuración de la infraestructura...
+2025-05-23 18:12:08,402 - INFO - Configurando base de datos MongoDB en: db
+2025-05-23 18:12:08,402 - INFO - Iniciando instalación de MongoDB en db
+2025-05-23 18:12:26,497 - DEBUG - Instalando MongoDB
+2025-05-23 18:13:29,128 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-23 18:13:29,202 - DEBUG - Reiniciando contenedor db
+2025-05-23 18:13:33,635 - INFO - MongoDB configurado con éxito en db
+2025-05-23 18:13:33,635 - INFO - Configuración de base de datos completada correctamente.
+2025-05-23 18:13:33,635 - INFO - Configurando servidor web base s1
+2025-05-23 18:13:33,635 - INFO - Iniciando configuración del servidor web s1
+2025-05-23 18:13:33,635 - DEBUG - Actualizando paquetes en s1
+2025-05-23 18:13:48,968 - DEBUG - Instalando Apache en s1
+2025-05-23 18:14:15,634 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 18:14:15,734 - DEBUG - Transfiriendo aplicación web
+2025-05-23 18:14:15,747 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 18:14:16,136 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:16:31,507 - DEBUG - Reiniciando servidor
+2025-05-23 18:16:36,037 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:16:36,702 - INFO - Servidor web s1 configurado con éxito.
+2025-05-23 18:16:36,703 - INFO - Creando imagen a partir del servidor base configurado
+2025-05-23 18:16:36,703 - DEBUG - Comprobando estado de s1...
+2025-05-23 18:16:36,723 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 18:16:36,723 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 18:16:38,249 - INFO - Contenedor parado: s1
+2025-05-23 18:16:38,249 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 18:16:38,261 - INFO - La imagen servidor no existe. Se procederá crearla.
+2025-05-23 18:16:38,261 - INFO - Publicando imagen del contenedor s1 con alias 'servidor'...
+2025-05-23 18:18:31,281 - INFO - Imagen publicada correctamente.
+2025-05-23 18:18:31,282 - INFO - Creando s2 desde imagen
+2025-05-23 18:18:31,282 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:18:33,027 - INFO - Contenedor eliminado: s2
+2025-05-23 18:18:33,027 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 18:18:54,583 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 18:18:54,583 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 18:18:54,718 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 18:18:54,718 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 18:18:54,809 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 18:18:54,835 - INFO - Configurando balanceador lb
+2025-05-23 18:18:54,836 - INFO - Instalando haproxy en el balanceador
+2025-05-23 18:19:24,977 - WARNING - No hay servidores configurados para HAProxy. Abortando configuración.
+2025-05-23 18:19:24,977 - INFO - Balanceador configurado correctamente.
+2025-05-23 18:21:20,338 - INFO - Orden recibida: configure
+2025-05-23 18:21:20,338 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:21:20,339 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:21:20,339 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:21:20,339 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:21:20,339 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:21:20,390 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:21:20,391 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:21:20,417 - WARNING - El contenedor s1 no está en estado RUNNING
+2025-05-23 18:21:20,417 - WARNING - El contenedor s2 no está en estado RUNNING
+2025-05-23 18:21:20,417 - ERROR - Todos los contenedores deben estar en estado RUNNING.
+2025-05-23 18:23:35,774 - INFO - Orden recibida: start
+2025-05-23 18:23:35,774 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:23:35,775 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:23:35,775 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:23:35,775 - INFO - Iniciando todos los contenedores
+2025-05-23 18:23:35,775 - DEBUG - Arrancando servidor: s1
+2025-05-23 18:23:35,775 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:23:36,348 - INFO - Contenedor iniciado: s1
+2025-05-23 18:23:36,520 - INFO - Reiniciando app en s1
+2025-05-23 18:23:38,332 - DEBUG - Arrancando servidor: s2
+2025-05-23 18:23:38,332 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 18:23:38,726 - INFO - Contenedor iniciado: s2
+2025-05-23 18:23:39,107 - INFO - Reiniciando app en s2
+2025-05-23 18:23:46,914 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 18:23:46,935 - INFO - Contenedor cl ya está en ejecución.
+2025-05-23 18:23:46,935 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 18:23:46,958 - INFO - Contenedor lb ya está en ejecución.
+2025-05-23 18:23:46,958 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-23 18:23:46,981 - INFO - Contenedor db ya está en ejecución.
+2025-05-23 18:23:46,981 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-23 18:23:46,991 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-23 18:23:46,996 - INFO - Consola del contenedor s2 abierta correctamente
+2025-05-23 18:23:47,001 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-23 18:23:47,023 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-23 18:23:47,033 - INFO - Consola del contenedor db abierta correctamente
+2025-05-23 18:23:57,563 - INFO - Orden recibida: configure
+2025-05-23 18:23:57,563 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:23:57,563 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:23:57,563 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:23:57,563 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:23:57,564 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:23:57,588 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:23:57,588 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:23:57,605 - INFO - Iniciando configuración de la infraestructura...
+2025-05-23 18:23:57,606 - INFO - Configurando base de datos MongoDB en: db
+2025-05-23 18:23:57,606 - INFO - Iniciando instalación de MongoDB en db
+2025-05-23 18:24:03,569 - DEBUG - Instalando MongoDB
+2025-05-23 18:24:05,636 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-23 18:24:05,688 - DEBUG - Reiniciando contenedor db
+2025-05-23 18:24:10,580 - INFO - MongoDB configurado con éxito en db
+2025-05-23 18:24:10,580 - INFO - Configuración de base de datos completada correctamente.
+2025-05-23 18:24:10,580 - INFO - Configurando servidor web base s1
+2025-05-23 18:24:10,580 - INFO - Iniciando configuración del servidor web s1
+2025-05-23 18:24:10,580 - DEBUG - Actualizando paquetes en s1
+2025-05-23 18:24:14,852 - DEBUG - Instalando Apache en s1
+2025-05-23 18:24:15,641 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 18:24:15,772 - DEBUG - Transfiriendo aplicación web
+2025-05-23 18:24:15,811 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 18:24:16,030 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:24:54,230 - DEBUG - Reiniciando servidor
+2025-05-23 18:24:58,737 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:24:59,367 - INFO - Servidor web s1 configurado con éxito.
+2025-05-23 18:24:59,368 - INFO - Creando imagen a partir del servidor base configurado
+2025-05-23 18:24:59,368 - DEBUG - Comprobando estado de s1...
+2025-05-23 18:24:59,405 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 18:24:59,405 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 18:25:00,924 - INFO - Contenedor parado: s1
+2025-05-23 18:25:00,925 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 18:25:00,936 - INFO - La imagen servidor ya está disponible.
+2025-05-23 18:25:00,936 - INFO - Creando s2 desde imagen
+2025-05-23 18:25:00,936 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:25:03,458 - INFO - Contenedor eliminado: s2
+2025-05-23 18:25:03,458 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 18:25:24,639 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 18:25:24,639 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 18:25:24,796 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 18:25:24,797 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 18:25:24,895 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 18:25:24,895 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 18:25:25,277 - INFO - Contenedor iniciado: s2
+2025-05-23 18:25:26,441 - INFO - Iniciando el servidor s1
+2025-05-23 18:25:26,441 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:25:26,697 - INFO - Contenedor iniciado: s1
+2025-05-23 18:25:26,698 - INFO - Configurando balanceador lb
+2025-05-23 18:25:26,698 - INFO - Instalando haproxy en el balanceador
+2025-05-23 18:25:32,964 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 18:25:32,964 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 18:25:33,064 - DEBUG - Validando archivo haproxy.cfg
+2025-05-23 18:25:33,184 - DEBUG - Iniciando servicio de haproxy
+2025-05-23 18:25:33,321 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-23 18:25:33,322 - INFO - Balanceador configurado correctamente.
+2025-05-23 18:27:42,663 - INFO - Orden recibida: configure
+2025-05-23 18:27:42,663 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:27:42,664 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:27:42,664 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:27:42,664 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:27:42,664 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:27:42,711 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:27:42,712 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:27:42,737 - INFO - Iniciando configuración de la infraestructura...
+2025-05-23 18:27:42,737 - INFO - Configurando base de datos MongoDB en: db
+2025-05-23 18:27:42,737 - INFO - Iniciando instalación de MongoDB en db
+2025-05-23 18:27:47,163 - DEBUG - Instalando MongoDB
+2025-05-23 18:27:48,403 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-23 18:27:48,474 - DEBUG - Reiniciando contenedor db
+2025-05-23 18:27:53,053 - INFO - MongoDB configurado con éxito en db
+2025-05-23 18:27:53,053 - INFO - Configuración de base de datos completada correctamente.
+2025-05-23 18:27:53,053 - INFO - Configurando servidor web base s1
+2025-05-23 18:27:53,053 - INFO - Iniciando configuración del servidor web s1
+2025-05-23 18:27:53,053 - DEBUG - Actualizando paquetes en s1
+2025-05-23 18:27:57,562 - DEBUG - Instalando Apache en s1
+2025-05-23 18:27:58,754 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 18:27:58,872 - DEBUG - Transfiriendo aplicación web
+2025-05-23 18:27:58,889 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 18:27:59,037 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:28:29,546 - DEBUG - Reiniciando servidor
+2025-05-23 18:28:33,986 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:28:34,768 - INFO - Servidor web s1 configurado con éxito.
+2025-05-23 18:28:34,768 - INFO - Creando imagen a partir del servidor base configurado
+2025-05-23 18:28:34,768 - DEBUG - Comprobando estado de s1...
+2025-05-23 18:28:34,785 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 18:28:34,785 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 18:28:36,318 - INFO - Contenedor parado: s1
+2025-05-23 18:28:36,318 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 18:28:36,331 - INFO - La imagen servidor ya está disponible.
+2025-05-23 18:28:36,331 - INFO - Creando s2 desde imagen
+2025-05-23 18:28:36,332 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:28:38,893 - INFO - Contenedor eliminado: s2
+2025-05-23 18:28:38,893 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 18:28:59,894 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 18:28:59,894 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 18:29:00,111 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 18:29:00,111 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 18:29:00,288 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 18:29:00,289 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 18:29:00,679 - INFO - Contenedor iniciado: s2
+2025-05-23 18:29:01,925 - INFO - Iniciando el servidor s1
+2025-05-23 18:29:01,926 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:29:02,274 - INFO - Contenedor iniciado: s1
+2025-05-23 18:29:05,101 - INFO - Configurando balanceador lb
+2025-05-23 18:29:05,101 - INFO - Instalando haproxy en el balanceador
+2025-05-23 18:29:11,723 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 18:29:11,723 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 18:29:11,957 - DEBUG - Validando archivo haproxy.cfg
+2025-05-23 18:29:12,054 - DEBUG - Iniciando servicio de haproxy
+2025-05-23 18:29:14,089 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-23 18:29:14,089 - INFO - Balanceador configurado correctamente.
+2025-05-23 18:29:55,954 - INFO - Orden recibida: enlarge
+2025-05-23 18:29:55,954 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:29:55,954 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:29:55,954 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 18:29:55,954 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-23 18:29:55,954 - DEBUG - Comprobando estado de s1...
+2025-05-23 18:29:55,970 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 18:29:55,970 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 18:30:00,290 - INFO - Contenedor parado: s1
+2025-05-23 18:30:00,290 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 18:30:00,317 - INFO - La imagen servidor ya está disponible.
+2025-05-23 18:30:00,317 - INFO - Buscando servidor libre para crear...
+2025-05-23 18:30:00,318 - DEBUG - Verificando si existe el contenedor s1
+2025-05-23 18:30:00,345 - DEBUG - Verificando si existe el contenedor s2
+2025-05-23 18:30:00,366 - DEBUG - Verificando si existe el contenedor s3
+2025-05-23 18:30:00,377 - INFO - Creando nuevo servidor disponible: s3
+2025-05-23 18:30:00,377 - DEBUG - Intentando crear el contenedor s3
+2025-05-23 18:30:21,629 - INFO - Contenedor s3 creado con éxito.
+2025-05-23 18:30:21,629 - DEBUG - Conectando s3 al bridge lxdbr0 usando eth0
+2025-05-23 18:30:21,834 - INFO - Conectado s3 al bridge lxdbr0 por eth0
+2025-05-23 18:30:21,834 - DEBUG - Configurando red para s3: iface=eth0, ip=134.3.0.13
+2025-05-23 18:30:21,972 - INFO - Contenedor s3 conectado a eth0 con IP 134.3.0.13
+2025-05-23 18:30:21,972 - INFO - Servidor s3 creado correctamente con IP 134.3.0.13 
+2025-05-23 18:30:21,972 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:30:21,972 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 18:30:21,972 - INFO - Solicitado arrancar servidor: s3
+2025-05-23 18:30:21,989 - DEBUG - Iniciando verificación de estado del contenedor s3
+2025-05-23 18:30:22,962 - INFO - Contenedor iniciado: s3
+2025-05-23 18:30:24,196 - INFO - Servidor s3 corriendo correctamente.
+2025-05-23 18:30:24,196 - INFO - Solicitado arrancar servidor: s1
+2025-05-23 18:30:24,219 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:30:24,518 - INFO - Contenedor iniciado: s1
+2025-05-23 18:30:28,746 - INFO - Servidor s1 corriendo correctamente.
+2025-05-23 18:30:28,854 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 18:30:28,854 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 18:30:28,964 - DEBUG - Validando archivo haproxy.cfg
+2025-05-23 18:30:29,033 - DEBUG - Iniciando servicio de haproxy
+2025-05-23 18:30:29,514 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-23 18:30:29,515 - DEBUG - Intentando guardar el número de servidores: 3
+2025-05-23 18:30:29,516 - INFO - Número de servidores 3 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 18:30:29,516 - INFO - Nuevo número de servidores: 3
+2025-05-23 18:30:57,281 - INFO - Orden recibida: list
+2025-05-23 18:30:57,281 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:30:57,281 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:30:57,281 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:30:57,281 - INFO - Listando contenedores
+2025-05-23 18:30:57,383 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-23 18:31:10,491 - INFO - Orden recibida: configure_remote
+2025-05-23 18:31:10,491 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:31:10,491 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:31:10,492 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:31:10,492 - INFO - Desplegando base de datos remota en el equipo l023
+2025-05-23 18:31:10,492 - INFO - IP local detectada: 138.4.31.22
+2025-05-23 18:31:10,498 - INFO - Nombre remoto detectado: l023.lab.dit.upm.es cuya IP: 138.4.31.23
+2025-05-23 18:31:10,498 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-23 18:31:35,624 - INFO - Conectando al LXD remoto desde local
+2025-05-23 18:31:36,015 - INFO - Configurando bridge remoto
+2025-05-23 18:31:37,042 - INFO - El contenedor 'db' está en ejecución. Deteniéndolo...
+2025-05-23 18:31:37,043 - DEBUG - Verificando estado antes de detener db
+2025-05-23 18:31:41,555 - INFO - Contenedor parado: db
+2025-05-23 18:32:47,068 - INFO - Base de datos copiada al equipo remoto
+2025-05-23 18:32:47,069 - INFO - Configurando proxy para acceso a MongoDB
+2025-05-23 18:32:47,181 - INFO - Base de datos remota desplegada correctamente
+2025-05-23 18:32:47,181 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:32:47,183 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:32:47,183 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s1 a 138.4.31.23...
+2025-05-23 18:32:47,361 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:32:47,362 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s2 a 138.4.31.23...
+2025-05-23 18:32:47,511 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:32:47,512 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s3 a 138.4.31.23...
+2025-05-23 18:32:47,663 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:35:18,588 - INFO - Orden recibida: list
+2025-05-23 18:35:18,588 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:35:18,589 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:35:18,589 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:35:18,589 - INFO - Listando contenedores
+2025-05-23 18:35:18,616 - DEBUG - Comando 'lxc list' ejecutado correctamente
+2025-05-23 18:42:47,640 - INFO - Orden recibida: configure_remote
+2025-05-23 18:42:47,640 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:42:47,640 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:42:47,640 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:42:47,640 - INFO - Desplegando base de datos remota en el equipo l023
+2025-05-23 18:42:47,640 - INFO - IP local detectada: 138.4.31.22
+2025-05-23 18:42:47,642 - INFO - Nombre remoto detectado: l023.lab.dit.upm.es cuya IP: 138.4.31.23
+2025-05-23 18:42:47,642 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-23 18:42:54,933 - INFO - Conectando al LXD remoto desde local
+2025-05-23 18:42:55,200 - INFO - Configurando bridge remoto
+2025-05-23 18:42:55,549 - INFO - El contenedor db ya existe en remoto. No se copia.
+2025-05-23 18:42:55,549 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:42:55,550 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:42:55,550 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s1 a 138.4.31.23...
+2025-05-23 18:42:55,712 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:42:55,713 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s2 a 138.4.31.23...
+2025-05-23 18:42:55,888 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:42:55,889 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s3 a 138.4.31.23...
+2025-05-23 18:42:56,101 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:46:55,190 - INFO - Orden recibida: configure_remote
+2025-05-23 18:46:55,190 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:46:55,191 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:46:55,191 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:46:55,191 - INFO - Desplegando base de datos remota en el equipo l023
+2025-05-23 18:46:55,191 - INFO - IP local detectada: 138.4.31.22
+2025-05-23 18:46:55,194 - INFO - Nombre remoto detectado: l023.lab.dit.upm.es cuya IP: 138.4.31.23
+2025-05-23 18:46:55,194 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-23 18:47:05,582 - INFO - Conectando al LXD remoto desde local
+2025-05-23 18:47:05,843 - INFO - Configurando bridge remoto
+2025-05-23 18:47:06,031 - INFO - El contenedor db ya existe en remoto. No se copia.
+2025-05-23 18:47:06,031 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:47:06,031 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:47:06,031 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s1 a 138.4.31.23...
+2025-05-23 18:47:06,204 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:47:06,204 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s2 a 138.4.31.23...
+2025-05-23 18:47:06,345 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:47:06,345 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s3 a 138.4.31.23...
+2025-05-23 18:47:06,457 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 18:51:38,734 - INFO - Orden recibida: delete
+2025-05-23 18:51:38,734 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:51:38,735 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:51:38,735 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:51:38,735 - INFO - Eliminando toda la infraestructura
+2025-05-23 18:51:38,735 - DEBUG - Intentando eliminar la imagen ubuntu2004...
+2025-05-23 18:51:38,824 - INFO - Imagen local eliminada con éxito.
+2025-05-23 18:51:38,825 - DEBUG - Eliminando contenedor s1
+2025-05-23 18:51:42,526 - INFO - Contenedor eliminado: s1
+2025-05-23 18:51:42,527 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:51:45,623 - INFO - Contenedor eliminado: s2
+2025-05-23 18:51:45,623 - DEBUG - Eliminando contenedor s3
+2025-05-23 18:51:48,355 - INFO - Contenedor eliminado: s3
+2025-05-23 18:51:48,355 - DEBUG - Eliminando contenedor cl
+2025-05-23 18:52:10,661 - INFO - Orden recibida: create_server
+2025-05-23 18:52:10,661 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:52:10,661 - INFO - Número de servidores 3 cargados correctamente.
+2025-05-23 18:52:10,661 - INFO - Se cargó número de servidores desde archivo: 3
+2025-05-23 18:52:10,661 - INFO - Buscando servidor libre para crear...
+2025-05-23 18:52:10,661 - DEBUG - Verificando si existe el contenedor s1
+2025-05-23 18:52:10,672 - INFO - Creando nuevo servidor disponible: s1
+2025-05-23 18:52:10,672 - DEBUG - Intentando crear el contenedor s1
+2025-05-23 18:52:10,699 - ERROR - Error al crear el contenedor s1: Command '['lxc', 'init', 'ubuntu2004', 's1']' returned non-zero exit status 1.
+2025-05-23 18:52:10,699 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-23 18:52:10,731 - ERROR - Error al conectar s1 a lxdbr0: Command '['lxc', 'network', 'attach', 'lxdbr0', 's1', 'eth0']' returned non-zero exit status 1.
+2025-05-23 18:52:10,731 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-23 18:52:10,746 - ERROR - No se pudo configurar la red del contenedor s1: Command '['lxc', 'config', 'device', 'set', 's1', 'eth0', 'ipv4.address', '134.3.0.11']' returned non-zero exit status 1.
+2025-05-23 18:52:10,746 - INFO - Servidor s1 creado correctamente con IP 134.3.0.11 
+2025-05-23 18:52:10,746 - DEBUG - Intentando guardar el número de servidores: 4
+2025-05-23 18:52:10,748 - INFO - Número de servidores 4 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 18:52:10,748 - INFO - Nuevo número de servidores: 4
+2025-05-23 18:52:17,570 - INFO - Orden recibida: delete
+2025-05-23 18:52:17,570 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:52:17,570 - INFO - Número de servidores 4 cargados correctamente.
+2025-05-23 18:52:17,570 - INFO - Se cargó número de servidores desde archivo: 4
+2025-05-23 18:52:17,571 - INFO - Eliminando toda la infraestructura
+2025-05-23 18:52:17,571 - DEBUG - Intentando eliminar la imagen ubuntu2004...
+2025-05-23 18:52:17,617 - ERROR - No se pudo eliminar la imagen ubuntu2004: Command '['lxc', 'image', 'delete', 'ubuntu2004']' returned non-zero exit status 1.
+2025-05-23 18:52:17,617 - DEBUG - Eliminando contenedor s1
+2025-05-23 18:52:17,664 - ERROR - Error al eliminar el contenedor s1: Command '['lxc', 'delete', 's1', '--force']' returned non-zero exit status 1.
+2025-05-23 18:52:17,664 - DEBUG - Eliminando contenedor s2
+2025-05-23 18:52:17,696 - ERROR - Error al eliminar el contenedor s2: Command '['lxc', 'delete', 's2', '--force']' returned non-zero exit status 1.
+2025-05-23 18:52:17,696 - DEBUG - Eliminando contenedor s3
+2025-05-23 18:52:17,720 - ERROR - Error al eliminar el contenedor s3: Command '['lxc', 'delete', 's3', '--force']' returned non-zero exit status 1.
+2025-05-23 18:52:17,721 - DEBUG - Eliminando contenedor s4
+2025-05-23 18:52:17,765 - ERROR - Error al eliminar el contenedor s4: Command '['lxc', 'delete', 's4', '--force']' returned non-zero exit status 1.
+2025-05-23 18:52:17,765 - DEBUG - Eliminando contenedor cl
+2025-05-23 18:52:19,519 - INFO - Contenedor eliminado: cl
+2025-05-23 18:52:19,519 - DEBUG - Eliminando contenedor lb
+2025-05-23 18:52:22,603 - INFO - Contenedor eliminado: lb
+2025-05-23 18:52:22,603 - DEBUG - Eliminando contenedor db
+2025-05-23 18:52:23,863 - INFO - Contenedor eliminado: db
+2025-05-23 18:52:23,863 - DEBUG - Contenedores eliminados correctamente
+2025-05-23 18:52:23,863 - DEBUG - Intentando eliminar el bridge lxdbr1
+2025-05-23 18:52:24,268 - INFO - Bridge eliminado: lxdbr1
+2025-05-23 18:52:24,268 - INFO - Eliminación completada.
+2025-05-23 18:52:33,144 - INFO - Orden recibida: create
+2025-05-23 18:52:33,144 - INFO - Número de servidores especificado: 1
+2025-05-23 18:52:33,144 - INFO - Iniciando creación de infraestructura con 1 servidores
+2025-05-23 18:52:33,144 - DEBUG - Parámetro recibido n_servers=1
+2025-05-23 18:52:33,144 - DEBUG - Creando imagen base...
+2025-05-23 18:52:33,144 - DEBUG - Verificando si la imagen ya está importada...
+2025-05-23 18:52:33,202 - INFO - La imagen ubuntu2004 no está importada. Se procederá a importarla.
+2025-05-23 18:52:38,641 - INFO - Imagen ubuntu2004 importada con éxito.
+2025-05-23 18:52:38,641 - DEBUG - Configurando y creando bridges...
+2025-05-23 18:52:38,671 - INFO - 134.3.0.1/24 asignada correctamente al bridge: lxdbr0
+2025-05-23 18:52:38,731 - INFO - Bridge configurado correctamente: lxdbr0
+2025-05-23 18:52:38,731 - DEBUG - Creando bridge lxdbr1
+2025-05-23 18:52:40,386 - INFO - Bridge creado: lxdbr1
+2025-05-23 18:52:41,241 - INFO - 134.3.1.1/24 asignada correctamente al bridge: lxdbr1
+2025-05-23 18:52:44,653 - INFO - Bridge configurado correctamente: lxdbr1
+2025-05-23 18:52:44,654 - DEBUG - Creando contenedores de servidores...
+2025-05-23 18:52:44,654 - DEBUG - Intentando crear el contenedor s1
+2025-05-23 18:52:54,210 - INFO - Contenedor s1 creado con éxito.
+2025-05-23 18:52:54,210 - DEBUG - Conectando s1 al bridge lxdbr0 usando eth0
+2025-05-23 18:52:54,422 - INFO - Conectado s1 al bridge lxdbr0 por eth0
+2025-05-23 18:52:54,422 - DEBUG - Configurando red para s1: iface=eth0, ip=134.3.0.11
+2025-05-23 18:52:55,414 - INFO - Contenedor s1 conectado a eth0 con IP 134.3.0.11
+2025-05-23 18:52:55,415 - DEBUG - Intentando guardar el número de servidores: 1
+2025-05-23 18:52:55,416 - INFO - Número de servidores 1 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 18:52:55,416 - INFO - Número de servidores guardados correctamente
+2025-05-23 18:52:55,416 - DEBUG - Creando balanceador...
+2025-05-23 18:52:55,417 - DEBUG - Intentando crear el contenedor lb
+2025-05-23 18:53:05,208 - INFO - Contenedor lb creado con éxito.
+2025-05-23 18:53:05,208 - DEBUG - Conectando lb al bridge lxdbr0 usando eth0
+2025-05-23 18:53:05,305 - INFO - Conectado lb al bridge lxdbr0 por eth0
+2025-05-23 18:53:05,305 - DEBUG - Configurando red para lb: iface=eth0, ip=134.3.0.10
+2025-05-23 18:53:05,377 - INFO - Contenedor lb conectado a eth0 con IP 134.3.0.10
+2025-05-23 18:53:05,378 - DEBUG - Conectando lb al bridge lxdbr1 usando eth1
+2025-05-23 18:53:05,484 - INFO - Conectado lb al bridge lxdbr1 por eth1
+2025-05-23 18:53:05,485 - DEBUG - Configurando red para lb: iface=eth1, ip=134.3.1.10
+2025-05-23 18:53:05,572 - INFO - Contenedor lb conectado a eth1 con IP 134.3.1.10
+2025-05-23 18:53:05,572 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 18:53:06,020 - INFO - Contenedor iniciado: lb
+2025-05-23 18:53:06,020 - DEBUG - Iniciando cambio de netplan en lb
+2025-05-23 18:53:06,020 - DEBUG - Desactivando cloud-init en lb
+2025-05-23 18:53:06,081 - DEBUG - Creando copia de seguridad del archivo netplan original en lb
+2025-05-23 18:53:06,129 - DEBUG - Configurando interfaces eth0 y eth1 para balanceador lb
+2025-05-23 18:53:06,129 - DEBUG - Escribiendo nueva configuración de netplan en lb
+2025-05-23 18:53:06,180 - DEBUG - Reiniciando contenedor lb para aplicar cambios
+2025-05-23 18:53:08,048 - INFO - Configuración de red aplicada correctamente en el contenedor lb
+2025-05-23 18:53:08,048 - DEBUG - Verificando estado antes de detener lb
+2025-05-23 18:53:09,402 - INFO - Contenedor parado: lb
+2025-05-23 18:53:09,402 - INFO - Balanceador configurado correctamente
+2025-05-23 18:53:09,402 - DEBUG - Creando cliente...
+2025-05-23 18:53:09,402 - DEBUG - Intentando crear el contenedor cl
+2025-05-23 18:53:19,077 - INFO - Contenedor cl creado con éxito.
+2025-05-23 18:53:19,077 - DEBUG - Conectando cl al bridge lxdbr1 usando eth1
+2025-05-23 18:53:19,145 - INFO - Conectado cl al bridge lxdbr1 por eth1
+2025-05-23 18:53:19,145 - DEBUG - Configurando red para cl: iface=eth1, ip=134.3.1.11
+2025-05-23 18:53:19,177 - INFO - Contenedor cl conectado a eth1 con IP 134.3.1.11
+2025-05-23 18:53:19,177 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 18:53:19,577 - INFO - Contenedor iniciado: cl
+2025-05-23 18:53:19,578 - DEBUG - Iniciando cambio de netplan en cl
+2025-05-23 18:53:19,578 - DEBUG - Desactivando cloud-init en cl
+2025-05-23 18:53:19,707 - DEBUG - Creando copia de seguridad del archivo netplan original en cl
+2025-05-23 18:53:19,807 - DEBUG - Configurando interfaz eth1 para cliente cl
+2025-05-23 18:53:19,808 - DEBUG - Escribiendo nueva configuración de netplan en cl
+2025-05-23 18:53:19,873 - DEBUG - Reiniciando contenedor cl para aplicar cambios
+2025-05-23 18:53:21,655 - INFO - Configuración de red aplicada correctamente en el contenedor cl
+2025-05-23 18:53:21,655 - DEBUG - Verificando estado antes de detener cl
+2025-05-23 18:53:23,025 - INFO - Contenedor parado: cl
+2025-05-23 18:53:23,025 - INFO - Cliente configurado correctamente
+2025-05-23 18:53:23,025 - DEBUG - Intentando crear el contenedor db
+2025-05-23 18:53:32,842 - INFO - Contenedor db creado con éxito.
+2025-05-23 18:53:32,842 - DEBUG - Conectando db al bridge lxdbr0 usando eth0
+2025-05-23 18:53:32,934 - INFO - Conectado db al bridge lxdbr0 por eth0
+2025-05-23 18:53:32,934 - DEBUG - Configurando red para db: iface=eth0, ip=134.3.0.20
+2025-05-23 18:53:33,039 - INFO - Contenedor db conectado a eth0 con IP 134.3.0.20
+2025-05-23 18:53:33,039 - INFO - Infraestructura creada correctamente.
+2025-05-23 18:55:39,952 - INFO - Orden recibida: start
+2025-05-23 18:55:39,953 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:55:39,953 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 18:55:39,953 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-23 18:55:39,954 - INFO - Iniciando todos los contenedores
+2025-05-23 18:55:39,954 - DEBUG - Arrancando servidor: s1
+2025-05-23 18:55:39,954 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:55:40,286 - INFO - Contenedor iniciado: s1
+2025-05-23 18:55:40,333 - DEBUG - No se encontró la app en s1, no se reinicia.
+2025-05-23 18:55:40,340 - DEBUG - Iniciando verificación de estado del contenedor cl
+2025-05-23 18:55:40,844 - INFO - Contenedor iniciado: cl
+2025-05-23 18:55:40,844 - DEBUG - Iniciando verificación de estado del contenedor lb
+2025-05-23 18:55:41,281 - INFO - Contenedor iniciado: lb
+2025-05-23 18:55:41,281 - DEBUG - Iniciando verificación de estado del contenedor db
+2025-05-23 18:55:41,645 - INFO - Contenedor iniciado: db
+2025-05-23 18:55:41,645 - INFO - Todos los contenedores han sido iniciados correctamente
+2025-05-23 18:55:41,647 - INFO - Consola del contenedor s1 abierta correctamente
+2025-05-23 18:55:41,648 - INFO - Consola del contenedor cl abierta correctamente
+2025-05-23 18:55:41,651 - INFO - Consola del contenedor lb abierta correctamente
+2025-05-23 18:55:41,653 - INFO - Consola del contenedor db abierta correctamente
+2025-05-23 18:55:48,950 - INFO - Orden recibida: configure
+2025-05-23 18:55:48,950 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:55:48,951 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 18:55:48,951 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-23 18:55:48,951 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:55:48,951 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 18:55:49,194 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 18:55:49,194 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 18:55:49,327 - INFO - Iniciando configuración de la infraestructura...
+2025-05-23 18:55:49,327 - INFO - Configurando base de datos MongoDB en: db
+2025-05-23 18:55:49,327 - INFO - Iniciando instalación de MongoDB en db
+2025-05-23 18:56:04,160 - DEBUG - Instalando MongoDB
+2025-05-23 18:56:49,948 - DEBUG - Modificando bind_ip de MongoDB
+2025-05-23 18:56:50,021 - DEBUG - Reiniciando contenedor db
+2025-05-23 18:56:54,411 - INFO - MongoDB configurado con éxito en db
+2025-05-23 18:56:54,412 - INFO - Configuración de base de datos completada correctamente.
+2025-05-23 18:56:54,412 - INFO - Configurando servidor web base s1
+2025-05-23 18:56:54,412 - INFO - Iniciando configuración del servidor web s1
+2025-05-23 18:56:54,412 - DEBUG - Actualizando paquetes en s1
+2025-05-23 18:57:07,494 - DEBUG - Instalando Apache en s1
+2025-05-23 18:57:32,704 - DEBUG - Transfiriendo script de instalación Node.js
+2025-05-23 18:57:32,829 - DEBUG - Transfiriendo aplicación web
+2025-05-23 18:57:32,852 - DEBUG - Extrayendo el contenido de app.tar.gz
+2025-05-23 18:57:33,280 - DEBUG - Ejecutando instalación Node.js
+2025-05-23 18:59:50,645 - DEBUG - Reiniciando servidor
+2025-05-23 18:59:55,392 - DEBUG - Iniciando servidor Node.js con forever
+2025-05-23 18:59:56,199 - INFO - Servidor web s1 configurado con éxito.
+2025-05-23 18:59:56,199 - INFO - Creando imagen a partir del servidor base configurado
+2025-05-23 18:59:56,199 - DEBUG - Comprobando estado de s1...
+2025-05-23 18:59:56,223 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 18:59:56,223 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 18:59:57,787 - INFO - Contenedor parado: s1
+2025-05-23 18:59:57,787 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 18:59:57,800 - INFO - La imagen servidor ya está disponible.
+2025-05-23 18:59:57,800 - INFO - Iniciando el servidor s1
+2025-05-23 18:59:57,800 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 18:59:58,100 - INFO - Contenedor iniciado: s1
+2025-05-23 18:59:59,247 - INFO - Configurando balanceador lb
+2025-05-23 18:59:59,247 - INFO - Instalando haproxy en el balanceador
+2025-05-23 19:00:29,824 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 19:00:29,824 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 19:00:29,901 - DEBUG - Validando archivo haproxy.cfg
+2025-05-23 19:00:29,957 - DEBUG - Iniciando servicio de haproxy
+2025-05-23 19:00:30,108 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-23 19:00:30,108 - INFO - Balanceador configurado correctamente.
+2025-05-23 19:01:15,427 - INFO - Orden recibida: enlarge
+2025-05-23 19:01:15,427 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 19:01:15,428 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 19:01:15,428 - INFO - Se cargó número de servidores desde archivo: 1
+2025-05-23 19:01:15,428 - INFO - Ampliando infraestructura con un nuevo servidor...
+2025-05-23 19:01:15,428 - DEBUG - Comprobando estado de s1...
+2025-05-23 19:01:15,446 - INFO - Contenedor s1 está en ejecución. Parando...
+2025-05-23 19:01:15,446 - DEBUG - Verificando estado antes de detener s1
+2025-05-23 19:01:19,775 - INFO - Contenedor parado: s1
+2025-05-23 19:01:19,776 - DEBUG - Comprobando si la imagen  con alias 'servidor' ya existe
+2025-05-23 19:01:19,789 - INFO - La imagen servidor ya está disponible.
+2025-05-23 19:01:19,789 - INFO - Buscando servidor libre para crear...
+2025-05-23 19:01:19,789 - DEBUG - Verificando si existe el contenedor s1
+2025-05-23 19:01:19,804 - DEBUG - Verificando si existe el contenedor s2
+2025-05-23 19:01:19,817 - INFO - Creando nuevo servidor disponible: s2
+2025-05-23 19:01:19,817 - DEBUG - Intentando crear el contenedor s2
+2025-05-23 19:01:42,310 - INFO - Contenedor s2 creado con éxito.
+2025-05-23 19:01:42,310 - DEBUG - Conectando s2 al bridge lxdbr0 usando eth0
+2025-05-23 19:01:42,595 - INFO - Conectado s2 al bridge lxdbr0 por eth0
+2025-05-23 19:01:42,595 - DEBUG - Configurando red para s2: iface=eth0, ip=134.3.0.12
+2025-05-23 19:01:42,697 - INFO - Contenedor s2 conectado a eth0 con IP 134.3.0.12
+2025-05-23 19:01:42,697 - INFO - Servidor s2 creado correctamente con IP 134.3.0.12 
+2025-05-23 19:01:42,697 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 19:01:42,697 - INFO - Número de servidores 1 cargados correctamente.
+2025-05-23 19:01:42,697 - INFO - Solicitado arrancar servidor: s2
+2025-05-23 19:01:42,710 - DEBUG - Iniciando verificación de estado del contenedor s2
+2025-05-23 19:01:43,406 - INFO - Contenedor iniciado: s2
+2025-05-23 19:01:44,589 - INFO - Servidor s2 corriendo correctamente.
+2025-05-23 19:01:44,589 - INFO - Solicitado arrancar servidor: s1
+2025-05-23 19:01:44,614 - DEBUG - Iniciando verificación de estado del contenedor s1
+2025-05-23 19:01:44,889 - INFO - Contenedor iniciado: s1
+2025-05-23 19:01:48,845 - INFO - Servidor s1 corriendo correctamente.
+2025-05-23 19:01:48,955 - DEBUG - Generando archivo de configuración haproxy.cfg
+2025-05-23 19:01:48,955 - DEBUG - Escribiendo configuración de haproxy en el contenedor
+2025-05-23 19:01:49,346 - DEBUG - Validando archivo haproxy.cfg
+2025-05-23 19:01:50,566 - DEBUG - Iniciando servicio de haproxy
+2025-05-23 19:01:51,396 - INFO - Haproxy instalado y configurado correctamente.
+2025-05-23 19:01:51,396 - DEBUG - Intentando guardar el número de servidores: 2
+2025-05-23 19:01:51,398 - INFO - Número de servidores 2 guardados correctamente en static/files/num_serves.txt.
+2025-05-23 19:01:51,398 - INFO - Nuevo número de servidores: 2
+2025-05-23 19:06:50,908 - INFO - Orden recibida: configure_remote
+2025-05-23 19:06:50,908 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 19:06:50,909 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 19:06:50,909 - INFO - Se cargó número de servidores desde archivo: 2
+2025-05-23 19:06:50,909 - INFO - Desplegando base de datos remota en el equipo l020
+2025-05-23 19:06:50,912 - INFO - IP local detectada: 138.4.31.22
+2025-05-23 19:06:50,914 - INFO - Nombre remoto detectado: l020.lab.dit.upm.es cuya IP: 138.4.31.20
+2025-05-23 19:06:50,915 - INFO - Configurando acceso remoto a LXD en ambos equipos
+2025-05-23 19:07:06,104 - INFO - Conectando al LXD remoto desde local
+2025-05-23 19:07:06,388 - INFO - Configurando bridge remoto
+2025-05-23 19:07:06,589 - INFO - El contenedor db ya existe en remoto. No se copia.
+2025-05-23 19:07:06,589 - DEBUG - Leyendo el número de servidores desde static/files/num_serves.txt...
+2025-05-23 19:07:06,590 - INFO - Número de servidores 2 cargados correctamente.
+2025-05-23 19:07:06,590 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s1 a 138.4.31.20...
+2025-05-23 19:07:06,729 - INFO - IP cambiada correctamente en los archivos de configuración.
+2025-05-23 19:07:07,749 - INFO - Cambiando IP en archivos de configuración dentro del contenedor s2 a 138.4.31.20...
+2025-05-23 19:07:07,896 - INFO - IP cambiada correctamente en los archivos de configuración.

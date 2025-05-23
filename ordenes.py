@@ -1,8 +1,8 @@
 import subprocess
-from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S, IP_DB
+from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S, IP_DB, ALIAS_IMAGEN_SERVIDOR
 from logger import setup_logger, get_logger
 from utils.containers import create_container, start_container, stop_container, delete_container, config_container
-from utils.image import create_image, delete_image
+from utils.image import create_image, delete_image, publish_image
 from utils.bridges import create_bridge, config_bridge, attach_network, delete_bridge
 from utils.file import save_num_servers
 from utils.balanceador import change_netplan, setup_haproxy, install_haproxy
@@ -168,30 +168,7 @@ def delete_all(n_servers):
     except Exception as e:
         logger.critical(f"Fallo crítico al eliminar infraestructura: {e}", exc_info=True)
 
-
-# def configure_all(n_servers):
-#     """
-#     POSIBILIDADES: si ya hay servidores solo los configura y si no hay servidores, los crea y configura o si no los hay decir que antes el usuario deba ejecutar un create
-#     DE MOMENTO SOLO VOY A HACERLO CON CONFIGURAR YA SE AÑADIRÁN SI QUIERES
-#     """
-
-#     #Instalar MongoDB en la base de datos
-#     # start_container(name=VM_NAMES["database"])
-#     install_mongoDB(name=VM_NAMES["database"]) 
-#     # stop_container(name=VM_NAMES["database"])
-
-#     #Instalar el servicio de NodeJS en servidores 
-#     for i in range(n_servers):
-#         # start_container(name=VM_NAMES["servidores"][i])
-#         config_server(name=VM_NAMES["servidores"][i])
-#         # stop_container(name=VM_NAMES["servidores"][i])
-
-#     #Instalar y configurar el haproxy para la repartición de carga
-#     # start_container(name=VM_NAMES["balanceador"])
-#     config_lb()
-#     change_haproxy()
-#     # stop_container(name=VM_NAMES["balanceador"])
-   
+  
 def configure_all(n_servers):
     """
     Configura todos los contenedores del sistema:
@@ -224,13 +201,53 @@ def configure_all(n_servers):
         return
 
     #Instalar el servicio de NodeJS en SERVIDORES WEB
-    for i in range(n_servers):
+    # for i in range(n_servers):
+    #     try:
+    #         logger.info(f"Configurando servidor web {VM_NAMES['servidores'][i]}")
+    #         config_server(name=VM_NAMES["servidores"][i])
+    #     except subprocess.CalledProcessError as e:
+    #         logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
+    #         continue
+
+    #Instalar el servicio de NodeJs en SERVIDORES WEB por replicacion de IMAGEN
+    #Instalar el servicio de NodeJS en SERVIDOR s1
+    try:
+        logger.info(f"Configurando servidor web base {VM_NAMES['servidores'][0]}")
+        config_server(name=VM_NAMES["servidores"][0])
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error al configurar el servidor base {VM_NAMES['servidores'][0]}: {e}")
+        return
+
+    #Crear imagen a partir del servidor base
+    try:
+        logger.info("Creando imagen a partir del servidor base configurado")
+        publish_image(contenedor=VM_NAMES["servidores"][0], alias=ALIAS_IMAGEN_SERVIDOR)
+    except subprocess.CalledProcessError as e:
+        logger.critical(f"Error al crear la imagen del servidor base: {e}")
+        return
+
+    # Crear los servidores restantes desde la imagen
+    for i in range(1, n_servers):
         try:
-            logger.info(f"Configurando servidor web {VM_NAMES['servidores'][i]}")
-            config_server(name=VM_NAMES["servidores"][i])
+            logger.info(f"Creando {VM_NAMES['servidores'][i]} desde imagen")
+
+            #Eliminar contenedor anterior creado en orden create
+            delete_container(name=VM_NAMES["servidores"][i])
+
+            #Crear y configurar el nuevo servidor 
+            create_container(name=VM_NAMES["servidores"][i], image=ALIAS_IMAGEN_SERVIDOR)
+            attach_network(container=VM_NAMES["servidores"][i], bridge=BRIDGES["LAN1"], iface="eth0")
+            config_container(name=VM_NAMES["servidores"][i], iface="eth0", ip=IP_S[f"s{i+1}"])
+            start_container(name=VM_NAMES["servidores"][i])
+            start_app(name=VM_NAMES["servidores"][i])
+
         except subprocess.CalledProcessError as e:
-            logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
+            logger.critical(f"Error al crear el servidor {VM_NAMES['servidores'][i]} desde la imagen: {e}")
             continue
+
+    logger.info(f"Iniciando el servidor {VM_NAMES['servidores'][0]}")
+    start_container(name=VM_NAMES["servidores"][0])
+    start_app(name=VM_NAMES["servidores"][0])
 
     #Instalar y configurar el haproxy para la repartición de carga BALANCEADOR
     try:

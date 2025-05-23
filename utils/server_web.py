@@ -86,11 +86,11 @@ def change_ip_files(name, ip):
         
         #Reemplazar IP en rest_server.js
         #subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s/^await mongoose.connect('mongodb://134.3.0.20/bio_bbdd',{{ useNewUrlParser: true, useUnifiedTopology: true }})$/await mongoose.connect('mongodb:/{ip}//bio_bbdd',{{ useNewUrlParser: true, useUnifiedTopology: true }})", "/app/rest_server.js"], check=True)
-        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"3s|mongodb://134.3.0.20/bio_bbdd|mongodb://{ip}/bio_bbdd|", "/root/app/rest_server.js"], check=True)
+        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s|mongodb://134.3.0.20/bio_bbdd|mongodb://{ip}/bio_bbdd|", "/root/app/rest_server.js"], check=True)
 
         #Reemplazar IP en md-seed-config.js
         #subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s/^const mongoURL = process.env.MONGO_URL || 'mongodb://134.3.0.20:27017/bio_bbdd';$/const mongoURL = process.env.MONGO_URL || 'mongodb://{ip}:27017/bio_bbdd';", "/app/md-seed-config.js"], check=True)
-        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"12s|mongodb://134.3.0.20:27017/bio_bbdd|mongodb://{ip}:27017/bio_bbdd'|", "/root/app/md-seed-config.js"], check=True)
+        subprocess.run(["lxc", "exec", name, "--", "sed", "-i", f"s|mongodb://134.3.0.20:27017/bio_bbdd|mongodb://{ip}:27017/bio_bbdd|", "/root/app/md-seed-config.js"], check=True)
 
         logger.info("IP cambiada correctamente en los archivos de configuración.")
 

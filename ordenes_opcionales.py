@@ -1,5 +1,5 @@
 import subprocess
-from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S
+from consts import VM_NAMES, NUM_SERVERS_FILE, IMAGE_DEFAULT, BRIDGES_IPV4, IP_LB, BRIDGES, MAX_SERVERS, MIN_SERVERS, IP_CL, IP_S, ALIAS_IMAGEN_SERVIDOR
 from logger import setup_logger, get_logger
 from utils.containers import create_container, start_container, stop_container, delete_container, config_container
 from utils.image import create_image, delete_image, publish_image
@@ -160,43 +160,20 @@ def enlarge():
     Añade un servidor a la red y lo configura. NO SE SI COMPLETARLA
     """
 
-    # logger.info("Buscando servidor libre para añadir...")
-
     try:
         logger.info("Ampliando infraestructura con un nuevo servidor...")
 
-        # for i in range(MAX_SERVERS):
-        #     name = VM_NAMES["servidores"][i]
-        #     logger.debug(f"Verificando si existe el contenedor {name}")
-        #     result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
-        #     if "not found" in result.stderr:
-        #         logger.info(f"Creando nuevo servidor disponible: {name}")
-        #         create_container(name=name, image=IMAGE_DEFAULT)
-        #         attach_network(container=name, bridge=BRIDGES["LAN1"], iface="eth0")
-        #         ip=IP_S[name]
-        #         config_container(name=name, iface="eth0", ip=ip)
-        #         logger.info(f"Servidor {name} creado correctamente con IP {ip} ")
-        #         logger.debug(f"Configurando el servidor {name}")   
-                # start_container(name=name)
-                # sleep(5)
-                # config_server(name=name)
-                # logger.info(f"Servidor {name} añadido a la red correctamente")
-                # return
+        #Crear nuevo server por imagen
+        publish_image(contenedor=VM_NAMES["servidores"][0], alias=ALIAS_IMAGEN_SERVIDOR)
+        create_server(image=ALIAS_IMAGEN_SERVIDOR)
 
-
-        # create_server()
-        # name = VM_NAMES["servidores"][load_num_servers()]
-        # start_container(name=name)
-        # sleep(5)
-        # config_server(name=name)
-
-       #NUEVO por imagen
-        publish_image(contenedor=VM_NAMES["servidores"][0], alias="servidor")
-        create_server(image="servidor")
+        #Obtiene el número de servidores y su nombre para iniciarlo 
         num=load_num_servers()
         name=VM_NAMES["servidores"][num]
         start_server(name=name)
         start_server(name=VM_NAMES["servidores"][0])
+
+        #Reconfigura el haproxy del balanceador 
         setup_haproxy()
 
     except Exception as e:
@@ -232,6 +209,7 @@ def configure_remote(name):
     """
     Despliega la db remotamente
     """
+
     #Obtener ip del equipo local y del remoto  
     ip_local = get_ip_local()
     ip_remote= get_ip_remote(name=name)
@@ -240,9 +218,9 @@ def configure_remote(name):
     deploy_remote_db(ip_local=ip_local, ip_remote=ip_remote)
 
     #Modificar la ip en los ficheros Node 
-    num_serves=load_num_servers()
-    for i in range(num_serves):
-        name=VM_NAMES['servidores'][i]
-        change_ip_files(name=name,ip=ip_remote)
+    num_servers=load_num_servers()
+    for i in range(num_servers):
+        change_ip_files(name=VM_NAMES['servidores'][i],ip=ip_remote)
+        start_app(name=VM_NAMES['servidores'][i])
 
     
