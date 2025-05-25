@@ -13,3 +13,7 @@ REMOTO
 Verificacion de equipo está bien (l023) o asi
 Quitar el parametro equipo y reconsiderar esa sección
 Cuidado con 5.1 primera consideración. A nosotros nos va porque primero hacemos el configure antes del configure_remote y porque copiamos el contenedor sino tendriamos que configurar eso.
+Hacer que se tenga que hacer el configure antes que el configure_remote SOLUCIONADO
+Cambiar dinámicamente el connect de los ficheros del Node, si cambia IP 134.3.0.20 ya se jode la aplicacion y no se puede desplegar en otro ordenador. SOLUCIONADO
+Si se crea imagen en orden configure, luego desplegamos y luego hacemos enlarge da error porque no hemos sustuido la imagen de server
+CUIDADO con el lxxx que cogemos porque puede dar error si el contenedor db ya está copiado

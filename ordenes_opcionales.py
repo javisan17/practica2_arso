@@ -9,7 +9,7 @@ from utils.balanceador import change_netplan, setup_haproxy
 from utils.server_web import config_server, start_app, change_ip_files
 from time import sleep
 from utils.file import load_num_servers
-from utils.validator import container_is_running, container_exists
+from utils.validator import container_is_running, container_exists, validate_configure
 from utils.database_remote import get_ip_local, get_ip_remote, deploy_remote_db
 
 
@@ -209,6 +209,12 @@ def configure_remote(name):
     """
     Despliega la db remotamente
     """
+
+    logger.debug("Comprobando que se ha ejecutado la orden configure")
+    if not validate_configure():
+        logger.error("La configuración base no está completa. Ejecuta 'configure' antes de 'configure_remote'.")
+        print("Error: Antes debes hacer un configure")
+        return
 
     #Obtener ip del equipo local y del remoto  
     ip_local = get_ip_local()

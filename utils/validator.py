@@ -99,3 +99,47 @@ def container_is_running(name):
     
     result = subprocess.run(["lxc", "info", name], capture_output=True, text=True)
     return "Status: RUNNING" in result.stdout
+
+
+def validate_configure():
+    """
+    Valida que se ha eecutado la orden configure atendiendo a las siguientes sentencias:
+        - MongoDB está instalado en contenedor db
+        - La carpeta /root/app existe en cada servidor web
+        - El archivo haproxy.cfg existe y es válido en el contenedor lb
+    """
+
+    all_ok = True
+
+    #1.- Verificar que MongoDB está instalado en el contenedor de base de datos
+    try:
+        subprocess.run(["lxc", "exec", VM_NAMES["database"], "--", "which", "mongod"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        logger.info("MongoDB está instalado en el contenedor de base de datos.")
+    except subprocess.CalledProcessError:
+        logger.error("MongoDB no está instalado en el contenedor de base de datos.")
+        all_ok = False
+
+    #2.- Verificar que la carpeta /root/app existe en cada servidor web
+    n_servers = load_num_servers()
+    for i in range(n_servers):
+        try:
+            subprocess.run(["lxc", "exec", VM_NAMES["servidores"][i], "--", "test", "-d", "/root/app"], check=True)
+            logger.info(f"La carpeta /root/app existe en el servidor {VM_NAMES['servidores'][i]}.")
+        except subprocess.CalledProcessError:
+            logger.error(f"La carpeta /root/app NO existe en el servidor {VM_NAMES['servidores'][i]}.")
+            all_ok = False
+
+    #3.- Verificar que el archivo haproxy.cfg existe en el contenedor lb
+    try:
+        subprocess.run(["lxc", "exec", VM_NAMES["balanceador"], "--", "test", "-f", "/etc/haproxy/haproxy.cfg"], check=True)
+        logger.info("El archivo haproxy.cfg existe en el contenedor de balanceador.")
+    except subprocess.CalledProcessError:
+        logger.error("El archivo haproxy.cfg NO existe en el contenedor de balanceador.")
+        all_ok = False
+
+    if all_ok:
+        logger.info("Validación de configuración completada correctamente.")
+    else:
+        logger.warning("Fallos detectados durante la validación de configuración.")
+
+    return all_ok
