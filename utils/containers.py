@@ -33,9 +33,6 @@ def create_container(name, image):
     else:
         logger.warning(f"El contenedor {name} ya existe.")
 
-    ###CREAR VACIO DA PROBLEMAS
-    #subprocess.run(["lxc", "config", "device", "remove", "name", "eth0"], check=True)
-
 
 def start_container(name):
     """

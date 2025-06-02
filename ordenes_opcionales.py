@@ -227,6 +227,6 @@ def configure_remote(name):
     num_servers=load_num_servers()
     for i in range(num_servers):
         change_ip_files(name=VM_NAMES['servidores'][i],ip=ip_remote)
-        start_app(name=VM_NAMES['servidores'][i])
+
 
     

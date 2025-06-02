@@ -12,6 +12,7 @@ from ordenes_opcionales import stop_all, create_server, delete_last_server, star
 from utils.file import save_num_servers, load_num_servers
 from utils.console import show_consoles, show_console, close_consoles
 from utils.server_web import config_server
+import re
 
 def main():
 
@@ -143,11 +144,18 @@ def main():
                 sys.exit(1)
             name=sys.argv[2]
             logger.info(f"Configurando el servidor infividual {name}")
-            configure_server(name=name)
+              #Instalar el servicio de NodeJS en SERVIDORES WEB
+    # for i in range(n_servers):
+    #     try:
+    #         logger.info(f"Configurando servidor web {VM_NAMES['servidores'][i]}")
+    #         config_server(name=VM_NAMES["servidores"][i])
+    #     except subprocess.CalledProcessError as e:
+    #         logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
+    #         continue  configure_server(name=name)
 
         case "configure_remote":
-            if len(sys.argv) < 3:
-                logger.error("Falta el nombre del equipo en el que desplegar la base de datos en remoto")
+            if len(sys.argv) < 3 or not re.match("^l\d{3}$", sys.argv[2]):
+                logger.error("Falta el nombre del equipo en el que desplegar la base de datos en remoto o no es un nombre válido")
                 print("Uso: python3 pfinal1.py configure_remote <nombre_equipo>")
                 sys.exit(1)
             name=sys.argv[2]

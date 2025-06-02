@@ -55,10 +55,6 @@ IP_DB="134.3.0.20"
 
 #Rutas de archivos
 
-# NODE_JS_FILE="static/files/install.sh"
-
-# APP_WEB_FILE="static/files/app.tar.gz"
-
 import os
 
 # Ruta absoluta a la raíz del proyecto (donde está pfinal2.py)

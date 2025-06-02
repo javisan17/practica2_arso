@@ -4,7 +4,7 @@ from logger import setup_logger, get_logger
 from consts import VM_NAMES, PASSWORD, BRIDGES, BRIDGES_IPV4, PROXY, IP_DB, REMOTO
 from utils.database import install_mongoDB
 from utils.bridges import config_bridge
-from utils.containers import stop_container
+from utils.containers import stop_container, start_container, delete_container
 from utils.validator import container_is_running
 
 
@@ -66,7 +66,6 @@ def deploy_remote_db(ip_local, ip_remote):
 
     try:
         logger.info("Configurando acceso remoto a LXD en ambos equipos")
-        
 
         #Configuración remota usando ssh (requiere clave pública copiada al remoto)
         subprocess.run(["ssh", f"{ip_remote}", f"lxc config set core.https_address {ip_remote}:8443"], check=True)
@@ -89,20 +88,12 @@ def deploy_remote_db(ip_local, ip_remote):
         subprocess.run(["lxc", "network", "set", f"{REMOTO}:{BRIDGES['LAN1']}", "ipv4.address", BRIDGES_IPV4["lxdbr0"]], check=True)
         subprocess.run(["lxc", "network", "set", f"{REMOTO}:{BRIDGES['LAN1']}", "ipv4.nat", "true"], check=True)
 
-        #logger.info("Creando contenedor remoto con MongoDB")
-        #subprocess.run(["lxc", "copy", VM_NAMES["database"], VM_NAMES["remote_db"]])
-
-        #Corregir DNS en el contenedor remoto 'db'
-        #subprocess.run(["lxc", "exec", VM_NAMES["remote_db"], "--", "bash", "-c", "echo 'nameserver 8.8.8.8' | sudo tee /etc/resolv.conf"], check=True)
-
-        #Actualizar paquetes e instalar MongoDB
-        #install_mongoDB(name=VM_NAMES["remote_db"])
-
         #Copiar el contenedor db al equipo remoto
         result = subprocess.run(["lxc", "list", f"{REMOTO}:{VM_NAMES['database']}"], capture_output=True, text=True)
         if VM_NAMES['database'] in result.stdout:
             logger.info(f"El contenedor {VM_NAMES['database']} ya existe en remoto. No se copia.")
-            return
+            delete_container(name=f"{REMOTO}:{VM_NAMES['database']}")
+
         if container_is_running(VM_NAMES["database"]):
             logger.info(f"El contenedor '{VM_NAMES['database']}' está en ejecución. Deteniéndolo...")
             stop_container(name=VM_NAMES['database'])
@@ -114,6 +105,9 @@ def deploy_remote_db(ip_local, ip_remote):
         #Crear proxy para acceso remoto a la base de datos
         logger.info("Configurando proxy para acceso a MongoDB")
         subprocess.run(["lxc", "config", "device", "add", f"{REMOTO}:{VM_NAMES['database']}", PROXY, "proxy", f"listen=tcp:{ip_remote}:27017", f"connect=tcp:{IP_DB}:27017"], check=True)
+
+        start_container(name=f"{REMOTO}:{VM_NAMES['database']}")
+
 
         logger.info("Base de datos remota desplegada correctamente")
 

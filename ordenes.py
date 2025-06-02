@@ -150,7 +150,9 @@ def delete_all(n_servers):
 
     try:
         #Eliminar imagen
-        delete_image()
+        delete_image(alias=IMAGE_DEFAULT)
+        delete_image(alias=ALIAS_IMAGEN_SERVIDOR)
+
 
         #Eliminar contenedores
         for i in range(n_servers):
@@ -199,15 +201,6 @@ def configure_all(n_servers):
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error al configurar MongoDB en {VM_NAMES['database']}: {e}")
         return
-
-    #Instalar el servicio de NodeJS en SERVIDORES WEB
-    # for i in range(n_servers):
-    #     try:
-    #         logger.info(f"Configurando servidor web {VM_NAMES['servidores'][i]}")
-    #         config_server(name=VM_NAMES["servidores"][i])
-    #     except subprocess.CalledProcessError as e:
-    #         logger.critical(f"Error al configurar el servidor {VM_NAMES['servidores'][i]}: {e}")
-    #         continue
 
     #Instalar el servicio de NodeJs en SERVIDORES WEB por replicacion de IMAGEN
     #Instalar el servicio de NodeJS en SERVIDOR s1

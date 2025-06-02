@@ -37,17 +37,17 @@ def create_image():
         logger.warning(f"La imagen {IMAGE_DEFAULT} ya está disponible.")
 
 
-def delete_image():
+def delete_image(alias):
     """
     Eliminar imagen creada de ubuntu
     """
 
-    logger.debug(f"Intentando eliminar la imagen {IMAGE_DEFAULT}...")
+    logger.debug(f"Intentando eliminar la imagen {alias}...")
     try:
-        subprocess.run(["lxc", "image", "delete", IMAGE_DEFAULT], check=True)
-        logger.info("Imagen local eliminada con éxito.")
+        subprocess.run(["lxc", "image", "delete", alias], check=True)
+        logger.info(f"Imagen {alias} eliminada con éxito.")
     except subprocess.CalledProcessError as e:
-        logger.error(f"No se pudo eliminar la imagen {IMAGE_DEFAULT}: {e}")
+        logger.error(f"No se pudo eliminar la imagen {alias}: {e}")
 
 
 def publish_image(contenedor, alias):
@@ -64,19 +64,16 @@ def publish_image(contenedor, alias):
             stop_container(name=contenedor)
         else:
             logger.info(f"Contenedor {contenedor} ya está detenido.")
-        
         logger.debug(f"Comprobando si la imagen  con alias '{alias}' ya existe")
         
-        #Solo se publica la imagen la primera vez  
-        result = subprocess.run(["lxc", "image", "info", alias], capture_output=True, text=True)
-        if "not found" in result.stderr:
-            logger.info(f"La imagen {alias} no existe. Se procederá crearla.")
-            logger.info(f"Publicando imagen del contenedor {contenedor} con alias '{alias}'...")
-            subprocess.run(["lxc", "publish", contenedor, "--alias", alias], check=True)
-            logger.info("Imagen publicada correctamente.")
-        else:
-            logger.info(f"La imagen {alias} ya está disponible.")
-       
+        #Para evitar problemas de imágenes antiguas de servidores con ips diferentes
+        logger.debug(f"Eliminando imagen previa con alias {alias} si existe")
+        subprocess.run(["lxc","image","delete",alias],check=False)
+
+        logger.info(f"Publicando imagen del contenedor {contenedor} con alias {alias}")
+        subprocess.run(["lxc", "publish", contenedor, "--alias", alias], check=True)
+        logger.info("Imagen publicada correctamente.")
+
     except subprocess.CalledProcessError as e:
         logger.critical(f"Error al publicar imagen del contenedor {contenedor}: {e}", exc_info=True)
 
